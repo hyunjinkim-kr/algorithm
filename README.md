@@ -4,8 +4,8 @@
 ## 목차
 
 - [필수 사항](#필수-사항)
-- [로컬에서 수행 (Eclipse IDE)](#로컬에서 수행 (Eclipse IDE))
-- [로컬에서 수행 (Intellij IDEA)](#로컬에서 수행 (Intellij IDEA))
+- [로컬에서 수행 (Eclipse IDE)](#로컬에서-수행-(Eclipse-IDE))
+- [로컬에서 수행 (Intellij IDEA)](#로컬에서-수행-(Intellij-IDEA))
 
 ## 필수 사항
 
