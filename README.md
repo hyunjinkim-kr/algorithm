@@ -30,6 +30,7 @@ mvn clean install
 
 프로젝트 실행:
 java -jar build/libs/프로젝트이름.jar
+
 또는 Maven을 사용하는 경우 target 디렉토리에 있는 JAR 파일을 실행
 java -jar target/프로젝트이름.jar
 
