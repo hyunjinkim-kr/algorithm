@@ -5,7 +5,7 @@
 
 - [필수 사항](#필수-사항)
 - [로컬에서 수행(Eclipse)](#로컬에서-수행(Eclipse))
-- [로컬에서 수행 (Intellij)](#로컬에서-수행(Intellij))
+- [로컬에서 수행(Intellij)](#로컬에서-수행(Intellij))
 
 ## 필수 사항
 
