@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author dufqn
+ *
+ */
+module stack {
+}
