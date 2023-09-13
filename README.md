@@ -4,8 +4,8 @@
 ## 목차
 
 - [필수 사항](#필수-사항)
-- [로컬에서 수행 (Eclipse IDE)](#로컬에서-수행-(Eclipse-IDE))
-- [로컬에서 수행 (Intellij IDEA)](#로컬에서-수행-(Intellij-IDEA))
+- [로컬에서 수행(Eclipse)](#로컬에서-수행(Eclipse))
+- [로컬에서 수행 (Intellij)](#로컬에서-수행(Intellij))
 
 ## 필수 사항
 
@@ -13,7 +13,7 @@
 
 - **Java Development Kit (JDK):** 시스템에 Java가 설치되어 있어야 합니다. [Oracle 웹사이트](https://www.oracle.com/java/technologies/javase-downloads.html)에서 다운로드할 수 있습니다.
 
-## 로컬에서 수행 (Eclipse IDE)
+## 로컬에서 수행(Eclipse IDE)
 
 저장소 복제:
 
@@ -46,7 +46,7 @@ main 메서드가 포함된 클래스를 열고, 코드 에디터에서 오른�
 브랜치를 원본 저장소로 푸시합니다: git push origin feature/새로운-기능.
 풀 리퀘스트를 생성합니다.
 
-## 로컬에서 수행 (Intellij IDEA)
+## 로컬에서 수행(Intellij)
 
 저장소 복제:
 동일
