@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <set>
-
+//단어_길이_재기
 using namespace std;
 int main() {
 
