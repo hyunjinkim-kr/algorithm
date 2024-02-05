@@ -65,12 +65,10 @@ void doQuickSort(vector<int>& array, int start, int end){
 bool validateCondition(const vector<int>& arr) {
     int n = arr.size();
 
-    for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n; j++) {
-            if (arr[i] > arr[j]) {
-                // 조건을 만족하지 않는 경우가 하나라도 발견되면 false 반환
-                return false;
-            }
+    for (int i = 1; i < n; i++) {
+        if (arr[i-1] > arr[i]) {
+            // 조건을 만족하지 않는 경우가 하나라도 발견되면 false 반환
+            return false;
         }
     }
 
