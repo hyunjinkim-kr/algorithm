@@ -31,9 +31,6 @@ int choosePivot(vector<int>& arr, int start, int end, const PivotPolicy policy) 
             return mid;
         else
             return end;
-
-        // TODO: 이거 ㅄ임
-        // return middle;
     Default:
         return start;
     }
