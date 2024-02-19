@@ -19,10 +19,7 @@ int main()
 
         if (idx == 32) // 공백일 경우
         {
-            if (wordFlag == true)
-            {
-                wordFlag = false;
-            }
+            wordFlag = false;
         }
         else // 공백이 아닐 경우
         {
