@@ -23,7 +23,7 @@ int main()
         }
         else // 공백이 아닐 경우
         {
-            if (wordFlag == false)
+            if (!wordFlag)
             {
                 wordFlag = true;
                 n++;
