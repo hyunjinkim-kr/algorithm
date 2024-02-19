@@ -31,13 +31,21 @@ int main()
     for (int i = 1; i < A.size(); i++)
     {
         cin >> n >> str1;
-        A[i] = solve(n, str1);
+        cout << solve(n, str1) << endl;
     }
+    // 다음과 같은 형태가 반영 가능함
+    // 3
+    // 3 abc
+    // aaabbbccc
+    // 3 xyz
+    // xxxyyyzzz
+    // 2 zxc
+    // zzxxcc
 
-    for (int i = 1; i < A.size(); i++)
-    {
-        cout << A[i] << " ";
-    }
+    // for (int i = 1; i < A.size(); i++)
+    // {
+    //     cout << A[i] << " ";
+    // }
 
     return 0;
 }
