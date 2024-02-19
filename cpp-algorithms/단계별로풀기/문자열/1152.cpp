@@ -17,7 +17,7 @@ int main()
     {
         int idx = str1[i];
 
-        if (idx == 32) // 공백일 경우
+        if (idx == ' ') // 공백일 경우
         {
             wordFlag = false;
         }
