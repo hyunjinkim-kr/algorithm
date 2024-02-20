@@ -6,12 +6,25 @@
 // 상수
 using namespace std;
 
-string reverse_str(string str)
+string reverse_str(string str1, string str2)
 {
     string result = "";
-    for (int i = str.length() - 1; i >= 0; i--)
+    string result_1 = "";
+    string result_2 = "";
+
+    for (int i = str1.length() - 1; i >= 0; i--)
     {
-        result += str[i];
+        result_1 += str1[i];
+        result_2 += str2[i];
+    }
+
+    if (result_1 >= result_2)
+    {
+        result = result_1;
+    }
+    else
+    {
+        result = result_2;
     }
     return result;
 }
@@ -22,14 +35,7 @@ int main()
     string str2;
     cin >> str1 >> str2;
 
-    if (reverse_str(str1) >= reverse_str(str2))
-    {
-        cout << reverse_str(str1) << endl;
-    }
-    else
-    {
-        cout << reverse_str(str2) << endl;
-    }
+    cout << reverse_str(str1, str2) << endl;
 
     return 0;
 }
