@@ -9,18 +9,15 @@ using namespace std;
 
 bool check_pl(string str)
 {
-    bool is_pl = 1;
-
     for (int i = 0; i < str.length() / 2; i++)
     {
         if (str[i] != str[(str.length() - 1) - i])
         {
-            is_pl = 0;
-            break;
+            return false;
         }
     }
 
-    return is_pl;
+    return true;
 }
 
 int main()
