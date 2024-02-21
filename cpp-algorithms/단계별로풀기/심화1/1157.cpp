@@ -7,13 +7,16 @@
 // 단어공부
 using namespace std;
 
-int convert_capital(int word)
+int abc_to_idx(int word)
 {
-    if (word > 'Z')
+    if (word >= 'a')
     {
-        word -= 32;
+        word -= 'a';
     }
-    word -= 'A';
+    else
+    {
+        word -= 'A';
+    }
     return word;
 }
 
@@ -22,37 +25,40 @@ char check_str(string str)
     char result;
     // 길이 26 짜리 배열을 만듬
     vector<int> A(26, 0);
-    int idx;
 
+    int idx;
+    int max_val = 0;
+    int max_idx = 0;
+    int max_count = 0;
+
+    // 배열에 값 넣기
     for (int i = 0; i < str.length(); i++)
     {
-        int word = convert_capital(str[i]);
+        int word = abc_to_idx(str[i]);
         A[word] += 1;
+
+        if (A[word] > max_val)
+        {
+            max_val = A[word];
+            max_idx = word;
+        }
     }
 
-    // 배열의 최대값을 찾음
-    auto maxElement = max_element(A.begin(), A.end());
-
-    // 배열에서 최대값 idx 찾기
-    int maxValue = static_cast<int>(*maxElement);
-
-    // 최대값 위치
-    auto most_abc = find(A.begin(), A.end(), maxValue);
-    // 추가 검색
-    auto next_abc = find(next(most_abc), A.end(), maxValue);
-
-    if (next_abc != A.end())
+    // 최대값과 동일한 값이 또 있으면 return '?'
+    for (int i = 0; i < A.size(); i++)
     {
-        result = '?';
-    }
-    else
-    {
-        int intValue = 'A';
-        size_t index1 = distance(A.begin(), most_abc);
-        // 아스키 코드를 문자로 변환
-        result = static_cast<char>(index1 + intValue);
+        if (A[i] == max_val)
+        {
+            max_count++;
+            if (max_count > 1)
+            {
+                return '?';
+            }
+        }
     }
 
+    // 가장 많이나온 문자 반환
+    result = max_idx + 'A';
     return result;
 }
 
