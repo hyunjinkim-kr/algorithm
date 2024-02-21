@@ -7,15 +7,16 @@
 // 팰린드롬인지 확인하기
 using namespace std;
 
-int check_pl(string str)
+bool check_pl(string str)
 {
-    int is_pl = 1;
+    bool is_pl = 1;
 
     for (int i = 0; i < str.length() / 2; i++)
     {
         if (str[i] != str[(str.length() - 1) - i])
         {
             is_pl = 0;
+            break;
         }
     }
 
