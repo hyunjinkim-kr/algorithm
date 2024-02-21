@@ -36,16 +36,15 @@ int main()
     cin >> n;
 
     // 해결2.
-    for (int i = 1; i <= n * 2 - 1; i++)
+    for (int i = 1; i <= n; i++)
     {
-        if (n >= i)
-        {
-            star_row = make_star(n, i);
-        }
-        else
-        {
-            star_row = make_star(n, 2 * n - i);
-        }
+        star_row = make_star(n, i);
+        cout << star_row << endl;
+    }
+
+    for (int i = n - 1; i >= 1; i--)
+    {
+        star_row = make_star(n, i);
         cout << star_row << endl;
     }
 
