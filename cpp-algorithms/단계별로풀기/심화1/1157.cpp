@@ -28,8 +28,6 @@ char check_str(string str)
 
     int idx;
     int max_val = 0;
-    int max_idx = 0;
-    int max_count = 0;
 
     // 배열에 값 넣기
     for (int i = 0; i < str.length(); i++)
@@ -37,28 +35,16 @@ char check_str(string str)
         int word = abc_to_idx(str[i]);
         A[word] += 1;
 
-        if (A[word] > max_val)
+        if (A[word] == max_val)
+        {
+            result = '?';
+        }
+        else if (A[word] > max_val)
         {
             max_val = A[word];
-            max_idx = word;
+            result = word + 'A';
         }
     }
-
-    // 최대값과 동일한 값이 또 있으면 return '?'
-    for (int i = 0; i < A.size(); i++)
-    {
-        if (A[i] == max_val)
-        {
-            max_count++;
-            if (max_count > 1)
-            {
-                return '?';
-            }
-        }
-    }
-
-    // 가장 많이나온 문자 반환
-    result = max_idx + 'A';
     return result;
 }
 
