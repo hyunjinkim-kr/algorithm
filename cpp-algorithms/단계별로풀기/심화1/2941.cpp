@@ -1,58 +1,74 @@
-#include <iostream>
-#include <vector>
 #include <algorithm>
-#include <set>
 #include <cmath>
+#include <iostream>
+#include <set>
+#include <vector>
 
 // 크로아티아 알파벳
 using namespace std;
 
-int check_flag(string str)
-{
-    array<string, 8> arr1 = {"c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="};
+int check_flag(string str, int start_idx) {
+  array<string, 8> arr1 = {"c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="};
 
-    int flag = 1;
-    for (int i = 0; i < arr1.size(); i++)
-    {
-        if (arr1[i] == str.substr(0, 2))
-        {
-            flag = 2;
-            break;
-        }
-        else if (arr1[i] == str.substr(0, 3))
-        {
-            flag = 3;
-            break;
-        }
-    }
-    return flag;
+  for (int i = 0; i < arr1.size(); i++) {
+    if (arr1[i] == str.substr(start_idx, arr1[i].length()))
+      return arr1[i].length();
+  }
+  return 1;
 }
 
-int count_abc(string str)
-{
-    int result = 0;
+int count_abc(string str) {
+  int result = 0;
+  int start_idx = 0;
 
-    while (str.length() > 0)
-    {
-        int flag = check_flag(str);
-        str = str.substr(flag);
-        result++;
-    }
+  while (str.length() > start_idx) {
+    int flag = check_flag(str, start_idx);
+    // str = str.substr(flag);
+    start_idx += flag;
+    result++;
+  }
 
-    return result;
+  return result;
 }
 
-int main()
-{
-    // 크로아티아 문자 입력
-    string str;
-    int result;
+// int naive(string str) {
+//   str += "  ";
+//   int i = 0;
+//   int cnt = 0;
+//   while (i < str.length()) cnt += 1;
+//   if (str[i] == 'c') {
+//     if (str[i + 1] == '=' || str[i + 1] == '-') {
+//       i += 2;
+//       continue;
+//     }
+//   }
 
-    cin >> str;
+//   if (str[i] == 'd') {
+//     if (str[i + 1] == '-') {
+//       i += 2;
+//       continue;
+//     }
 
-    result = count_abc(str);
+//     if (str[i + 1] == 'z' && str[i + 2] == '=') {
+//       i += 3;
+//       continue;
+//     }
+//   }
 
-    cout << result << endl;
+//   i += 1;
+// }
 
-    return 0;
+int main() {
+  // 크로아티아 문자 입력
+  string str;
+  int result;
+
+  cin >> str;
+
+  // result = naive(str);
+  result = count_abc(str);
+
+  cout << result << endl;
+
+  return 0;
 }
