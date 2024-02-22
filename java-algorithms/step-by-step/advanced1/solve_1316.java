@@ -21,12 +21,11 @@ public class solve_1316 {
                 count++;
             }
         }
-
         System.out.print(count);
     }
 
     public static boolean checkGroup(String str){
-        // String 타입의 ArrayList 생성
+        // Character 타입의 ArrayList 생성
         ArrayList<Character> stringList = new ArrayList<>();
 
         for (int i = 0; i < str.length(); i++){
