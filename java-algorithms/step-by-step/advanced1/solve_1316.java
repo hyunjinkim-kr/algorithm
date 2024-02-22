@@ -30,9 +30,9 @@ public class solve_1316 {
         // Character 타입의 Set 생성
         Set<Character> wordCharSet = new HashSet<>();
 
-        for (int i = 0; i < str.length(); i++){
-            if( i!=0
-                    && str.charAt(i-1)!=str.charAt(i)
+        wordCharSet.add((str.charAt(0)));
+        for (int i = 1; i < str.length(); i++){
+            if( str.charAt(i-1)!=str.charAt(i)
                     && wordCharSet.contains(str.charAt(i))){
                 return false;
             }
