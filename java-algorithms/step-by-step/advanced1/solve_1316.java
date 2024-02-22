@@ -27,16 +27,16 @@ public class solve_1316 {
     }
 
     public static boolean checkGroup(String str){
-        // Character 타입의 ArrayList 생성
+        // Character 타입의 Set 생성
         Set<Character> wordCharSet = new HashSet<>();
 
         for (int i = 0; i < str.length(); i++){
-            if(wordCharSet.contains(str.charAt(i))
-                    && str.charAt(i-1)!=str.charAt(i)){
+            if( i!=0
+                    && str.charAt(i-1)!=str.charAt(i)
+                    && wordCharSet.contains(str.charAt(i))){
                 return false;
-            } else{
-                wordCharSet.add((str.charAt(i)));
             }
+            wordCharSet.add((str.charAt(i)));
         }
         return true;
     }
