@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class solve_1316 {
     public static void main(String[] args) throws IOException {
@@ -26,18 +28,14 @@ public class solve_1316 {
 
     public static boolean checkGroup(String str){
         // Character 타입의 ArrayList 생성
-        ArrayList<Character> stringList = new ArrayList<>();
+        Set<Character> charSet = new HashSet<>();
 
         for (int i = 0; i < str.length(); i++){
-            if(stringList.isEmpty()){
-                stringList.add((str.charAt(i)));
+            if(charSet.contains(str.charAt(i))
+                    && str.charAt(i-1)!=str.charAt(i)){
+                return false;
             } else{
-                for(int j = 0; j < stringList.size(); j++){
-                    if(stringList.get(j) == str.charAt(i) && stringList.get(stringList.size()-1)!=str.charAt(i)){
-                        return false;
-                    }
-                }
-                stringList.add((str.charAt(i)));
+                charSet.add((str.charAt(i)));
             }
         }
         return true;
