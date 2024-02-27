@@ -1,10 +1,6 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class solve_2738 {
     public static void main(String[] args) throws IOException {
@@ -18,21 +14,11 @@ public class solve_2738 {
         ArrayList<Integer>[] doubleArrayResult = new ArrayList[rowSize];
 
         // 배열에 값 넣기
-        for (int i = 0; i < rowSize; i++) {
-            doubleArrayResult[i] = new ArrayList<Integer>();
-            for (int j = 0; j < colSize; j++) {
-                inputNum = scan.nextInt(); // 입력 시작하는 값
-                doubleArrayResult[i].add(inputNum); // 해당 값 추가
-            }
-        }
+        arraySet(scan,rowSize,colSize,doubleArrayResult);
 
         // 배열에 값 더하기
-        for (int i = 0; i < rowSize; i++) {
-            for (int j = 0; j < colSize; j++) {
-                inputNum = scan.nextInt(); // 입력 시작하는 값
-                doubleArrayResult[i].set(j, doubleArrayResult[i].get(j) + inputNum); // 해당 값 추가
-            }
-        }
+        arrayAdd(scan,rowSize,colSize,doubleArrayResult);
+
 
         // 출력
         for (int i = 0; i < rowSize; i++) {
@@ -41,6 +27,24 @@ public class solve_2738 {
             }
             System.out.println();
         }
+    }
 
+    public static void arraySet(Scanner scan, int rowSize, int colSize, ArrayList<Integer>[] doubleArrayResult) {
+        for (int i = 0; i < rowSize; i++) {
+            doubleArrayResult[i] = new ArrayList<Integer>();
+            for (int j = 0; j < colSize; j++) {
+                int inputNum = scan.nextInt(); // 입력 시작하는 값
+                doubleArrayResult[i].add(inputNum); // 해당 값 추가
+            }
+        }
+    }
+
+    public static void arrayAdd(Scanner scan, int rowSize, int colSize, ArrayList<Integer>[] doubleArrayResult) {
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                int inputNum = scan.nextInt(); // 입력 시작하는 값
+                doubleArrayResult[i].set(j, doubleArrayResult[i].get(j) + inputNum); // 해당 값 추가
+            }
+        }
     }
 }
