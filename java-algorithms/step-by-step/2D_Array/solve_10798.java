@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -17,46 +14,51 @@ public class solve_10798 {
 //        -> Aa0aPAf985Bz1EhCz2W3D1gkD6x
 
         Integer maxColNum = 0;
+        final Integer rowNum = 5;
 
         // 2차원 arraylist 생성
-        ArrayList<String>[] doubleArrayResult1 = new ArrayList[5];
+        // 배열을 까먹읍시다 []
+        //ArrayList<String>[] doubleArrayResult1 = new ArrayList[rowNum];
+        ArrayList<ArrayList<String>> doubleArrayResult1 = new ArrayList<>();
         // 문자 입력 및 최대 컬럼 반환
-        maxColNum = placeWords(doubleArrayResult1);
-        String result = readVertical(maxColNum , doubleArrayResult1);
+        maxColNum = placeWords(rowNum, doubleArrayResult1);
+        StringBuilder result = readVertical(rowNum, maxColNum, doubleArrayResult1);
 
         System.out.print(result);
     }
 
-    public static Integer placeWords(ArrayList<String>[] doubleArrayResult1) throws IOException {
+    public static Integer placeWords(Integer rowNum, ArrayList<ArrayList<String>> doubleArrayResult1) throws IOException {
 
         Scanner sc = new Scanner(System.in);
         Integer maxColNum = 0;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < rowNum; i++) {
             String str = sc.nextLine();
-            str = str.replaceAll(" ","");
-            doubleArrayResult1[i] = new ArrayList<String>();
+            str = str.replaceAll(" ", "");
+            ArrayList<String> newRow = new ArrayList<String>();
             // 각 행에 배열 생성 및 입력값 저장
-            for(int j = 0; j < str.length(); j++){
-                doubleArrayResult1[i].add(String.valueOf(str.charAt(j)));
+            for (int j = 0; j < str.length(); j++) {
+                newRow.add(String.valueOf(str.charAt(j)));
             }
-            if(str.length() >= maxColNum){
+            doubleArrayResult1.add(newRow);
+            if (str.length() >= maxColNum) {
                 maxColNum = str.length();
             }
         }
         return maxColNum;
     }
 
-    public static String readVertical(Integer maxColNum, ArrayList<String>[] doubleArrayResult1) throws IOException {
+    public static StringBuilder readVertical(Integer rowNum, Integer maxColNum, ArrayList<ArrayList<String>> doubleArrayResult1) throws IOException {
 
-        String result = "";
+        //String result = "";
+        StringBuilder result = new StringBuilder();
         for (int j = 0; j < maxColNum; j++) {
             // 각 행에 배열 생성 및 입력값 저장
             for (int i = 0; i < 5; i++) {
-                if(doubleArrayResult1[i].size() <= j){
+                if (doubleArrayResult1.get(i).size() <= j) {
                     continue;
                 }
-                result += doubleArrayResult1[i].get(j);
+                result.append(doubleArrayResult1.get(i).get(j));
             }
         }
         return result;
