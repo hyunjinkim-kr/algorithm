@@ -68,7 +68,6 @@ public class solve_2170 {
         return rowLengthSum - duplicatedLengthSum;
     }
     public static Integer calcMinStart(Integer startI, Integer StartJ){
-        Integer minStart = 0;
         if(startI > StartJ){
             return StartJ;
         }
@@ -76,7 +75,6 @@ public class solve_2170 {
     }
 
     public static Integer calcMaxEnd(Integer endI, Integer endJ){
-        Integer minStart = 0;
         if(endI > endJ){
             return endI;
         }
