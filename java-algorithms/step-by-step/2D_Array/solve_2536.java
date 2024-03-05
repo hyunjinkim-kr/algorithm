@@ -10,48 +10,46 @@ public class solve_2536 {
 
         Scanner scan = new Scanner(System.in);
         Integer paperCount = scan.nextInt(); // 색종이 갯수
+
         ArrayList<ArrayList<String>> doubleArrayResult1 = new ArrayList<>();
+        setPaper(rowNum, doubleArrayResult1); //초기값 세팅
 
         for (int i = 0; i < paperCount; i++) {
             Integer startX = scan.nextInt();
             Integer startY = scan.nextInt();
-            setPaper(i, rowNum, rowNum2, startX, startY, doubleArrayResult1);
+            setBlckPaper(i, rowNum, rowNum2, startX, startY, doubleArrayResult1);
         }
         Integer ariaSize = calcAreaSize(rowNum, doubleArrayResult1);
         System.out.print(ariaSize);
     }
 
-    public static void setPaper(Integer idxNum,
+    public static void setBlckPaper(Integer idxNum,
                                 Integer rowNum,
                                 Integer rowNum2,
                                 Integer startX,
                                 Integer startY,
                                 ArrayList<ArrayList<String>> doubleArrayResult1) throws IOException {
-
-        if (idxNum == 0) {
-            for (int i = 0; i < rowNum; i++) {
-                ArrayList<String> newRow = new ArrayList<String>();
-                // 각 행에 배열 생성 및 입력값 저장
-                for (int j = 0; j < rowNum; j++) {
-                    if ((i >= startX && i < startX + 10) && (j >= startY && j < startY + 10)) {
-                        newRow.add("O");
-                    } else {
-                        newRow.add("X");
-                    }
-                }
-                doubleArrayResult1.add(newRow);
-            }
-        } else {
-            for (int i = 0; i < rowNum; i++) {
-                // 각 행에 입력값 저장
-                for (int j = 0; j < rowNum; j++) {
-                    if ((i >= startX && i < startX + 10) && (j >= startY && j < startY + 10)) {
-                        doubleArrayResult1.get(i).set(j, "O");
-                    }
+        for (int i = 0; i < rowNum; i++) {
+            // 각 행에 입력값 저장
+            for (int j = 0; j < rowNum; j++) {
+                if ((i >= startX && i < startX + rowNum2) && (j >= startY && j < startY + rowNum2)) {
+                    doubleArrayResult1.get(i).set(j, "O");
                 }
             }
         }
+    }
 
+    public static void setPaper(    Integer rowNum,
+                                    ArrayList<ArrayList<String>> doubleArrayResult1) throws IOException {
+
+        for (int i = 0; i < rowNum; i++) {
+            ArrayList<String> newRow = new ArrayList<String>();
+            // 각 행에 배열 생성 및 입력값 저장
+            for (int j = 0; j < rowNum; j++) {
+                newRow.add("X");
+            }
+            doubleArrayResult1.add(newRow);
+        }
     }
 
     public static Integer calcAreaSize(Integer rowNum, ArrayList<ArrayList<String>> doubleArrayResult1) throws IOException {
