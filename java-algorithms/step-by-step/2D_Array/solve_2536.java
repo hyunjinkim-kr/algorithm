@@ -17,24 +17,21 @@ public class solve_2536 {
         for (int i = 0; i < paperCount; i++) {
             Integer startX = scan.nextInt();
             Integer startY = scan.nextInt();
-            setBlckPaper(i, rowNum, rowNum2, startX, startY, doubleArrayResult1);
+            setBlckPaper( rowNum2, startX, startY, doubleArrayResult1);
         }
         Integer ariaSize = calcAreaSize(rowNum, doubleArrayResult1);
         System.out.print(ariaSize);
     }
 
-    public static void setBlckPaper(Integer idxNum,
-                                Integer rowNum,
+    public static void setBlckPaper(
                                 Integer rowNum2,
                                 Integer startX,
                                 Integer startY,
                                 ArrayList<ArrayList<String>> doubleArrayResult1) throws IOException {
-        for (int i = 0; i < rowNum; i++) {
+        for (int i = startY; i < startY + rowNum2; i++) { //세로길이
             // 각 행에 입력값 저장
-            for (int j = 0; j < rowNum; j++) {
-                if ((i >= startX && i < startX + rowNum2) && (j >= startY && j < startY + rowNum2)) {
+            for (int j = startX; j < startX + rowNum2; j++) { //가로길이
                     doubleArrayResult1.get(i).set(j, "O");
-                }
             }
         }
     }
