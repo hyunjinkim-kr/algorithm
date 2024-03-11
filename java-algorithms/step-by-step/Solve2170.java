@@ -23,7 +23,7 @@ import java.util.*;
 //        -- 복잡도 : N"
 //
 //시간복잡도 : NlogN + N + N"
-public class solve_2170 {
+public class Solve2170 {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -37,10 +37,9 @@ public class solve_2170 {
             Integer rowStart = Integer.valueOf(stRowInfo.nextToken());
             Integer rowEnd = Integer.valueOf(stRowInfo.nextToken());
 
-            ArrayList<Integer> newRow = new ArrayList<Integer>();
-            newRow.add(rowStart);
-            newRow.add(rowEnd);
-            doubleArrayResult1.add(newRow);
+            // Pair 사용
+            MyPair pair1 = new MyPair(rowStart, rowEnd);
+            doubleArrayResult1.add(pair1.toArrayList());
         }
         // 0번째 원소로 오름차순 정렬, 0번째가 같으면 1번째 원소로 내림차순 정렬
         doubleArrayResult1.sort(Comparator.comparing((ArrayList<Integer> list) -> list.get(0), Comparator.naturalOrder())
@@ -53,19 +52,18 @@ public class solve_2170 {
     public static Integer calcRowLength(ArrayList<ArrayList<Integer>> doubleArrayResult1) throws IOException {
 
         // 최종적으로 결과를 넣을 녀석.
-        ArrayList<ArrayList<Integer>> doubleArrayResult2 = new ArrayList<>();
+        // 이녀석을 만들지 않고 변수를 통해 처리할 수 있을까?
+        // ArrayList<ArrayList<Integer>> doubleArrayResult2 = new ArrayList<>();
 
-        // 첫번째꺼는 무조건 넣어주기.
-        doubleArrayResult2.add(doubleArrayResult1.get(0));
-        Integer idxJ = 0;
+        Integer startJ = doubleArrayResult1.get(0).get(0);
+        Integer endJ = doubleArrayResult1.get(0).get(1);
+        Integer lengthSum = 0;
 
         // input이 들어올때, 연결가능한 요소가 있는지 비교하고 없으면 넣자.
         for(int i = 0; i < doubleArrayResult1.size(); i++){
 
             Integer startI = doubleArrayResult1.get(i).get(0);
             Integer endI = doubleArrayResult1.get(i).get(1);
-            Integer startJ = doubleArrayResult2.get(idxJ).get(0);
-            Integer endJ = doubleArrayResult2.get(idxJ).get(1);
 
             // 이미 정렬이 된 상태이므로, 시작점이 같으면 끝점은 endI보다 무조건 작으므로, continue
             if(startI.equals(startJ)){
@@ -74,37 +72,57 @@ public class solve_2170 {
             // 이미 정렬이 된 상태이므로, I시작점이 J끝점 보다 작은 케이스만 분류하면 된다.
             // I :   ----
             // J : ----
-            if (startI <= doubleArrayResult2.get(idxJ).get(1)){
-                Integer minStart = calcMinStart(startI , startJ);
-                Integer maxEnd = calcMaxEnd(endI , endJ);
-                doubleArrayResult2.get(idxJ).set(0,minStart);
-                doubleArrayResult2.get(idxJ).set(1,maxEnd);
+            if (startI <= endJ){ //doubleArrayResult2.get(idxJ).get(1)
+                Integer minStart = Math.min(startI , startJ);
+                Integer maxEnd = Math.max(endI , endJ);
+                startJ = minStart; // doubleArrayResult2.get(idxJ).set(0,minStart);
+                endJ = maxEnd; //doubleArrayResult2.get(idxJ).set(1,maxEnd);
             } else {
-                doubleArrayResult2.add(doubleArrayResult1.get(i));
-                idxJ++;
+                lengthSum += (endJ - startJ);
+                startJ = doubleArrayResult1.get(i).get(0);
+                endJ = doubleArrayResult1.get(i).get(1);
             }
         }
-        Integer lengthSum = 0;
-        for(int k = 0; k < doubleArrayResult2.size(); k++){
-            lengthSum += doubleArrayResult2.get(k).get(1) - doubleArrayResult2.get(k).get(0);
-        }
+        lengthSum += (endJ - startJ);
         return lengthSum;
-    }
-    public static Integer calcMinStart(Integer startI, Integer StartJ){
-        Integer minStart = 0;
-        if(startI > StartJ){
-            return StartJ;
-        }
-        return startI;
-    }
-
-    public static Integer calcMaxEnd(Integer endI, Integer endJ){
-        Integer minStart = 0;
-        if(endI > endJ){
-            return endI;
-        }
-        return endJ;
     }
 }
 
+class MyPair {
+    private int first;
+    private int second;
+
+    public MyPair(int first, int second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    public int getFirst() {
+        return first;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    public void setFirst(int first) {
+        this.first = first;
+    }
+
+    public void setSecond(int second) {
+        this.second = second;
+    }
+
+    public ArrayList<Integer> toArrayList() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(first);
+        list.add(second);
+        return list;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + first + ", " + second + ")";
+    }
+}
 
