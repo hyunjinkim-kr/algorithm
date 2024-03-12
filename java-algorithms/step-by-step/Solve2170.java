@@ -19,12 +19,17 @@ import java.util.*;
 // - 1. 입력받은 선 N개의 시작과 끝의 좌표 S, E 를 Arr1 에 저장후 정렬한다. 정렬기준은 S 오름차순, E 내림차순이다.
 //        -- 복잡도 : N + N log N
 //
-// - 2. 정렬된 배열 Arr1의 최초 선의 시작과 끝인 S,E를 각각 S",E" 로 설정한다.
-//      Arr1을 순회하며 선의 연결여부를 판별하며 길이를 계산한다.
-//      - S와 S"가 같으면 계산하지 않는다.(S : 오름차순, E : 내림차순 이므로 S값이 동일하면 계산할 필요없음)
-//      - 선의 S가 E"보다 작거나 같으면 S와 S" 중 최소값을 S"로, E와 E"중 최대값을 E"로 업데이트 한다.(연결)
-//      - 선의 S가 E"보다 크면 L 에 E"-S" 를 더한다. 그리고 S를 S", E를 E"로 설정한다. (떨어진 선 발생)
-//      Arr1 순회가 끝나면 마지막으로 L 에 E"-S" 를 더한다. (연결중이거나 새로운 떨어진선 한개)
+// - 2. Arr1에 저장된 최초 선을 기준선으로 새로운 선과 연결을 시작한다. 동떨어진 선이 생기는 순간 선 연결을 멈추고 길이에 합산한다.
+//      - 시작점이 같고 겹치는경우 : 끝 좌표의 범위가 내림차순이므로 생략한다.
+//          e.g) 선1(0,100) 선2(0,99), 선3(0,98)...
+//
+//      - 시작점이 다르고 겹치는경우 : 새로운 선과 기준선의 범위를 합쳐 기준선을 설정한다.
+//          e.g) 기준선(1,2) 새로운선(2,3) -> 기준선(1,3)
+//
+//      - 겹치지 않는경우 : 기준선의 길이를 전체길이에 더하고, 새로운 선을 기준선으로 정한다.
+//          e.g) 기준선(1,3) 새로운선(6,7) -> 전체길이 L += 2, 기준선(6,7)
+//
+//      연결이 종료되면 마지막으로 전체길이에 기준선 길이를 더한다. (연결중이거나 새로운 떨어진선 한개)
 //      
 //        -- 복잡도 : N + 1
 //
@@ -78,11 +83,11 @@ public class Solve2170 {
             // 이미 정렬이 된 상태이므로, I시작점이 J끝점 보다 작은 케이스만 분류하면 된다.
             // I :   ----
             // J : ----
-            if (startI <= endJ){ //doubleArrayResult2.get(idxJ).get(1)
+            if (startI <= endJ){
                 Integer minStart = Math.min(startI , startJ);
                 Integer maxEnd = Math.max(endI , endJ);
-                startJ = minStart; // doubleArrayResult2.get(idxJ).set(0,minStart);
-                endJ = maxEnd; //doubleArrayResult2.get(idxJ).set(1,maxEnd);
+                startJ = minStart;
+                endJ = maxEnd;
             } else {
                 lengthSum += (endJ - startJ);
                 startJ = doubleArrayResult1.get(i).getFirst();
