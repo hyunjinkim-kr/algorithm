@@ -3,33 +3,42 @@ import java.util.*;
 
 //문제 : 선긋기
 //해결책 : 선 N개에 대하여 시작과 끝의 좌표 S, E 를 Arr1에 저장 및 정렬한다.
-//새로운 집합 Arr2을 만든다. Arr2에 기존 집합에 연결되는 선이 없으면 추가, 연결되는 선이 있으면 업데이트 한 후
-//Arr2에 있는 선들의 길이 전체합을 구한다.
+// 이후, 정렬된 선들의 연결여부에 따라, 연결 or 새로운 선을 판별한다.
+// 연결된 경우 선의 시작과 끝의 좌표를 S" ,E" 로 설정한다. 연결이 멈출때마다 길이를 합친다.
+// 마지막으로 아직 합쳐지지않은 선 한개(연결중이거나 떨어진)도 길이를 합친다. 길이의 합을 출력한다.
+// 
 //
-//N : 입력받은 선의 갯수
-//N": 겹치지 않는 선의 갯수
-//S : 시작 좌표
-//E : 끝 좌표
-//Arr1 : 초기 저장 및 정렬하는 배열
-//Arr2 : 연결된 선들이 저장되는 배열
+//    N : 입력받은 선의 갯수
+//    Arr1 : 초기 저장 및 정렬하는 배열
+//    S : 시작 좌표
+//    E : 끝 좌표
+//    S" : 연결된 선의 시작좌표
+//    E" : 연결된 선의 끝 좌표
+//    L  : 선 길이의 합
 //
 // - 1. 입력받은 선 N개의 시작과 끝의 좌표 S, E 를 Arr1 에 저장후 정렬한다. 정렬기준은 S 오름차순, E 내림차순이다.
-//        -- 복잡도 : N log N
+//        -- 복잡도 : N + N log N
 //
-// - 2. 정렬된 배열 Arr1을 탐색하며 Arr2의 가장 최근 삽입된 값과 비교한다. Arr2에는 Arr1의 최초값을 넣은 후 비교하며, 선이 연결되면 Arr2의 최근 값을 변경하고, 연결되지 않는다면 Arr2에 삽입한다.
-//        -- 복잡도 : N
+// - 2. 정렬된 배열 Arr1의 최초 선의 시작과 끝인 S,E를 각각 S",E" 로 설정한다.
+//      Arr1을 순회하며 선의 연결여부를 판별하며 길이를 계산한다.
+//      - S와 S"가 같으면 계산하지 않는다.(S : 오름차순, E : 내림차순 이므로 S값이 동일하면 계산할 필요없음)
+//      - 선의 S가 E"보다 작거나 같으면 S와 S" 중 최소값을 S"로, E와 E"중 최대값을 E"로 업데이트 한다.(연결)
+//      - 선의 S가 E"보다 크면 L 에 E"-S" 를 더한다. 그리고 S를 S", E를 E"로 설정한다. (떨어진 선 발생)
+//      Arr1 순회가 끝나면 마지막으로 L 에 E"-S" 를 더한다. (연결중이거나 새로운 떨어진선 한개)
+//      
+//        -- 복잡도 : N + 1
 //
-// - 3. Arr2를 조회하여, 전체 길이를 반환한다.
-//        -- 복잡도 : N"
+// - 3. 전체 길이 L을 출력한다.
+//        -- 복잡도 : 1
 //
-//시간복잡도 : NlogN + N + N"
+//시간복잡도 : NlogN + 2N + 2
 public class Solve2170 {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Integer rowCount = Integer.parseInt(br.readLine()); // 그어지는 선의 갯수
 
-        ArrayList<ArrayList<Integer>> doubleArrayResult1 = new ArrayList<>();
+        ArrayList<MyPair<Integer, Integer>> doubleArrayResult1 = new ArrayList<>();
 
         for (int i = 0; i < rowCount; i++) {
             String rowInfo = br.readLine();
@@ -38,32 +47,29 @@ public class Solve2170 {
             Integer rowEnd = Integer.valueOf(stRowInfo.nextToken());
 
             // Pair 사용
-            MyPair pair1 = new MyPair(rowStart, rowEnd);
-            doubleArrayResult1.add(pair1.toArrayList());
+            MyPair<Integer, Integer> pair1 = MyPair.of(rowStart, rowEnd);
+            doubleArrayResult1.add(pair1);
         }
         // 0번째 원소로 오름차순 정렬, 0번째가 같으면 1번째 원소로 내림차순 정렬
-        doubleArrayResult1.sort(Comparator.comparing((ArrayList<Integer> list) -> list.get(0), Comparator.naturalOrder())
-                .thenComparing((ArrayList<Integer> list1, ArrayList<Integer> list2) -> list2.get(1).compareTo(list1.get(1))));
+        doubleArrayResult1.sort(Comparator.comparing((MyPair<Integer, Integer> list) -> list.getFirst(), Comparator.naturalOrder())
+                .thenComparing((MyPair<Integer, Integer> list1, MyPair<Integer, Integer> list2) -> list2.getSecond().compareTo(list1.getSecond())));
 
         Integer rowLength = calcRowLength(doubleArrayResult1);
         System.out.print(rowLength);
     }
 
-    public static Integer calcRowLength(ArrayList<ArrayList<Integer>> doubleArrayResult1) throws IOException {
+    public static Integer calcRowLength(ArrayList<MyPair<Integer, Integer>> doubleArrayResult1) throws IOException {
 
-        // 최종적으로 결과를 넣을 녀석.
-        // 이녀석을 만들지 않고 변수를 통해 처리할 수 있을까?
-        // ArrayList<ArrayList<Integer>> doubleArrayResult2 = new ArrayList<>();
-
-        Integer startJ = doubleArrayResult1.get(0).get(0);
-        Integer endJ = doubleArrayResult1.get(0).get(1);
+        // 연결된 선의 최초값 설정
+        Integer startJ = doubleArrayResult1.get(0).getFirst();
+        Integer endJ = doubleArrayResult1.get(0).getSecond();
         Integer lengthSum = 0;
 
         // input이 들어올때, 연결가능한 요소가 있는지 비교하고 없으면 넣자.
         for(int i = 0; i < doubleArrayResult1.size(); i++){
 
-            Integer startI = doubleArrayResult1.get(i).get(0);
-            Integer endI = doubleArrayResult1.get(i).get(1);
+            Integer startI = doubleArrayResult1.get(i).getFirst();
+            Integer endI = doubleArrayResult1.get(i).getSecond();
 
             // 이미 정렬이 된 상태이므로, 시작점이 같으면 끝점은 endI보다 무조건 작으므로, continue
             if(startI.equals(startJ)){
@@ -79,8 +85,8 @@ public class Solve2170 {
                 endJ = maxEnd; //doubleArrayResult2.get(idxJ).set(1,maxEnd);
             } else {
                 lengthSum += (endJ - startJ);
-                startJ = doubleArrayResult1.get(i).get(0);
-                endJ = doubleArrayResult1.get(i).get(1);
+                startJ = doubleArrayResult1.get(i).getFirst();
+                endJ = doubleArrayResult1.get(i).getSecond();
             }
         }
         lengthSum += (endJ - startJ);
@@ -88,36 +94,33 @@ public class Solve2170 {
     }
 }
 
-class MyPair {
-    private int first;
-    private int second;
+class MyPair<T, U> {
+    private T first;
+    private U second;
 
-    public MyPair(int first, int second) {
+    public MyPair(T first, U second) {
         this.first = first;
         this.second = second;
     }
 
-    public int getFirst() {
+    public static <T, U> MyPair<T, U> of(T first, U second) {
+        return new MyPair<>(first, second);
+    }
+
+    public T getFirst() {
         return first;
     }
 
-    public int getSecond() {
+    public U getSecond() {
         return second;
     }
 
-    public void setFirst(int first) {
+    public void setFirst(T first) {
         this.first = first;
     }
 
-    public void setSecond(int second) {
+    public void setSecond(U second) {
         this.second = second;
-    }
-
-    public ArrayList<Integer> toArrayList() {
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(first);
-        list.add(second);
-        return list;
     }
 
     @Override
