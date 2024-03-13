@@ -10,15 +10,15 @@ import java.util.StringTokenizer;
 // N : 입력받은 숫자
 // N" : 입력받은 숫자를 제곱근으로 나눈 나머지 (N % B^n)
 // B : 진법을 나타내는 숫자
-// n : 진법의 지수
+// n : 진법의 지수 (logB(N))
 // B^n : 각 자리수의 제곱근
 //
 // 1. 입력받은 숫자 N보다 작거나 같을때 까지 진법 B의 제곱을 n만큼 수행한다.
-//  -- 복잡도 : n
+//  -- 복잡도 : logB(N)
 // 2. 입력받은 숫자 N을 자리수의 제곱근에 해당하는 B^n으로 나눈다. 몫은 저장하고, 나머지 값 N"으로 n이 0이 될때까지 반복한다.
-//  -- 복잡도 : n
+//  -- 복잡도 : logB(N)
 //
-// --시간복잡도 : 2n
+// --시간복잡도 : 2logB(N)
 public class Solve11005 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
