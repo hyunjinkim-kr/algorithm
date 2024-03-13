@@ -47,7 +47,7 @@ public class Solve11005 {
             char basedChar = 0;
 
             if (basedInt >= 10) {
-                basedChar = (char) (basedInt + 55);
+                basedChar = (char) (basedInt + 'A' - 10);
                 basedStr.append(basedChar);
             } else {
                 basedStr.append(String.valueOf(basedInt));
