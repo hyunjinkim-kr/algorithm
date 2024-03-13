@@ -29,7 +29,7 @@ public class solve_2745 {
 
         Integer baseNumSum = 0;
 
-        for (int i = baseStr.length()-1; i >= 0; i--){
+        for (int i = 0; i < baseStr.length(); i++){
             Integer baseN = Character.getNumericValue(baseStr.charAt(i));
             baseNumSum += baseN * (int)Math.pow(baseNum, baseStr.length()-1 -i);
         }
