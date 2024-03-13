@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 // B : 진법을 나타내는 숫자
 // n : 진법의 지수
 //
-//1. 입력받은 문자 N의 길이만큼 뒤에서 부터 자릿수를 숫자로 변환 후, B^n 만큼 곱한 값들을 더한다.
+//1. 입력받은 문자 N의 길이만큼 자릿수를 숫자로 변환 후, B^n 만큼 곱한 값들을 더한다.
 // 복잡도 : N
 public class solve_2745 {
     public static void main(String[] args) throws IOException {
