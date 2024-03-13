@@ -28,12 +28,10 @@ public class solve_2745 {
     public static Integer convertWithBase(String baseStr,Integer baseNum){
 
         Integer baseNumSum = 0;
-        Integer baseMulti = 0;
 
         for (int i = baseStr.length()-1; i >= 0; i--){
             Integer baseN = Character.getNumericValue(baseStr.charAt(i));
-            baseNumSum += baseN * (int)Math.pow(baseNum, baseMulti);
-            baseMulti++;
+            baseNumSum += baseN * (int)Math.pow(baseNum, baseStr.length()-1 -i);
         }
         return baseNumSum;
     }
