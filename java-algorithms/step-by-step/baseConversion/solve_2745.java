@@ -18,20 +18,21 @@ public class solve_2745 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String rowInfo = br.readLine();
-        StringTokenizer stRowInfo = new StringTokenizer(rowInfo," ");
+        StringTokenizer stRowInfo = new StringTokenizer(rowInfo, " ");
         String baseStr = String.valueOf(stRowInfo.nextToken());
         Integer baseNum = Integer.valueOf(stRowInfo.nextToken());
 
-        Integer answer = convertWithBase(baseStr,baseNum);
+        Integer answer = convertWithBase(baseStr, baseNum);
         System.out.print(answer);
     }
-    public static Integer convertWithBase(String baseStr,Integer baseNum){
+
+    public static Integer convertWithBase(String baseStr, Integer baseNum) {
 
         Integer baseNumSum = 0;
 
-        for (int i = 0; i < baseStr.length(); i++){
+        for (int i = 0; i < baseStr.length(); i++) {
             Integer baseN = Character.getNumericValue(baseStr.charAt(i));
-            baseNumSum += baseN * (int)Math.pow(baseNum, baseStr.length()-1 -i);
+            baseNumSum += baseN * (int) Math.pow(baseNum, baseStr.length() - 1 - i);
         }
         return baseNumSum;
     }
