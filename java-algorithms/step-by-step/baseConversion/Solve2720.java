@@ -37,17 +37,16 @@ public class Solve2720 {
         StringBuilder basedStr = new StringBuilder();
 
         int[] typeOfCoin = {
-                25 // 쿼터(Quarter, $0.25)
-                , 10 // 다임(Dime, $0.10)
-                , 5 // 니켈(Nickel, $0.05)
-                , 1 // 페니(Penny, $0.01)
+                25, // 쿼터(Quarter, $0.25)
+                10, // 다임(Dime, $0.10)
+                5, // 니켈(Nickel, $0.05)
+                1 // 페니(Penny, $0.01)
         };
 
         Integer priceMod = price;
-        Integer coinCount = 0;
 
         for (int i = 0; i < typeOfCoin.length; i++) {
-            coinCount = priceMod / typeOfCoin[i];
+            Integer coinCount = priceMod / typeOfCoin[i];
             basedStr.append(String.valueOf(coinCount) + " ");
             priceMod = priceMod % typeOfCoin[i];
         }
