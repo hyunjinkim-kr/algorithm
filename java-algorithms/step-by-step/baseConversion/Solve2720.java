@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
 // --시간복잡도 : C * T
 public class Solve2720 {
     // 동전 종류 배열
-    private static int[] TYPE_OF_COINS = {
+    private static final int[] TYPE_OF_COINS = {
             25, // 쿼터(Quarter, $0.25)
             10, // 다임(Dime, $0.10)
             5, // 니켈(Nickel, $0.05)
