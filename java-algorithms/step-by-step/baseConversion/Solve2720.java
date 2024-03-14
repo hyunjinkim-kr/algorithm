@@ -19,6 +19,13 @@ import java.util.StringTokenizer;
 //
 // --시간복잡도 : C * T
 public class Solve2720 {
+    // 동전 종류 배열
+    private static int[] TYPE_OF_COINS = {
+            25, // 쿼터(Quarter, $0.25)
+            10, // 다임(Dime, $0.10)
+            5, // 니켈(Nickel, $0.05)
+            1 // 페니(Penny, $0.01)
+    };
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Integer payCount = Integer.parseInt(br.readLine()); // 계산된 횟수
@@ -36,19 +43,12 @@ public class Solve2720 {
 
         StringBuilder basedStr = new StringBuilder();
 
-        int[] typeOfCoin = {
-                25, // 쿼터(Quarter, $0.25)
-                10, // 다임(Dime, $0.10)
-                5, // 니켈(Nickel, $0.05)
-                1 // 페니(Penny, $0.01)
-        };
-
         Integer priceMod = price;
 
-        for (int i = 0; i < typeOfCoin.length; i++) {
-            Integer coinCount = priceMod / typeOfCoin[i];
+        for (int i = 0; i < TYPE_OF_COINS.length; i++) {
+            Integer coinCount = priceMod / TYPE_OF_COINS[i];
             basedStr.append(String.valueOf(coinCount) + " ");
-            priceMod = priceMod % typeOfCoin[i];
+            priceMod = priceMod % TYPE_OF_COINS[i];
         }
         return basedStr;
     }
