@@ -3,6 +3,9 @@ package baseConversion;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.LongStream;
 
 
 // 문제 : 벌집
@@ -37,25 +40,47 @@ public class Solve2292 {
         final double b = -3;
         final double c = 1 - B;
 
-        // 판별식 계산
-        double discriminant = b * b - 4 * a * c;
-        // 근의 공식을 사용하여 해를 계산
-        double root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-        double root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-        double answer = 0.0;
+        int begin = 1;
+        int end = 1000000; // B가 10억 이하일 때 n의 최대값은 577350
 
-        // 양수 해 중 가장 작은 값을 선택하여 반환
-        if(root1 > 0 && root2 > 0){
-            answer = Math.min(root1,root2);
-        } else {
-            answer = Math.max(root1,root2);
+        while (begin < end) {
+            int mid = (begin + end) / 2;
+             // System.out.println(a * Math.pow(mid, 2) - 3 * mid + 1 + "  begin : " + begin + " mid : " + mid + " end : " + end );
+            if (a * Math.pow(mid, 2) - 3 * mid + 1 < B) {
+                begin = mid + 1;
+            } else {
+                end = mid;
+            }
         }
-
-        // 2.1 이런식이면, 다음항으로 넘어간 것이므로 무조건 반올림 해주자.
-        if(answer % 1 != 0){
-            answer += 0.5;
-            answer = Math.round(answer);
-        }
-        return answer;
+        return end;
     }
 }
+
+// 풀이 2. 계차수열 이차방정식 풀이
+//public static double findMinimumN(double B) {
+//    // 이차방정식의 계수
+//    // 계차수열 일반항 : 3n^2 - 3n + 1 >= B 이며, n의 최소값.
+//    final double a = 3;
+//    final double b = -3;
+//    final double c = 1 - B;
+//
+//    // 판별식 계산
+//    double discriminant = b * b - 4 * a * c;
+//    // 근의 공식을 사용하여 해를 계산
+//    double root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+//    double root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+//    double answer = 0.0;
+//
+//    // 양수 해 중 가장 작은 값을 선택하여 반환
+//    if(root1 > 0 && root2 > 0){
+//        answer = Math.min(root1,root2);
+//    } else {
+//        answer = Math.max(root1,root2);
+//    }
+//
+//    // 2.1 이런식이면, 다음항으로 넘어간 것이므로 무조건 반올림 해주자.
+//    if(answer % 1 != 0){
+//        answer = Math.ceil(answer);
+//    }
+//    return answer;
+//}
