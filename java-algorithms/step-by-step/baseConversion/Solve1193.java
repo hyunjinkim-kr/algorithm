@@ -57,13 +57,14 @@ public class Solve1193 {
                 end = mid;
             }
         }
-        double nthHang = inputB - (Math.pow(end - 1, 2) + (end - 1)) / 2;
+        //이전 항까지의 갯수를 제외해서, end의 몇번째 분수인지 판별할 값.
+        int nthHang = (int) (inputB - (Math.pow(end - 1, 2) + (end - 1)) / 2);
 
         //홀수일때는 분자가 시작
         if (end % 2 == 1) {
-            result = (int) (end - nthHang + 1) + "/" + (int) nthHang;
+            result = (end - nthHang + 1) + "/" + nthHang;
         } else {
-            result = (int) nthHang + "/" + (int) (end - nthHang + 1);
+            result = nthHang + "/" + (end - nthHang + 1);
         }
         return result;
     }
