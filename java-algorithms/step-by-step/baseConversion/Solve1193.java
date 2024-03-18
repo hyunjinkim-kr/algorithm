@@ -50,7 +50,7 @@ public class Solve1193 {
         String result;
 
         while (begin < end) {
-            int mid = (begin + end) / 2;
+            int mid = begin + (end - begin) / 2;
             if ((Math.pow(mid, 2) + mid) / 2 < inputB) {
                 begin = mid + 1;
             } else {
