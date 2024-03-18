@@ -37,9 +37,6 @@ public class Solve2869 {
     }
 
     public static BigInteger calcDate(BigInteger upA, BigInteger downB, BigInteger heightV) {
-
-
-
         BigInteger begin = BigInteger.valueOf(1);
         BigInteger end = BigInteger.valueOf(1000000000); // 높이 최대 10억, 하루에 올라가는 최저거리 1. 엄밀히따지면, 9억9999만9999가 맞을듯.
 
