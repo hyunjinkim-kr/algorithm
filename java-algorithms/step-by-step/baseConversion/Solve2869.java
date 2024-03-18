@@ -28,24 +28,24 @@ public class Solve2869 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String rowInfo = br.readLine();
         StringTokenizer stRowInfo = new StringTokenizer(rowInfo, " ");
-        BigInteger upA = BigInteger.valueOf(Integer.valueOf(stRowInfo.nextToken()));
-        BigInteger downB = BigInteger.valueOf(Integer.valueOf(stRowInfo.nextToken()));
-        BigInteger heightV = BigInteger.valueOf(Integer.valueOf(stRowInfo.nextToken()));
+        long upA = Integer.parseInt(stRowInfo.nextToken());
+        long downB = Integer.parseInt(stRowInfo.nextToken());
+        long heightV = Integer.parseInt(stRowInfo.nextToken());
 
-        BigInteger date = calcDate(upA, downB, heightV);
+        long date = calcDate(upA, downB, heightV);
         System.out.print(date);
     }
 
-    public static BigInteger calcDate(BigInteger upA, BigInteger downB, BigInteger heightV) {
-        BigInteger begin = BigInteger.valueOf(1);
-        BigInteger end = BigInteger.valueOf(1000000000); // 높이 최대 10억, 하루에 올라가는 최저거리 1. 엄밀히따지면, 9억9999만9999가 맞을듯.
+    public static long calcDate(long upA, long downB, long heightV) {
+        long begin = 1;
+        long end = heightV; // 높이 최대 10억, 하루에 올라가는 최저거리 1. 엄밀히따지면, 9억9999만9999가 맞을듯.
 
-        while (begin.compareTo(end) < 0) {
-            BigInteger mid = begin.add((end.subtract(begin)).divide(BigInteger.valueOf(2)));
-            BigInteger heightM = upA.subtract(downB).multiply(mid.subtract(BigInteger.valueOf(1))).add(upA);
-            // (upA - downB) * (mid - 1) + upA < heightV;
-            if (heightM.compareTo(heightV) < 0) {
-                begin = mid.add(BigInteger.valueOf(1));
+        while (begin < end) {
+            long mid = begin + (end - begin) / 2;
+            long heightM = (upA - downB) * (mid - 1) + upA;
+
+            if (heightM < heightV) {
+                begin = mid + 1;
             } else {
                 end = mid;
             }
