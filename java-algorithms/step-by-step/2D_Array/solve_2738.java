@@ -19,7 +19,6 @@ public class solve_2738 {
         // 배열에 값 더하기
         arrayAdd(scan,rowSize,colSize,doubleArrayResult);
 
-
         // 출력
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
