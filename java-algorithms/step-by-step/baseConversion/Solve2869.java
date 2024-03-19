@@ -30,7 +30,7 @@ import java.util.stream.LongStream;
 // (upA - downB) * (date -1) >= heightV - upA
 // date >= (heightV - upA) / (upA - downB) + 1
 // 최종적으로, (heightV - upA)%(upA - downB) 가 0이 아니라면, 1을 더해준다.
-// 시간복잡도 : log 1
+// 시간복잡도 : O(1)
 
 public class Solve2869 {
     public static void main(String[] args) throws IOException {
@@ -50,7 +50,7 @@ public class Solve2869 {
         Integer date = (heightV - upA) / (upA - downB) + 1;
 
         // 1.2일 이러면, 하나를 더해주고
-        if((heightV - upA)%(upA - downB)!=0){
+        if ((heightV - upA) % (upA - downB) != 0) {
             date++;
         }
         return date;
