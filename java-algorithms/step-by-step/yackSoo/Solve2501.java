@@ -76,7 +76,9 @@ public class Solve2501 {
         // 값이 범위 밖일떄
         if (no2 > factorCount) {
             return 0;
-        } else if (no2 <= factorsArr.size()) {
+        }
+
+        if (no2 <= factorsArr.size()) {
             // 약수가 배열 안에 있을때 값 리턴
             return factorsArr.get(no2 - 1);
         }
