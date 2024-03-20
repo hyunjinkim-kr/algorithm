@@ -62,11 +62,12 @@ public class Solve2501 {
             }
         }
 
-        Integer factorCount = 0;
         // 약수의 갯수를 가져온다.
         // 현재 약수 배열의 끝 값을 가져와서 비교한다.
-        Integer powFactor = factorsArr.get(factorsArr.size() - 1) * factorsArr.get(factorsArr.size() - 1);
-        if (powFactor == no1) {
+        Integer lastFactor = factorsArr.get(factorsArr.size() - 1);
+        Integer factorCount = 0;
+
+        if (lastFactor * lastFactor == no1) {
             factorCount = factorsArr.size() * 2 - 1;
         } else {
             factorCount = factorsArr.size() * 2;
