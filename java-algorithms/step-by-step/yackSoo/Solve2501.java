@@ -57,29 +57,29 @@ public class Solve2501 {
 
         for (int i = 1; i <= no1Sqrt; i++) {
             //약수
-            if (no1 % i != 0) {
-                continue;
+            if (no1 % i == 0) {
+                factorsArr.add(i);
             }
-            factorsArr.add(i);
         }
 
         Integer factorCount = 0;
         // 약수의 갯수를 가져온다.
-        if (no1Sqrt % 1 == 0) {
+        // 현재 약수 배열의 끝 값을 가져와서 비교한다.
+        Integer powFactor = factorsArr.get(factorsArr.size() - 1) * factorsArr.get(factorsArr.size() - 1);
+        if (powFactor == no1) {
             factorCount = factorsArr.size() * 2 - 1;
         } else {
             factorCount = factorsArr.size() * 2;
         }
 
-        // 약수가 배열 안에 있을때 값 리턴
-        if (no2 <= factorsArr.size()) {
+        // 값이 범위 밖일떄
+        if (no2 > factorCount) {
+            return 0;
+        } else if (no2 <= factorsArr.size()) {
+            // 약수가 배열 안에 있을때 값 리턴
             return factorsArr.get(no2 - 1);
         }
-
         // 약수가 배열안에 없을때, 배열안의 숫자로 나눠줘서 짝을 구함.
-        if (no2 <= factorCount) {
-            return no1 / factorsArr.get(factorCount - no2);
-        }
-        return 0;
+        return no1 / factorsArr.get(factorCount - no2);
     }
 }
