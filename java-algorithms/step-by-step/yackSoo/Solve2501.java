@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+
 public class Solve2501 {
     // 문제 : 약수 구하기
     //  no1 : 첫번째 숫자. 약수를 체크할 수
@@ -24,9 +25,15 @@ public class Solve2501 {
 
     // 해결책2 : no1의 제곱근 만큼 수행하며, 나뉘는 수를 저장 후 반환
     //
-    // no1를 1부터 no1의 제곱근까지 반복하며 나눈다.
-    // 나머지가 0인 경우, i와 no1을 i로 나눈 값을 각각 배열의 시작과 끝에 저장한다.
-    // i와 no1을 i로 나눈 값이 일치하는 경우, 한개만 저장한다.
+    // Arr1 : 약수를 저장한 배열
+    // count2 : 약수의 갯수
+    //
+    // 1. no1를 1부터 no1의 제곱근까지 반복하며 나눈다.
+    // 2. 나머지가 0인 경우 값을 배열 Arr1에 저장한다.
+    // 3. 약수의 갯수를 계산한다.
+    //      숫자의 제곱근이 정수일 경우 : Arr1의 길이 * 2, 아닐경우 : Arr1의 길이 * 2 -1
+    //      (각각 수가 짝이되어 * 2가 되는것인데, 자기 자신과 짝이 될 수는 없으므로 1을 뺀다.)
+    // 4. no2번째 Arr1의 값 혹은, (count2 - no2) 위치의 Arr1값과 짝을 분류하여 리턴한다.
     //
     // 복잡도 : no1 의 제곱근
     // 시간복잡도 : O(루트(N))
@@ -40,31 +47,39 @@ public class Solve2501 {
         Integer no2 = Integer.valueOf(stRowInfo.nextToken());
 
         Integer nthFactor = checkYackSoo(no1, no2);
-        System.out.println(nthFactor);
+        System.out.print(nthFactor);
     }
 
     public static Integer checkYackSoo(Integer no1, Integer no2) {
 
         double no1Sqrt = Math.sqrt(no1); //약수의 범위를 제곱근으로 제한한다
         ArrayList<Integer> factorsArr = new ArrayList<Integer>();
-        Integer count = 0;
 
         for (int i = 1; i <= no1Sqrt; i++) {
             //약수
-            if (no1 % i == 0) {
-                if (no1 / i == i) {
-                    factorsArr.add(count, i);
-                    break;
-                }
-                factorsArr.add(count, i);
-                factorsArr.add(factorsArr.size() - count, no1 / i);
-                count++;
+            if (no1 % i != 0) {
+                continue;
             }
+            factorsArr.add(i);
         }
 
-        if (factorsArr.size() < no2) {
-            return 0;
+        Integer factorCount = 0;
+        // 약수의 갯수를 가져온다.
+        if (no1Sqrt % 1 == 0) {
+            factorCount = factorsArr.size() * 2 - 1;
+        } else {
+            factorCount = factorsArr.size() * 2;
         }
-        return factorsArr.get(no2 - 1);
+
+        // 약수가 배열 안에 있을때 값 리턴
+        if (no2 <= factorsArr.size()) {
+            return factorsArr.get(no2 - 1);
+        }
+
+        // 약수가 배열안에 없을때, 배열안의 숫자로 나눠줘서 짝을 구함.
+        if (no2 <= factorCount) {
+            return no1 / factorsArr.get(factorCount - no2);
+        }
+        return 0;
     }
 }
