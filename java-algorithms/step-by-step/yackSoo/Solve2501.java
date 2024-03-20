@@ -49,22 +49,22 @@ public class Solve2501 {
         ArrayList<Integer> factorsArr = new ArrayList<Integer>();
         Integer count = 0;
 
-        for (int i = 1; i <= no1Sqrt; i++){
+        for (int i = 1; i <= no1Sqrt; i++) {
             //약수
-            if(no1 % i == 0){
-                if(no1/i == i){
-                    factorsArr.add(count,i);
+            if (no1 % i == 0) {
+                if (no1 / i == i) {
+                    factorsArr.add(count, i);
                     break;
                 }
-                factorsArr.add(count,i);
-                factorsArr.add(factorsArr.size()-count,no1/i);
+                factorsArr.add(count, i);
+                factorsArr.add(factorsArr.size() - count, no1 / i);
                 count++;
             }
         }
 
-        if(factorsArr.size() < no2){
+        if (factorsArr.size() < no2) {
             return 0;
         }
-        return factorsArr.get(no2-1);
+        return factorsArr.get(no2 - 1);
     }
 }
