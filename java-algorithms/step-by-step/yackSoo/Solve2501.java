@@ -3,6 +3,7 @@ package yackSoo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Solve2501 {
@@ -21,6 +22,15 @@ public class Solve2501 {
     // 복잡도 : no1
     // 시간복잡도 : O(N)
 
+    // 해결책2 : no1의 제곱근 만큼 수행하며, 나뉘는 수를 저장 후 반환
+    //
+    // no1를 1부터 no1의 제곱근까지 반복하며 나눈다.
+    // 나머지가 0인 경우, i와 no1을 i로 나눈 값을 각각 배열의 시작과 끝에 저장한다.
+    // i와 no1을 i로 나눈 값이 일치하는 경우, 한개만 저장한다.
+    //
+    // 복잡도 : no1 의 제곱근
+    // 시간복잡도 : O(루트(N))
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -34,18 +44,27 @@ public class Solve2501 {
     }
 
     public static Integer checkYackSoo(Integer no1, Integer no2) {
-        Integer count = 1;
 
-        for (int i = 1; i <= no1; i++) {
-            if (no1 % i != 0) {
-                continue;
-            }
+        double no1Sqrt = Math.sqrt(no1); //약수의 범위를 제곱근으로 제한한다
+        ArrayList<Integer> factorsArr = new ArrayList<Integer>();
+        Integer count = 0;
 
-            if (count == no2) {
-                return i;
+        for (int i = 1; i <= no1Sqrt; i++){
+            //약수
+            if(no1 % i == 0){
+                if(no1/i == i){
+                    factorsArr.add(count,i);
+                    break;
+                }
+                factorsArr.add(count,i);
+                factorsArr.add(factorsArr.size()-count,no1/i);
+                count++;
             }
-            count++;
         }
-        return 0;
+
+        if(factorsArr.size() < no2){
+            return 0;
+        }
+        return factorsArr.get(no2-1);
     }
 }
