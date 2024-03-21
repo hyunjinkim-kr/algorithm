@@ -11,15 +11,19 @@ public class Solve9506 {
     //
     // 해결책 : no1을 나누면서, no1을 제외한 약수의 합과 입력값이 일치하는지 리턴.
     //  no1 : 첫번째 숫자. 완전수를 체크할 수
+    //  arr : 제곱근보다 작은 약수가 저장되는 배열
     //  sum : 약수들의 합
     //  i : 나눠질 수
     //
-    // 1. no1를 1부터 no1 - 1 까지의 수 i로 나누기를 한다.
-    // 2. 나머지가 0이면 sum 에 i값을 더한다.
+    // 1. no1를 1부터 no1의 제곱근까지 나누기를 한다.\
+    // -- 복잡도 : no1 의 제곱근 * 2
+    // 2. 나머지가 0이면 sum 에 i값을 더하고, 배열arr에 추가한다.
+    // 3. arr 배열의 약수의 짝을 찾아 sum에 더한다.
+    // -- 복잡도 : no1 의 제곱근 * 2
     // 3. sum과 no1의 일치여부로 리턴값을 정한다.
     //
-    // 복잡도 : no1 - 1
-    // 시간복잡도 : O(N)
+    // 복잡도 : no1 의 제곱근 * 2
+    // 시간복잡도 : O(2*루트(N))
 
 
     public static void main(String[] args) throws IOException {
@@ -42,13 +46,32 @@ public class Solve9506 {
         StringBuilder noPerfectStr = new StringBuilder(String.format("%d is NOT perfect.", no1));
         Integer factorSum = 0;
 
-        for (int i = 1; i < no1; i++) {
-            // 약수
+        double no1Sqrt = Math.sqrt(no1); //약수의 범위를 제곱근으로 제한한다
+        ArrayList<Integer> factorsArr = new ArrayList<Integer>();
+
+        for (int i = 1; i <= no1Sqrt; i++) {
+            //약수
             if (no1 % i == 0) {
                 factorSum += i;
+                factorsArr.add(i);
                 perfectStr.append(i + " + ");
             }
         }
+
+        // 약수의 갯수를 가져온다.
+        // 현재 약수 배열의 끝 값을 가져와서 비교한다.
+        Integer lastFactor = factorsArr.get(factorsArr.size() - 1);
+        Integer addArrSize = factorsArr.size()-1; // Arr내의 숫자와 짝이 맞는 숫자만큼 반복 목적.
+
+        if (lastFactor * lastFactor == no1) {
+            addArrSize -= 1;
+        }
+
+        for (int j = addArrSize; j > 0 ; j--) {
+            factorSum += no1 / factorsArr.get(j);
+            perfectStr.append(no1 / factorsArr.get(j) + " + ");
+        }
+
         // 마지막에 자투리 잘라주자..?
         perfectStr.delete(perfectStr.length() - 3, perfectStr.length());
 
