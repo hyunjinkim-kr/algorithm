@@ -81,16 +81,16 @@ public class Solve9506 {
 
     // 배열과 입력된 수로, 완전수를 체크하여 문장을 리턴하는 함수
     public static void showNumKind(ArrayList<Integer> factorArr, Integer no1) {
-        final String noPerfectStr = String.format("%d is NOT perfect.", no1);
-        StringBuilder perfectStr = new StringBuilder(String.format("%d = ", no1));
-
         // 완전수일때
         Integer factorSum = getSumOfFactors(factorArr);
 
         if (!factorSum.equals(no1)) {
+            String noPerfectStr = String.format("%d is NOT perfect.", no1);
             System.out.println(noPerfectStr);
             return;
         }
+
+        StringBuilder perfectStr = new StringBuilder(String.format("%d = ", no1));
 
         for (int i = 0; i < factorArr.size(); i++) {
             perfectStr.append(factorArr.get(i) + " + ");
