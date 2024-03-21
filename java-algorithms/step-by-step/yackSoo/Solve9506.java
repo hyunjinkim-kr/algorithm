@@ -25,7 +25,7 @@ public class Solve9506 {
     // 3. sum과 no1의 일치여부로 리턴값을 정한다.
     //
     // 복잡도 : no1 의 제곱근 * 3
-    // 시간복잡도 : O(루트(N))
+    // 시간복잡도 : O(루트(no1))
 
 
     public static void main(String[] args) throws IOException {
@@ -39,12 +39,11 @@ public class Solve9506 {
                 break;
             }
             ArrayList<Integer> factorArr = getFactorList(no1);
-            String numKind = getNumKindStr(factorArr, no1);
-            System.out.println(numKind);
+            showNumKind(factorArr, no1);
         }
     }
 
-    // 제곱근이하의 약수를 포함한 배열을 리턴하는 함수
+    // 자기 자신을 제외한 약수의 배열을 리턴하는 함수
     public static ArrayList<Integer> getFactorList(Integer no1) {
         double no1Sqrt = Math.sqrt(no1); //약수의 범위를 제곱근으로 제한한다
         ArrayList<Integer> factorsArr = new ArrayList<Integer>();
@@ -57,11 +56,10 @@ public class Solve9506 {
             factorsArr.add(i);
         }
 
-        // 약수의 갯수를 가져온다.
+        // 약수의 개수를 가져온다.
         // 현재 약수 배열의 끝 값을 가져와서 비교한다.
         Integer lastFactor = factorsArr.get(factorsArr.size() - 1);
         Integer addArrSize = factorsArr.size() - 1; // Arr내의 숫자와 짝이 맞는 숫자만큼 반복 목적.
-
 
         if (lastFactor * lastFactor == no1) {
             addArrSize -= 1;
@@ -83,22 +81,23 @@ public class Solve9506 {
     }
 
     // 배열과 입력된 수로, 완전수를 체크하여 문장을 리턴하는 함수
-    public static String getNumKindStr(ArrayList<Integer> factorArr, Integer no1) {
+    public static void showNumKind(ArrayList<Integer> factorArr, Integer no1) {
         final String noPerfectStr = String.format("%d is NOT perfect.", no1);
         StringBuilder perfectStr = new StringBuilder(String.format("%d = ", no1));
+
+        // 완전수일때
+        Integer factorSum = getSumOfFactors(factorArr);
+
+        if (!factorSum.equals(no1)) {
+            System.out.println(noPerfectStr);
+            return;
+        }
 
         for (int i = 0; i < factorArr.size(); i++) {
             perfectStr.append(factorArr.get(i) + " + ");
         }
         // 마지막에 자투리 잘라주자..?
         perfectStr.delete(perfectStr.length() - 3, perfectStr.length());
-
-        // 완전수일때
-        Integer factorSum = getSumOfFactors(factorArr);
-
-        if (factorSum.equals(no1)) {
-            return perfectStr.toString();
-        }
-        return noPerfectStr;
+        System.out.println(perfectStr);
     }
 }
