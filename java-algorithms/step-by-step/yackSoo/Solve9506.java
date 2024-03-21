@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Solve9506 {
@@ -91,12 +92,13 @@ public class Solve9506 {
         }
 
         StringBuilder perfectStr = new StringBuilder(String.format("%d = ", no1));
-
-        for (int i = 0; i < factorArr.size(); i++) {
-            perfectStr.append(factorArr.get(i) + " + ");
+        ArrayList<String> stringList = new ArrayList<>();
+        for (Integer integer : factorArr) {
+            stringList.add(String.valueOf(integer));
         }
-        // 마지막에 자투리 잘라주자..?
-        perfectStr.delete(perfectStr.length() - 3, perfectStr.length());
+
+        perfectStr.append(String.join(" + ", stringList));
+
         System.out.println(perfectStr);
     }
 }
