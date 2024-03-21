@@ -21,7 +21,7 @@ public class Solve1978 {
         // -- 시간복잡도 : O(루트no1)
         Scanner scan = new Scanner(System.in);
         Integer numCount = scan.nextInt(); // 체크할 숫자 개수
-        int count = 0;
+        Integer count = 0;
 
         for (int i = 0; i < numCount; i++) {
             Integer no1 = scan.nextInt();
