@@ -39,7 +39,7 @@ public class Solve9506 {
                 break;
             }
             ArrayList<Integer> factorArr = getFactorList(no1);
-            StringBuilder numKind = checkPerfect(factorArr, no1);
+            String numKind = checkPerfect(factorArr, no1);
             System.out.println(numKind);
         }
     }
@@ -61,9 +61,9 @@ public class Solve9506 {
 
 
     // 배열과 입력된 수로, 완전수를 체크하여 문장을 리턴하는 함수
-    public static StringBuilder checkPerfect(ArrayList<Integer> factorArr, Integer no1) {
+    public static String checkPerfect(ArrayList<Integer> factorArr, Integer no1) {
+        final String noPerfectStr = String.format("%d is NOT perfect.", no1);
         StringBuilder perfectStr = new StringBuilder(String.format("%d = ", no1));
-        StringBuilder noPerfectStr = new StringBuilder(String.format("%d is NOT perfect.", no1));
         Integer factorSum = 0;
 
         double no1Sqrt = Math.sqrt(no1); //약수의 범위를 제곱근으로 제한한다
@@ -92,7 +92,7 @@ public class Solve9506 {
 
         // 완전수일때
         if (factorSum.equals(no1)) {
-            return perfectStr;
+            return perfectStr.toString();
         }
         return noPerfectStr;
     }
