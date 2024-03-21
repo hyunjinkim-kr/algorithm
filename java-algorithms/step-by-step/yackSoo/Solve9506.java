@@ -39,7 +39,7 @@ public class Solve9506 {
                 break;
             }
             ArrayList<Integer> factorArr = getFactorList(no1);
-            String numKind = checkPerfect(factorArr, no1);
+            String numKind = getNumKindStr(factorArr, no1);
             System.out.println(numKind);
         }
     }
@@ -56,41 +56,46 @@ public class Solve9506 {
             }
             factorsArr.add(i);
         }
-        return factorsArr;
-    }
-
-
-    // 배열과 입력된 수로, 완전수를 체크하여 문장을 리턴하는 함수
-    public static String checkPerfect(ArrayList<Integer> factorArr, Integer no1) {
-        final String noPerfectStr = String.format("%d is NOT perfect.", no1);
-        StringBuilder perfectStr = new StringBuilder(String.format("%d = ", no1));
-        Integer factorSum = 0;
-
-        double no1Sqrt = Math.sqrt(no1); //약수의 범위를 제곱근으로 제한한다
-
-        for (int i = 0; i < factorArr.size(); i++) {
-            factorSum += factorArr.get(i);
-            perfectStr.append(factorArr.get(i) + " + ");
-        }
 
         // 약수의 갯수를 가져온다.
         // 현재 약수 배열의 끝 값을 가져와서 비교한다.
-        Integer lastFactor = factorArr.get(factorArr.size() - 1);
-        Integer addArrSize = factorArr.size() - 1; // Arr내의 숫자와 짝이 맞는 숫자만큼 반복 목적.
+        Integer lastFactor = factorsArr.get(factorsArr.size() - 1);
+        Integer addArrSize = factorsArr.size() - 1; // Arr내의 숫자와 짝이 맞는 숫자만큼 반복 목적.
+
 
         if (lastFactor * lastFactor == no1) {
             addArrSize -= 1;
         }
 
         for (int j = addArrSize; j > 0; j--) {
-            factorSum += no1 / factorArr.get(j);
-            perfectStr.append(no1 / factorArr.get(j) + " + ");
+            factorsArr.add(no1 / factorsArr.get(j));
         }
+        return factorsArr;
+    }
 
+    // 배열의 합을 리턴하는 함수
+    public static Integer getSumOfFactors(ArrayList<Integer> factorArr) {
+        Integer factorSum = 0;
+        for (int i = 0; i < factorArr.size(); i++) {
+            factorSum += factorArr.get(i);
+        }
+        return factorSum;
+    }
+
+    // 배열과 입력된 수로, 완전수를 체크하여 문장을 리턴하는 함수
+    public static String getNumKindStr(ArrayList<Integer> factorArr, Integer no1) {
+        final String noPerfectStr = String.format("%d is NOT perfect.", no1);
+        StringBuilder perfectStr = new StringBuilder(String.format("%d = ", no1));
+
+        for (int i = 0; i < factorArr.size(); i++) {
+            perfectStr.append(factorArr.get(i) + " + ");
+        }
         // 마지막에 자투리 잘라주자..?
         perfectStr.delete(perfectStr.length() - 3, perfectStr.length());
 
         // 완전수일때
+        Integer factorSum = getSumOfFactors(factorArr);
+
         if (factorSum.equals(no1)) {
             return perfectStr.toString();
         }
