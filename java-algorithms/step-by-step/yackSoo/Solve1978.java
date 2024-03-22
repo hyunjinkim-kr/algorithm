@@ -30,7 +30,7 @@ public class Solve1978 {
         Integer numCount = scan.nextInt(); // 체크할 숫자 개수
         Integer count = 0;
 
-        Integer maxInput = 1000;
+        Integer maxInput = (int)Math.sqrt(1000);
         ArrayList<Integer> primeList = new ArrayList<>();
         primeList = getPrimeList(maxInput);
 
@@ -43,13 +43,12 @@ public class Solve1978 {
         System.out.print(count);
     }
 
-    // 1000이하의 소수 리스트를 반환한다.
+    // Input 이내의 소수 리스트를 반환한다.
     public static ArrayList<Integer> getPrimeList(Integer maxInput) {
         ArrayList<Integer> primeList = new ArrayList<>();
-        double maxPrimeNum = Math.sqrt(maxInput);
 
         // 33.xx 아래의 소수를 찾아서 리스트에 넣는게 목표..
-        for (int i = 2; i <= maxPrimeNum; i++) {
+        for (int i = 2; i <= maxInput; i++) {
             boolean isAddList = isPrime(i,primeList);
             if (isAddList) {
                 primeList.add(i);
@@ -61,8 +60,7 @@ public class Solve1978 {
     public static boolean isPrime(Integer N, ArrayList<Integer> primeList) {
         // 올바르게 동작하기 위한 primeList의 조건.
         // 1.primeList는 정렬되어야 한다.
-        // 2.무조건 소수여야한다.
-        // 3.제곱근 N 이하의 소수가 있어야한다.
+        // 2.제곱근 N 이하의 모든 소수가 있어야한다.
 
         // 소수는 1을 제외한 자기 자신을 약수로 가지는놈.
         if (N == 1) {
