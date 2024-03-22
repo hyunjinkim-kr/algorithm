@@ -27,16 +27,16 @@ public class Solve1978 {
         //
         // -- 시간복잡도 : O( (루트1000 - 2)*루트N + M * 루트N" )
         Scanner scan = new Scanner(System.in);
-        Integer numCount = scan.nextInt(); // 체크할 숫자 개수
+        Integer M = scan.nextInt(); // 체크할 숫자 개수
         Integer count = 0;
 
         // 제곱근 이하의 소수를 구하면 되므로, 최대 범위의 제곱근으로 변경한다.
-        Integer maxInput = (int)Math.sqrt(1000);
+        Integer maxInput = (int) Math.sqrt(1000);
         ArrayList<Integer> primeList = getSmallerPrimeList(maxInput);
 
-        for (int i = 0; i < numCount; i++) {
+        for (int i = 0; i < M; i++) {
             Integer N = scan.nextInt();
-            if (isPrime(N,primeList)) {
+            if (isPrime(N, primeList)) {
                 count++;
             }
         }
@@ -48,7 +48,7 @@ public class Solve1978 {
         ArrayList<Integer> primeList = new ArrayList<>();
 
         for (int i = 2; i <= upperBound; i++) {
-            boolean isAddList = isPrime(i,primeList);
+            boolean isAddList = isPrime(i, primeList);
             if (isAddList) {
                 primeList.add(i);
             }
