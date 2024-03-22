@@ -25,7 +25,7 @@ public class Solve1978 {
         //  -- 입력받은 숫자의 제곱근 만큼만 탐색하면 된다. 즉, 소수리스트를 탐색하다가 소수가 제곱근보다 커지면 멈춘다.
         //  -- 복잡도 : 루트 N"
         //
-        // -- 시간복잡도 : O( (루트1000 - 2)*루트N + M * 루트N" )
+        // -- 시간복잡도 : O( M * 루트N" )
         Scanner scan = new Scanner(System.in);
         Integer M = scan.nextInt(); // 체크할 숫자 개수
         Integer count = 0;
@@ -43,13 +43,12 @@ public class Solve1978 {
         System.out.print(count);
     }
 
-    // upperBound 이내의 소수 리스트를 반환한다.
+    // upperBound 이하의 소수 리스트를 반환한다.
     public static ArrayList<Integer> getSmallerPrimeList(Integer upperBound) {
         ArrayList<Integer> primeList = new ArrayList<>();
 
         for (int i = 2; i <= upperBound; i++) {
-            boolean isAddList = isPrime(i, primeList);
-            if (isAddList) {
+            if (isPrime(i, primeList)) {
                 primeList.add(i);
             }
         }
@@ -62,15 +61,13 @@ public class Solve1978 {
         // 2.제곱근 N 이하의 모든 소수가 있어야한다.
 
         // 소수는 1을 제외한 자기 자신을 약수로 가지는놈.
-        if (N == 1) {
+        if (N < 2) {
             return false;
         }
 
         double no1Sqrt = Math.sqrt(N); //약수의 범위를 제곱근으로 제한한다
 
-        for (int i = 0; i < primeList.size(); i++) {
-            Integer primeNum = primeList.get(i);
-
+        for (Integer primeNum : primeList) {
             if (primeNum > no1Sqrt) {   // 범위를 벗어났음. 계산종료
                 break;
             }
