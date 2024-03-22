@@ -30,9 +30,9 @@ public class Solve1978 {
         Integer numCount = scan.nextInt(); // 체크할 숫자 개수
         Integer count = 0;
 
+        // 제곱근 이하의 소수를 구하면 되므로, 최대 범위의 제곱근으로 변경한다.
         Integer maxInput = (int)Math.sqrt(1000);
-        ArrayList<Integer> primeList = new ArrayList<>();
-        primeList = getPrimeList(maxInput);
+        ArrayList<Integer> primeList = getSmallerPrimeList(maxInput);
 
         for (int i = 0; i < numCount; i++) {
             Integer N = scan.nextInt();
@@ -43,12 +43,11 @@ public class Solve1978 {
         System.out.print(count);
     }
 
-    // Input 이내의 소수 리스트를 반환한다.
-    public static ArrayList<Integer> getPrimeList(Integer maxInput) {
+    // upperBound 이내의 소수 리스트를 반환한다.
+    public static ArrayList<Integer> getSmallerPrimeList(Integer upperBound) {
         ArrayList<Integer> primeList = new ArrayList<>();
 
-        // 33.xx 아래의 소수를 찾아서 리스트에 넣는게 목표..
-        for (int i = 2; i <= maxInput; i++) {
+        for (int i = 2; i <= upperBound; i++) {
             boolean isAddList = isPrime(i,primeList);
             if (isAddList) {
                 primeList.add(i);
