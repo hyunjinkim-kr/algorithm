@@ -16,9 +16,6 @@ public class Solve10101 {
         //        세 각의 합이 180이 아닌 경우에는 Error
         //
         // 해결책 : 삼각형 조건에 맞게 분류하여 출력한다.
-        // a1 : 각1
-        // a2 : 각2
-        // a3 : 각3
         //
         // 1. 세 각의 합이 180인 경우와 아닌 경우를 분류한다.
         // 2. 180인 경우 한개의 각이 60이면서, 또다른 한개의 각과 같으면 정삼각형이다.
@@ -26,10 +23,6 @@ public class Solve10101 {
         // 4. 2와 3이 아니면서 합이 180이면 부등변 삼각형이다.
         //
         // 시간복잡도 : O(N)
-        final String equilateral = "Equilateral";
-        final String isosceles = "Isosceles";
-        final String scalene = "Scalene";
-        final String error = "Error";
 
         Scanner scan = new Scanner(System.in);
         Integer angle1 = scan.nextInt();
@@ -41,20 +34,23 @@ public class Solve10101 {
     }
 
     public static triangle checkTriangle(Integer angle1, Integer angle2, Integer angle3) {
-        if (angle1 + angle2 + angle3 == 180) {
-            if (angle1 == 60 && angle1 == angle2) {
-                return triangle.Equilateral;
-            } else if (angle1 == angle2 || angle2 == angle3 || angle1 == angle3) {
-                return triangle.Isosceles;
-            } else {
-                return triangle.Scalene;
-            }
+        if (angle1 + angle2 + angle3 != 180) {
+            return triangle.Error;
         }
-        return triangle.Error;
+
+        if (angle1 == 60 && angle1 == angle2) {
+            return triangle.Equilateral;
+        } else if (angle1 == angle2 || angle2 == angle3 || angle1 == angle3) {
+            return triangle.Isosceles;
+        }
+        return triangle.Scalene;
     }
 
     enum triangle {
-        Equilateral, Isosceles, Scalene, Error;
+        Equilateral,
+        Isosceles,
+        Scalene,
+        Error;
     }
 }
 
