@@ -27,14 +27,14 @@ public class Solve14215 {
         lineArr.add(line2);
         lineArr.add(line3);
 
-        Integer result = getTriangleRound(line1,line2,line3);
+        Integer result = getTriangleRound(line1, line2, line3);
         System.out.print(result);
     }
 
     public static Integer getTriangleRound(Integer line1, Integer line2, Integer line3) {
 
-        Integer maxLine = Math.max(line1,line2);
-        maxLine = Math.max(maxLine,line3);
+        Integer maxLine = Math.max(line1, line2);
+        maxLine = Math.max(maxLine, line3);
 
         Integer sumLine = line1 + line2 + line3;
 
