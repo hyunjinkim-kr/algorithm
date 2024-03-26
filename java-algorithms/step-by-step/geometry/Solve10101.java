@@ -35,20 +35,26 @@ public class Solve10101 {
         Integer angle1 = scan.nextInt();
         Integer angle2 = scan.nextInt();
         Integer angle3 = scan.nextInt();
-        String result = "";
 
+        triangle result = checkTriangle(angle1, angle2, angle3);
+        System.out.print(result);
+    }
+
+    public static triangle checkTriangle(Integer angle1, Integer angle2, Integer angle3) {
         if (angle1 + angle2 + angle3 == 180) {
             if (angle1 == 60 && angle1 == angle2) {
-                result = equilateral;
+                return triangle.Equilateral;
             } else if (angle1 == angle2 || angle2 == angle3 || angle1 == angle3) {
-                result = isosceles;
+                return triangle.Isosceles;
             } else {
-                result = scalene;
+                return triangle.Scalene;
             }
-        } else {
-            result = error;
         }
-        System.out.print(result);
+        return triangle.Error;
+    }
+
+    enum triangle {
+        Equilateral, Isosceles, Scalene, Error;
     }
 }
 
