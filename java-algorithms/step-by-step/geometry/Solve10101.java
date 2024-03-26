@@ -40,7 +40,9 @@ public class Solve10101 {
 
         if (angle1 == 60 && angle1 == angle2) {
             return triangle.Equilateral;
-        } else if (angle1 == angle2 || angle2 == angle3 || angle1 == angle3) {
+        }
+
+        if (angle1 == angle2 || angle2 == angle3 || angle1 == angle3) {
             return triangle.Isosceles;
         }
         return triangle.Scalene;
