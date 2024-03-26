@@ -22,11 +22,6 @@ public class Solve14215 {
         Integer line2 = scan.nextInt();
         Integer line3 = scan.nextInt();
 
-        ArrayList<Integer> lineArr = new ArrayList<Integer>();
-        lineArr.add(line1);
-        lineArr.add(line2);
-        lineArr.add(line3);
-
         Integer result = getTriangleRound(line1, line2, line3);
         System.out.print(result);
     }
