@@ -27,7 +27,7 @@ public class Solve24313 {
         Integer resultA = a1 * n0 + a0;
         Integer resultC = c * n0;
 
-        // (a-c)n +b <= 0 가 성립하면 된다.
+        // (a1 - c)n + a0 <= 0 가 성립하면 된다.
         if (a1 - c > 0) {
             System.out.println(0);  // 기울기가 C가 더 작다면 언젠가 결국 N에 대하여 만족되지 않는다.
             return;
