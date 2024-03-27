@@ -48,6 +48,7 @@ public class Solve2798 {
                     if (j == k || i == k) {
                         continue;
                     }
+
                     Integer cardTot = cardList.get(i) + cardList.get(j) + cardList.get(k);
                     if (cardTot.equals(M)) {
                         resultTot = cardTot;
