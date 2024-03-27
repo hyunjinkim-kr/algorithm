@@ -18,25 +18,13 @@ public class Solve24263 {
         Scanner scan = new Scanner(System.in);
         Integer inputN = scan.nextInt();
         Integer result = 0;
-        result += menOfPassion(inputN);
 
         // 수행횟수
-        System.out.println(result);
+        System.out.println(1);
     }
 
-    public static Integer menOfPassion(Integer inputN) {
-        // 수행횟수
-        Integer sum = 0;
-        // 최고차항
-        Integer count = 0;
-
-        for (int i = 0; i < inputN; i++) {
-            sum += 1;
-        }
-        count += 1;
-
-        System.out.println(sum);
-        return count;
+    public static void menOfPassion(Integer inputN) {
+        System.out.println(inputN);
     }
 }
 
