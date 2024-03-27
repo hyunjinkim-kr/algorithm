@@ -31,17 +31,12 @@ public class Solve24313 {
         if (a1 - c > 0) {
             System.out.println(0);  // 기울기가 C가 더 작다면 언젠가 결국 N에 대하여 만족되지 않는다.
             return;
-        } else if (a1 == c) {    // 기울기가 같다면, B의 위치로 결정된다.
-            if (a0 <= 0) {
-                System.out.print(1);
-                return;
-            }
         }
 
-        if (resultC < resultA) { // 기울기가 C가 더 크다면, 최소값 비교로 확인 가능하다.
-            System.out.println(0);
+        if (resultC >= resultA) { // 기울기가 C가 더 크다면, 최소값 비교로 확인 가능하다.
+            System.out.println(1);
             return;
         }
-        System.out.print(1);
+        System.out.print(0);
     }
 }
