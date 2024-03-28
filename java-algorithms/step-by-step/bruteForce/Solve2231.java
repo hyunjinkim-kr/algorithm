@@ -26,24 +26,27 @@ public class Solve2231 {
         Integer result = 0;
         Integer digit = (int) Math.log10(num) + 1;
         Integer start = 0;
-        if (num - digit * 9 > 0){
+        if (num - digit * 9 > 0) {
             start = num - digit * 9;
         }
 
         for (int i = start; i < num; i++) {
-            Integer digitSum = 0;
-            String numStr = String.valueOf(i);
-
-            for (int j = 0; j < numStr.length(); j++) {
-                digitSum += Integer.parseInt(String.valueOf(numStr.charAt(j)));
-            }
-
-            if (num.equals(digitSum + i)) {
+            if (num.equals(i + getDigitSum(i))) {
                 result = i;
                 break;
             }
         }
         return result;
+    }
+
+    public static Integer getDigitSum(Integer num) {
+        Integer digitSum = 0;
+        String numStr = String.valueOf(num);
+
+        for (int j = 0; j < numStr.length(); j++) {
+            digitSum += Integer.parseInt(String.valueOf(numStr.charAt(j)));
+        }
+        return digitSum;
     }
 //    public static Integer getMinConstructor(Integer num) {
 //        Integer result = 0;
