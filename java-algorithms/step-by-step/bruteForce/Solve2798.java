@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 public class Solve2798 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // 문제 : 블랙잭
         // 해결책 : 재귀함수를 통한 접근법
         //
@@ -25,7 +25,7 @@ public class Solve2798 {
         Integer cardCount = scan.nextInt(); // 카드의 개수
         Integer M = scan.nextInt(); // 목표 숫자
 
-        Integer N = 3; // 뽑을 카드의 갯수
+        Integer N = 3; // 뽑을 카드의 개수
 
         ArrayList<Integer> arr = new ArrayList<>();
 
@@ -47,34 +47,34 @@ public class Solve2798 {
             return null;
         };
 
-        combination(0, arr.size(), N, setMax);
+        combination(arr.size(), N, setMax);
         System.out.print(max.value);
     }
 
-    public static void combination(Integer start,
-                              Integer end,
-                              Integer N,
-                              Function<ArrayList<Integer>, Void> f) {
-        combination_inner(start, end, N, f, new ArrayList<>());
+    public static void combination(Integer size,
+                              Integer n,
+                              Function<ArrayList<Integer>, Void> f) throws Exception {
+
+        if (size < n) {
+            throw new Exception("범위 부족 Error");
+        }
+
+        combination_inner(0, size, n, f, new ArrayList<>());
     }
 
     public static void combination_inner(Integer start,
                             Integer end,
-                            Integer N,
+                            Integer n,
                             Function<ArrayList<Integer>, Void> f,
                             ArrayList<Integer> acc) {
-        if (N == 0) {
+        if (n == 0) {
             f.apply(acc);
             return;
         }
-        
-        if (end - start < N) {
-            // TODO: 범위 부족 Error
-        }
 
-        for (int i = start; i <= end - N; i++) {
+        for (int i = start; i <= end - n; i++) {
             acc.add(i);
-            combination_inner(i + 1, end,N - 1, f, acc);
+            combination_inner(i + 1, end,n - 1, f, acc);
             acc.remove(acc.size() - 1);
         }
     }
