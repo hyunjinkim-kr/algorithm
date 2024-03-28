@@ -30,9 +30,11 @@ public class Solve19532 {
                                     Integer d,
                                     Integer e,
                                     Integer f) {
+        //1.해결책 연립방정식 풀이
         Integer y = (c * d - f * a) / (b * d - e * a);
         Integer x = (c * e - b * f) / (a * e - b * d);
 
+        //2. 역행렬 공식을 푼다.
         System.out.print(x + " " + y);
     }
 }
