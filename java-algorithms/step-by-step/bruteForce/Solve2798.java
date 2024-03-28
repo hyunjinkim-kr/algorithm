@@ -38,7 +38,7 @@ public class Solve2798 {
         // closure
         Function<ArrayList<Integer>, Void> setMax = comb -> {
             Integer sum = 0;
-            for (Integer idx: comb) {
+            for (Integer idx : comb) {
                 sum += arr.get(idx);
             }
             if (sum > max.value && sum <= M) {
@@ -52,8 +52,8 @@ public class Solve2798 {
     }
 
     public static void combination(Integer size,
-                              Integer n,
-                              Function<ArrayList<Integer>, Void> f) throws Exception {
+                                   Integer n,
+                                   Function<ArrayList<Integer>, Void> f) throws Exception {
 
         if (size < n) {
             throw new Exception("범위 부족 Error");
@@ -63,10 +63,10 @@ public class Solve2798 {
     }
 
     public static void combination_inner(Integer start,
-                            Integer end,
-                            Integer n,
-                            Function<ArrayList<Integer>, Void> f,
-                            ArrayList<Integer> acc) {
+                                         Integer end,
+                                         Integer n,
+                                         Function<ArrayList<Integer>, Void> f,
+                                         ArrayList<Integer> acc) {
         if (n == 0) {
             f.apply(acc);
             return;
@@ -74,7 +74,7 @@ public class Solve2798 {
 
         for (int i = start; i <= end - n; i++) {
             acc.add(i);
-            combination_inner(i + 1, end,n - 1, f, acc);
+            combination_inner(i + 1, end, n - 1, f, acc);
             acc.remove(acc.size() - 1);
         }
     }
