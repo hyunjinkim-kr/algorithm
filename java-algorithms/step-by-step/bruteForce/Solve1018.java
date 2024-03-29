@@ -26,6 +26,10 @@ public class Solve1018 {
     //
     // 시간복잡도 : O(N^2)
 
+    // Integer.toBinaryString() 사용하여 비트마스크 하는 방법도 있습니다.
+    // 참고 : https://cornarong.tistory.com/49
+    // 기타 방법 : 슬라이딩 윈도우, 뭔가 궁금하면 tagged pointer를 검색하기.
+
     public static void main(String[] args) throws IOException {
         final Integer chessXy = 8;
 
@@ -66,9 +70,8 @@ public class Solve1018 {
         final String w = "W";
         final String b = "B";
 
-        Integer lowerCount = 2500;
+        Integer lowerCount = 64;
         Integer count1 = 0;
-        Integer count2 = 0;
 
         // 탐색지점에따라 8칸씩 바뀔 문자 개수 저장
         for (int i = y; i < y + chessXy; i++) {
@@ -78,34 +81,26 @@ public class Solve1018 {
                     if (j % 2 == 0) {
                         if (block.equals(b)) {
                             count1++;
-                        } else {
-                            count2++;
                         }
                     } else {
                         if (block.equals(w)) {
                             count1++;
-                        } else {
-                            count2++;
                         }
                     }
                 } else {
                     if (j % 2 == 0) {
                         if (block.equals(w)) {
                             count1++;
-                        } else {
-                            count2++;
                         }
                     } else {
                         if (block.equals(b)) {
                             count1++;
-                        } else {
-                            count2++;
                         }
                     }
                 }
             }
         }
-        lowerCount = (int) Math.min(count1, count2);
+        lowerCount = (int) Math.min(count1, lowerCount - count1);
         return lowerCount;
     }
 }
