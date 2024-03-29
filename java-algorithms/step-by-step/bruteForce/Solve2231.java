@@ -31,7 +31,7 @@ public class Solve2231 {
         }
 
         for (int i = start; i < num; i++) {
-            if (num.equals(i + getDigitSum(i))) {
+            if (num.equals(i + getDigitSum(i, digit))) {
                 result = i;
                 break;
             }
@@ -39,12 +39,14 @@ public class Solve2231 {
         return result;
     }
 
-    public static Integer getDigitSum(Integer num) {
+    public static Integer getDigitSum(Integer num, Integer digit) {
         Integer digitSum = 0;
-        String numStr = String.valueOf(num);
+        //String numStr = String.valueOf(num);
 
-        for (int j = 0; j < numStr.length(); j++) {
-            digitSum += Integer.parseInt(String.valueOf(numStr.charAt(j)));
+        for (int j = 0; j < digit; j++) {
+            digitSum += num % 10;
+            num /= 10;
+            //Integer.parseInt(String.valueOf(numStr.charAt(j)));
         }
         return digitSum;
     }
