@@ -24,7 +24,6 @@ public class Solve2839 {
     }
 
     public static Integer isValidBongji(Integer testNum) {
-
         for (int i = testNum / 5; i >= 0; i--) {
             if ((testNum - 5 * i) % 3 == 0) {
                 return (testNum - 5 * i) / 3 + i;
