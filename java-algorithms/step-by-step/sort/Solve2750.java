@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class Solve2750 {
     public static void main(String[] args) throws IOException {
@@ -24,15 +25,12 @@ public class Solve2750 {
         Integer numCnt = scan.nextInt();
         ArrayList<Integer> numArr = new ArrayList<>();
 
-        for (int i = 0; i < numCnt; i++) {
-            Integer num = scan.nextInt();
-            numArr.add(num);
-        }
+        IntStream.range(0,numCnt).forEach(s -> numArr.add(scan.nextInt()));
 
         Collections.sort(numArr);
 
-        for (int i = 0; i < numCnt; i++) {
-            System.out.println(numArr.get(i));
+        for (Integer value : numArr) {
+            System.out.println(value);
         }
     }
 }
