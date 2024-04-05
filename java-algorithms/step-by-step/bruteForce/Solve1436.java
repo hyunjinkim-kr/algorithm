@@ -20,14 +20,11 @@ public class Solve1436 {
         Integer num = scan.nextInt(); // 입력받은 숫자
 
         Integer testNum = 0;
-        while (true){
+        while (!num.equals(0)){
+            testNum++;
             if(isValid666(testNum)){
                 num--;
-                if(num.equals(0)){
-                    break;
-                }
             }
-            testNum++;
         }
 
         System.out.print(testNum);
