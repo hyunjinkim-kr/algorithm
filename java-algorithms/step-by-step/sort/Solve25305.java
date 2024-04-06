@@ -28,11 +28,6 @@ public class Solve25305 {
         IntStream.range(0, peopleCnt).forEach(s -> numArr.add(scan.nextInt()));
         // 내림차순으로 정렬
         Collections.sort(numArr, Comparator.reverseOrder());
-        showResult(numArr, cutLine);
-    }
-
-    public static void showResult(ArrayList<Integer> numArr, Integer cutLine) {
-        // 중간값
         System.out.println(numArr.get(cutLine - 1));
     }
 }

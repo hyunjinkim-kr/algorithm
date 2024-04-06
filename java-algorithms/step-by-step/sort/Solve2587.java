@@ -25,10 +25,7 @@ public class Solve2587 {
 
         IntStream.range(0, numCnt).forEach(s -> numArr.add(scan.nextInt()));
         Collections.sort(numArr);
-        showResult(numArr);
-    }
 
-    public static void showResult(ArrayList<Integer> numArr) {
         Integer sum = 0;
         for (Integer value : numArr) {
             sum += value;
