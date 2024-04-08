@@ -6,7 +6,7 @@ import java.util.*;
 public class Solve10989 {
     public static void main(String[] args) throws IOException {
         // 문제 : 수 정렬하기 3
-        // 수를 입력받고 정렬하기
+        // 해결책 : 계수정렬 적용하기
         //
         // N : 숫자를 입력하는 횟수
         // arr : 10001개 짜리 수열 (수가 입력될때마다 카운트를 저장)
