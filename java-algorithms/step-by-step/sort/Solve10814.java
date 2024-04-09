@@ -21,10 +21,10 @@ public class Solve10814 {
         //
         // -- 시간복잡도 : O(N)
 
-        ArrayList<MyPair3<Integer,String>> peopleArr = new ArrayList<>();
+        ArrayList<MyPair3<Integer, String>> peopleArr = new ArrayList<>();
 
         try (InputStreamReader isr = new InputStreamReader(System.in)) {
-            try(BufferedReader br = new BufferedReader(isr)) {
+            try (BufferedReader br = new BufferedReader(isr)) {
                 // Logic 구현부
                 Integer peopleCnt = Integer.parseInt(br.readLine());
 
@@ -35,16 +35,16 @@ public class Solve10814 {
                     Integer age = Integer.parseInt(st.nextToken());
                     String name = st.nextToken();
 
-                    MyPair3<Integer,String> mp = MyPair3.of(age, name);
+                    MyPair3<Integer, String> mp = MyPair3.of(age, name);
                     peopleArr.add(mp);
                 }
                 peopleArr.sort(Comparator.comparing((MyPair3<Integer, String> list) -> list.getFirst(), Comparator.naturalOrder()));
             }
         }
 
-        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))){
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
             for (int i = 0; i < peopleArr.size(); i++) {
-                bw.write(peopleArr.get(i).getFirst()+ " " + peopleArr.get(i).getSecond() + "\n");
+                bw.write(peopleArr.get(i).getFirst() + " " + peopleArr.get(i).getSecond() + "\n");
             }
         }
     }
