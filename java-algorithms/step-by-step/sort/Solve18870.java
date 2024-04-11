@@ -6,7 +6,7 @@ import java.util.*;
 public class Solve18870 {
     public static void main(String[] args) throws IOException {
         // 문제 : 좌표 압축
-        // 해결책 : 입력받은 숫자에 대하여 오름차순으로 정렬된 순번을 지정하고, 입력받은 순서대로 출력한다.
+        // 해결책 : 입력받은 숫자에 대하여 오름차순으로 정렬한 후, 정렬된 순서를 입력받은 순서대로 출력한다.
         //
         // N : 입력받은 숫자의 개수
         // tp : 숫자 세개를 받는 튜플리스트. 
