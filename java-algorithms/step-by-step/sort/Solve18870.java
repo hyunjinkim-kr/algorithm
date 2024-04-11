@@ -47,23 +47,22 @@ public class Solve18870 {
         coordArr.sort(Comparator.comparing((MyTuple2<Integer, Integer> list) -> list.second, Comparator.naturalOrder()));
 
         Integer count = 0;
-        ArrayList<Integer> ResultArr = new ArrayList<>(Collections.nCopies(coordArr.size(), 0));
+        ArrayList<Integer> resultArr = new ArrayList<>(Collections.nCopies(coordArr.size(), 0));
 
         for (int i = 1; i < coordArr.size(); i++) {
-            MyTuple2<Integer, Integer> mp = coordArr.get(i - 1);
-            if (mp.second.equals(coordArr.get(i).second)) {
-                ResultArr.set(coordArr.get(i).first, count);
-                continue;
+            MyTuple2<Integer, Integer> prev = coordArr.get(i - 1);
+            MyTuple2<Integer, Integer> curr = coordArr.get(i);
+            if (!prev.second.equals(curr.second)) {
+                count++;
             }
-            count++;
-            ResultArr.set(coordArr.get(i).first, count);
+            resultArr.set(curr.first, count);
         }
 
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out)) {
             try (BufferedWriter bw = new BufferedWriter(osw)) {
                 for (int i = 0; i < coordArr.size(); i++) {
                     // 정렬된 순서 출력
-                    bw.write(ResultArr.get(i) + " ");
+                    bw.write(resultArr.get(i) + " ");
                 }
             }
         }
