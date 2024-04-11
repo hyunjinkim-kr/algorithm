@@ -29,14 +29,20 @@ public class Solve7785 {
 
                 for (int i = 0; i < checkCnt; i++) {
                     StringTokenizer st = new StringTokenizer(br.readLine());
-                    String name = st.nextToken();
-                    String status = st.nextToken();
 
-                    if(status.equals(StatusType.enter.toString())){
-                        hm.add(name);
-                        continue;
+                    String nameInput = st.nextToken();
+                    String statusInput = st.nextToken();
+
+                    Status status = switch (statusInput) {
+                        case "enter" -> Status.enter;
+                        case "leave" -> Status.leave;
+                        default -> throw new IllegalArgumentException("Unreachable value: " + nameInput + ", " + statusInput);
+                    };
+
+                    switch (status){
+                        case enter -> hm.add(nameInput);
+                        case leave -> hm.remove(nameInput);
                     }
-                    hm.remove(name);
                 }
             }
         }
@@ -52,6 +58,6 @@ public class Solve7785 {
     }
 }
 
-enum StatusType {
+enum Status {
     enter, leave;
 };
