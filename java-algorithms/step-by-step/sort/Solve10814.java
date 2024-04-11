@@ -42,9 +42,11 @@ public class Solve10814 {
             }
         }
 
-        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
-            for (int i = 0; i < peopleArr.size(); i++) {
-                bw.write(peopleArr.get(i).getFirst() + " " + peopleArr.get(i).getSecond() + "\n");
+        try (OutputStreamWriter osw = new OutputStreamWriter(System.out)) {
+            try (BufferedWriter bw = new BufferedWriter(osw)) {
+                for (int i = 0; i < peopleArr.size(); i++) {
+                    bw.write(peopleArr.get(i).getFirst() + " " + peopleArr.get(i).getSecond() + "\n");
+                }
             }
         }
     }
