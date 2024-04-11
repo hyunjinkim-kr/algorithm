@@ -33,15 +33,15 @@ public class Solve7785 {
                     String nameInput = st.nextToken();
                     String statusInput = st.nextToken();
 
-                    Status status = switch (statusInput) {
-                        case "enter" -> Status.enter;
-                        case "leave" -> Status.leave;
-                        default -> throw new IllegalArgumentException("Unreachable value: " + nameInput + ", " + statusInput);
-                    };
-
-                    switch (status){
-                        case enter -> hm.add(nameInput);
-                        case leave -> hm.remove(nameInput);
+                    try {
+                        Status status = Enum.valueOf(Status.class, statusInput);
+                        switch (status){
+                            case enter -> hm.add(nameInput);
+                            case leave -> hm.remove(nameInput);
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e + " : " + statusInput);
+                        break;
                     }
                 }
             }
