@@ -30,9 +30,7 @@ public class Solve18870 {
         //
         // -- 시간복잡도 : O(NlogN)
 
-        ArrayList<MyPair4<Integer, Integer>> coordArr = new ArrayList<>();
-        ArrayList<MyPair4<Integer, Integer>> ResultArr = new ArrayList<>();
-
+        ArrayList<MyTuple2<Integer, Integer>> coordArr = new ArrayList<>();
         try (InputStreamReader isr = new InputStreamReader(System.in)) {
             try (BufferedReader br = new BufferedReader(isr)) {
                 // Logic 구현부
@@ -41,53 +39,50 @@ public class Solve18870 {
 
                 for (int i = 0; i < coordCnt; i++) {
                     Integer coord = Integer.parseInt(st.nextToken());
-                    MyPair4<Integer, Integer> mp = MyPair4.of(i, coord);
-                    MyPair4<Integer, Integer> mp2 = MyPair4.of(i, 0);
+                    MyTuple2<Integer, Integer> mp = MyTuple2.of(i, coord);
                     coordArr.add(mp);
-                    ResultArr.add(mp2);
                 }
             }
-            // 복사를 해놓은 후,정렬된 순서를 가져와야 한다.
-            // 입력받은 숫자순으로 정렬
-            coordArr.sort(Comparator.comparing((MyPair4<Integer, Integer> list) -> list.getSecond(), Comparator.naturalOrder()));
+        }
+        // 입력받은 숫자순으로 정렬
+        coordArr.sort(Comparator.comparing((MyTuple2<Integer, Integer> list) -> list.getSecond(), Comparator.naturalOrder()));
 
-            Integer count = 0;
-            ResultArr.get(coordArr.get(0).getFirst()).setSecond(count);
+        Integer count = 0;
+        ArrayList<Integer> ResultArr = new ArrayList<>(Collections.nCopies(coordArr.size(), 0));
+        ResultArr.set(coordArr.get(0).getFirst(), count);
 
-            for (int i = 1; i < coordArr.size(); i++) {
-                MyPair4<Integer, Integer> mp = coordArr.get(i - 1);
-                if (mp.getSecond().equals(coordArr.get(i).getSecond())) {
-                    ResultArr.get(coordArr.get(i).getFirst()).setSecond(count);
-                    continue;
-                }
-                count++;
-                ResultArr.get(coordArr.get(i).getFirst()).setSecond(count);
+        for (int i = 1; i < coordArr.size(); i++) {
+            MyTuple2<Integer, Integer> mp = coordArr.get(i - 1);
+            if (mp.getSecond().equals(coordArr.get(i).getSecond())) {
+                ResultArr.set(coordArr.get(i).getFirst(), count);
+                continue;
             }
+            count++;
+            ResultArr.set(coordArr.get(i).getFirst(), count);
         }
 
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out)) {
             try (BufferedWriter bw = new BufferedWriter(osw)) {
                 for (int i = 0; i < coordArr.size(); i++) {
                     // 정렬된 순서 출력
-                    bw.write(ResultArr.get(i).getSecond() + " ");
+                    bw.write(ResultArr.get(i) + " ");
                 }
             }
         }
-
     }
 }
 
-class MyPair4<T, U> {
+class MyTuple2<T, U> {
     private T first;
     private U second;
 
-    public MyPair4(T first, U second) {
+    public MyTuple2(T first, U second) {
         this.first = first;
         this.second = second;
     }
 
-    public static <T, U> MyPair4<T, U> of(T first, U second) {
-        return new MyPair4<>(first, second);
+    public static <T, U> MyTuple2<T, U> of(T first, U second) {
+        return new MyTuple2<>(first, second);
     }
 
     public T getFirst() {
@@ -111,49 +106,49 @@ class MyPair4<T, U> {
         return "(" + first + ", " + second + ")";
     }
 }
-
-class MyTuple<T, U, X> {
-    private T first;
-    private U second;
-
-    private X third;
-
-    public MyTuple(T first, U second, X third) {
-        this.first = first;
-        this.second = second;
-        this.third = third;
-    }
-
-    public static <T, U, X> MyTuple<T, U, X> of(T first, U second, X third) {
-        return new MyTuple<>(first, second, third);
-    }
-
-    public T getFirst() {
-        return first;
-    }
-
-    public U getSecond() {
-        return second;
-    }
-
-    public X getThird() {
-        return third;
-    }
-
-    public void setFirst(T first) {
-        this.first = first;
-    }
-
-    public void setSecond(U second) {
-        this.second = second;
-    }
-
-    public void setThird(X third) {
-        this.third = third;
-    }
-
-    @Override
-    public String toString() {
-        return "(" + first + ", " + second + ", " + third + ")";
-    }
-}
+//
+//class MyTuple<T, U, X> {
+//    private T first;
+//    private U second;
+//
+//    private X third;
+//
+//    public MyTuple(T first, U second, X third) {
+//        this.first = first;
+//        this.second = second;
+//        this.third = third;
+//    }
+//
+//    public static <T, U, X> MyTuple<T, U, X> of(T first, U second, X third) {
+//        return new MyTuple<>(first, second, third);
+//    }
+//
+//    public T getFirst() {
+//        return first;
+//    }
+//
+//    public U getSecond() {
+//        return second;
+//    }
+//
+//    public X getThird() {
+//        return third;
+//    }
+//
+//    public void setFirst(T first) {
+//        this.first = first;
+//    }
+//
+//    public void setSecond(U second) {
+//        this.second = second;
+//    }
+//
+//    public void setThird(X third) {
+//        this.third = third;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "(" + first + ", " + second + ", " + third + ")";
+//    }
+//}
