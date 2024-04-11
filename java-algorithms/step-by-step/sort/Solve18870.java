@@ -12,18 +12,17 @@ public class Solve18870 {
         // C : 숫자 두개를 받는 pair 리스트
         //  -- n1 : 입력받은 순서
         //  -- n2 : 입력받은 숫자
-        // R : 입력받은 순서와 정렬된 순서를 가지는 pair 결과 리스트
-        //  -- n1' : 입력받은 순서 (n1과 동일)
-        //  -- n2' : 정렬된 순서
+        // R : 입력받은 순서와 정렬된 순서를 가지는 결과 리스트
+        //  -- n1' : 정렬된 순서
         //
         // 1. 숫자를 입력받는다.
         // 2. 배열 C에 입력받은 순서와 숫자 n1,n2 를 각각 넣는다.
         // -- 복잡도 : N
         // 3. 배열 C를 입력받은 숫자 n2 에 따라 오름차순으로 정렬한다.
         // -- 복잡도 : NlogN
-        // 4. n2가 정렬된 순서에따라 R 의 n1' 과 n2' 를 설정한다.
-        //  -- n1 과 n1'은 같으므로, 키값역할을 한다.
-        //  -- 단, n2가 같을때는 n2'는 증가하지 않는다.
+        // 4. n2가 정렬된 순서에따라 R 의 n1' 을 설정한다.
+        //  -- n1 과 R의 인덱스는 같으므로, 키값역할을 한다.
+        //  -- 단, n2가 같을때는 n1'는 증가하지 않는다.
         // -- 복잡도 : N
         // 5. 출력
         // -- 복잡도 : N
@@ -45,20 +44,19 @@ public class Solve18870 {
             }
         }
         // 입력받은 숫자순으로 정렬
-        coordArr.sort(Comparator.comparing((MyTuple2<Integer, Integer> list) -> list.getSecond(), Comparator.naturalOrder()));
+        coordArr.sort(Comparator.comparing((MyTuple2<Integer, Integer> list) -> list.second, Comparator.naturalOrder()));
 
         Integer count = 0;
         ArrayList<Integer> ResultArr = new ArrayList<>(Collections.nCopies(coordArr.size(), 0));
-        ResultArr.set(coordArr.get(0).getFirst(), count);
 
         for (int i = 1; i < coordArr.size(); i++) {
             MyTuple2<Integer, Integer> mp = coordArr.get(i - 1);
-            if (mp.getSecond().equals(coordArr.get(i).getSecond())) {
-                ResultArr.set(coordArr.get(i).getFirst(), count);
+            if (mp.second.equals(coordArr.get(i).second)) {
+                ResultArr.set(coordArr.get(i).first, count);
                 continue;
             }
             count++;
-            ResultArr.set(coordArr.get(i).getFirst(), count);
+            ResultArr.set(coordArr.get(i).first, count);
         }
 
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out)) {
@@ -73,8 +71,8 @@ public class Solve18870 {
 }
 
 class MyTuple2<T, U> {
-    private T first;
-    private U second;
+    public T first;
+    public U second;
 
     public MyTuple2(T first, U second) {
         this.first = first;
@@ -85,70 +83,8 @@ class MyTuple2<T, U> {
         return new MyTuple2<>(first, second);
     }
 
-    public T getFirst() {
-        return first;
-    }
-
-    public U getSecond() {
-        return second;
-    }
-
-    public void setFirst(T first) {
-        this.first = first;
-    }
-
-    public void setSecond(U second) {
-        this.second = second;
-    }
-
     @Override
     public String toString() {
         return "(" + first + ", " + second + ")";
     }
 }
-//
-//class MyTuple<T, U, X> {
-//    private T first;
-//    private U second;
-//
-//    private X third;
-//
-//    public MyTuple(T first, U second, X third) {
-//        this.first = first;
-//        this.second = second;
-//        this.third = third;
-//    }
-//
-//    public static <T, U, X> MyTuple<T, U, X> of(T first, U second, X third) {
-//        return new MyTuple<>(first, second, third);
-//    }
-//
-//    public T getFirst() {
-//        return first;
-//    }
-//
-//    public U getSecond() {
-//        return second;
-//    }
-//
-//    public X getThird() {
-//        return third;
-//    }
-//
-//    public void setFirst(T first) {
-//        this.first = first;
-//    }
-//
-//    public void setSecond(U second) {
-//        this.second = second;
-//    }
-//
-//    public void setThird(X third) {
-//        this.third = third;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "(" + first + ", " + second + ", " + third + ")";
-//    }
-//}
