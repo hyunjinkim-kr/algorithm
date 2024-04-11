@@ -2,6 +2,7 @@ package sort;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Solve18870 {
     public static void main(String[] args) throws IOException {
@@ -60,10 +61,8 @@ public class Solve18870 {
 
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out)) {
             try (BufferedWriter bw = new BufferedWriter(osw)) {
-                for (int i = 0; i < coordArr.size(); i++) {
-                    // 정렬된 순서 출력
-                    bw.write(resultArr.get(i) + " ");
-                }
+                final String join2 = resultArr.stream().map(String::valueOf).collect(Collectors.joining(" "));
+                bw.write(join2);
             }
         }
     }
