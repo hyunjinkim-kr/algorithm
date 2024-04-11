@@ -13,17 +13,15 @@ public class Solve10815 {
         // H : 숫자를 저장할 hashSet
         // N : 저장된 숫자 개수
         // R : 테스트 결과를 저장하는 리스트
-        // N' : 테스트 숫자 개수
+        // M : 테스트 숫자 개수
         //
         // 1. 입력받은 숫자 N개를 저장한다.
         // 복잡도 : N
-        // 2. 테스트 숫자가 H에 저장되어있는지 확인하고 결과를 R에 저장한다.
-        // 복잡도 : 2 * N'
-        // 3. 테스트 결과를 출력한다.
-        // 복잡도 : N'
+        // 2. 테스트 숫자가 H에 저장되어있는지 확인하고 결과를 R에 저장한다. 그후, R을 출력한다.
+        // 복잡도 : M
         //
         // 시간복잡도 : O(N)
-        HashSet hm = new HashSet<>();
+        HashSet<Object> hm = new HashSet<>();
         ArrayList<Integer> resultArr = new ArrayList<>();
 
         try (InputStreamReader isr = new InputStreamReader(System.in)) {
