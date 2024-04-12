@@ -30,8 +30,8 @@ public class Solve10816 {
             // 저장
             for (int i = 0; i < inputCnt; i++) {
                 Integer inputNum = Integer.parseInt(st.nextToken());
-                Integer numCount = map.getOrDefault(inputNum, 0);
-                map.put(inputNum, numCount + 1);
+                Integer cnt = map.getOrDefault(inputNum, 0);
+                map.put(inputNum, cnt + 1);
             }
             testCnt = Integer.parseInt(br.readLine());
             st2 = new StringTokenizer(br.readLine());
