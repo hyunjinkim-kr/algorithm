@@ -22,7 +22,7 @@ public class Solve10816 {
         HashMap<Integer, Integer> map = new HashMap<>();
 
         try (InputStreamReader isr = new InputStreamReader(System.in);
-             BufferedReader br = new BufferedReader(isr);
+             BufferedReader br = new BufferedReader(isr)
         ) {
             // Logic 구현부
             Integer inputCnt = Integer.parseInt(br.readLine());
