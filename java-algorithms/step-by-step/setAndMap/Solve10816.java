@@ -17,34 +17,33 @@ public class Solve10816 {
         // -- 복잡도 : M
         //
         // 시간복잡도 : O(N)
+        Integer testCnt;
+        StringTokenizer st2;
+        HashMap<Integer, Integer> map = new HashMap<>();
+
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr);
         ) {
             // Logic 구현부
             Integer inputCnt = Integer.parseInt(br.readLine());
-            HashMap<Integer, Integer> map = new HashMap<>();
             StringTokenizer st = new StringTokenizer(br.readLine());
             // 저장
             for (int i = 0; i < inputCnt; i++) {
                 Integer inputNum = Integer.parseInt(st.nextToken());
-                if (map.containsKey(inputNum)) {
-                    Integer numCount = map.get(inputNum);
-                    map.put(inputNum, numCount + 1);
-                    continue;
-                }
-                map.put(inputNum, 1);
+                Integer numCount = map.getOrDefault(inputNum, 0);
+                map.put(inputNum, numCount + 1);
             }
+            testCnt = Integer.parseInt(br.readLine());
+            st2 = new StringTokenizer(br.readLine());
+        }
 
-            try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
-                 BufferedWriter bw = new BufferedWriter(osw)
-            ) {
-                Integer testCnt = Integer.parseInt(br.readLine());
-                StringTokenizer st2 = new StringTokenizer(br.readLine());
-                for (int j = 0; j < testCnt; j++) {
-                    Integer testValue = Integer.parseInt(st2.nextToken());
-                    Integer result = map.getOrDefault(testValue, 0);
-                    bw.write(result + " ");
-                }
+        try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
+             BufferedWriter bw = new BufferedWriter(osw)
+        ) {
+            for (int j = 0; j < testCnt; j++) {
+                Integer testValue = Integer.parseInt(st2.nextToken());
+                Integer result = map.getOrDefault(testValue, 0);
+                bw.write(result + " ");
             }
         }
     }
