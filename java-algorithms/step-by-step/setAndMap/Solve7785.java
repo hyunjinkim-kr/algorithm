@@ -33,15 +33,10 @@ public class Solve7785 {
                     String nameInput = st.nextToken();
                     String statusInput = st.nextToken();
 
-                    try {
-                        Status status = Enum.valueOf(Status.class, statusInput);
-                        switch (status){
-                            case enter -> hm.add(nameInput);
-                            case leave -> hm.remove(nameInput);
-                        }
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e + " : " + statusInput);
-                        break;
+                    Status status = Enum.valueOf(Status.class, statusInput);
+                    switch (status){
+                        case enter -> hm.add(nameInput);
+                        case leave -> hm.remove(nameInput);
                     }
                 }
             }
