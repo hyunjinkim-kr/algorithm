@@ -3,7 +3,7 @@ package setAndMap;
 import java.io.*;
 import java.util.*;
 
-public class Solve1764 {
+public class Solve1764_2 {
     public static void main(String[] args) throws IOException {
         // 문제 : 듣보잡
         // 해결책 : 듣못 명단에 사람을 넣고, 보못 명단에 추가될 사람이 있으면 결과 리스트에 넣은후 정렬한다.
