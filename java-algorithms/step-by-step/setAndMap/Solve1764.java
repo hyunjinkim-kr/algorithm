@@ -23,7 +23,7 @@ public class Solve1764 {
         //
         // 시간복잡도 : O(NlogN)
         HashSet<String> unknownSet = new HashSet<>();
-        ArrayList<String> unknownResArr = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
 
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)
@@ -41,16 +41,18 @@ public class Solve1764 {
             for (int j = 0; j < testCnt; j++) {
                 String findName = br.readLine();
                 if(unknownSet.contains(findName)){
-                    unknownResArr.add(findName);
+                    result.add(findName);
                 }
             }
-            unknownResArr.sort(Comparator.naturalOrder());
         }
+
+        result.sort(Comparator.naturalOrder());
+
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
              BufferedWriter bw = new BufferedWriter(osw)
         ) {
-            bw.write(unknownResArr.size() + "\n");
-            for (String val : unknownResArr){
+            bw.write(result.size() + "\n");
+            for (String val : result){
                 bw.write(val + "\n");
             }
         }
