@@ -11,19 +11,17 @@ public class Solve1764 {
         // H : 듣도못한 사람을 저장할 hashSet
         // N : 듣도못한 사람 수
         // M : 보도못한 사람 수
-        // R : 공통되는 사람의 이름이 저장되는 리스트
-        // N" : 듣도보도못한 사람 수
         //
         // 1. 입력받은 숫자 N개만큼 듣도못한 사람을 저장한다.
         // 복잡도 : N
-        // 2. 보도못한 사람을 M번 입력받는다. 듣도못한사람 H에 이름이 있으면, 공통되는 리스트 R에 저장한다.
-        // 복잡도 : 2 * M
-        // 3. R을 사전순으로 정렬한다.
-        // 복잡도 : N"logN"
+        // 2. 입력받은 숫자 M개만큼 보도못한 사람을 저장한다.
+        // 복잡도 : M
+        // 3. 공통된 사람을 추려낸다.
+        // 복잡도 : N * log M
         //
         // 시간복잡도 : O(NlogN)
-        HashSet<String> unknownSet = new HashSet<>();
-        ArrayList<String> result = new ArrayList<>();
+        TreeSet<String> unknownSet1 = new TreeSet<>(Comparator.naturalOrder());
+        TreeSet<String> unknownSet2 = new TreeSet<>();
 
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)
@@ -35,24 +33,23 @@ public class Solve1764 {
             // 저장
             for (int i = 0; i < inputCnt; i++) {
                 String inputName = br.readLine();
-                unknownSet.add(inputName);
+                unknownSet1.add(inputName);
             }
 
             for (int j = 0; j < testCnt; j++) {
                 String findName = br.readLine();
-                if(unknownSet.contains(findName)){
-                    result.add(findName);
-                }
+                unknownSet2.add(findName);
             }
         }
 
-        result.sort(Comparator.naturalOrder());
+        // 공통된 사람 추려내기
+        unknownSet1.retainAll(unknownSet2);
 
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
              BufferedWriter bw = new BufferedWriter(osw)
         ) {
-            bw.write(result.size() + "\n");
-            for (String val : result){
+            bw.write(unknownSet1.size() + "\n");
+            for (String val : unknownSet1){
                 bw.write(val + "\n");
             }
         }
