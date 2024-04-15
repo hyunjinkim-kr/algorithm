@@ -18,7 +18,7 @@ public class Solve1269_2 {
         // 복잡도 : M
         // 3. 집합의 갯수를 출력한다.
         //
-        // 시간복잡도 : O(NlogN)
+        // 시간복잡도 : O(N)
         HashSet<Integer> set1 = new HashSet<>();
         Integer inputCnt;
         Integer testCnt;
