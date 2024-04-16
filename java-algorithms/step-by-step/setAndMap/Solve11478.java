@@ -23,22 +23,26 @@ public class Solve11478 {
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)
         ) {
-            // Logic 구현부
             String inputStr = br.readLine();
-            Integer strLength = inputStr.length();
-
-            for (int i = 0; i < strLength; i++) {
-                for (int j = i + 1; j < strLength + 1; j++) {
-                    String addWord = inputStr.substring(i, j);
-                    set1.add(addWord);
-                }
-            }
+            addWord(set1, inputStr);
         }
 
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
              BufferedWriter bw = new BufferedWriter(osw)
         ) {
             bw.write(set1.size() + "");
+        }
+    }
+
+    public static void addWord(HashSet<String> set1, String inputStr) {
+        // Logic 구현부
+        Integer strLength = inputStr.length();
+
+        for (int i = 0; i < strLength; i++) {
+            for (int j = i + 1; j < strLength + 1; j++) {
+                String addWord = inputStr.substring(i, j);
+                set1.add(addWord);
+            }
         }
     }
 }
