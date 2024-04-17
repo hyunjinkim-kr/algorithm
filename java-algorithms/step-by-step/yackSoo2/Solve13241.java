@@ -28,8 +28,8 @@ public class Solve13241 {
         ) {
             // Logic 구현부
             StringTokenizer st = new StringTokenizer(br.readLine());
-            long inputNum1 = Integer.parseInt(st.nextToken());
-            long inputNum2 = Integer.parseInt(st.nextToken());
+            long inputNum1 = Long.parseLong(st.nextToken());
+            long inputNum2 = Long.parseLong(st.nextToken());
             bw.write(getLCM(inputNum1, inputNum2) + "\n");
         }
     }
