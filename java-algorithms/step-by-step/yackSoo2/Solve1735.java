@@ -26,9 +26,9 @@ public class Solve1735 {
         // -- 연속된 피보나치 수열도 최악의 경우를 지님.
         // 시간복잡도 : O(log min(N, M))
 
-        BigInteger mol = BigInteger.valueOf(0);
-        BigInteger denom = BigInteger.valueOf(0);
-        BigInteger gcdNum = BigInteger.valueOf(0);
+        BigInteger mol;
+        BigInteger denom;
+        BigInteger gcdNum;
 
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)
@@ -54,16 +54,4 @@ public class Solve1735 {
         }
     }
 
-    public static Integer getGCD(Integer inputNum1, Integer inputNum2) {
-        // GCD(A,B) = B*x + R = GCD(B,R)
-        Integer A = inputNum1;
-        Integer B = inputNum2;
-
-        while (!B.equals(0)) {
-            Integer modNum = A % B;
-            A = B;
-            B = modNum;
-        }
-        return A;
-    }
 }
