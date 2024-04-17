@@ -1,6 +1,7 @@
 package yackSoo2;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.StringTokenizer;
 
 public class Solve1735 {
@@ -25,10 +26,12 @@ public class Solve1735 {
         // -- 연속된 피보나치 수열도 최악의 경우를 지님.
         // 시간복잡도 : O(log min(N, M))
 
+        BigInteger mol = BigInteger.valueOf(0);
+        BigInteger denom = BigInteger.valueOf(0);
+        BigInteger gcdNum = BigInteger.valueOf(0);
+
         try (InputStreamReader isr = new InputStreamReader(System.in);
-             BufferedReader br = new BufferedReader(isr);
-             OutputStreamWriter osw = new OutputStreamWriter(System.out);
-             BufferedWriter bw = new BufferedWriter(osw)
+             BufferedReader br = new BufferedReader(isr)
         ) {
             // Logic 구현부
             StringTokenizer st1 = new StringTokenizer(br.readLine());
@@ -40,11 +43,14 @@ public class Solve1735 {
             Integer st2Mol = Integer.parseInt(st2.nextToken());
             Integer st2Denom = Integer.parseInt(st2.nextToken());
 
-            Integer mol = (st1Mol * st2Denom) + (st1Denom * st2Mol);
-            Integer denom = st1Denom * st2Denom;
-            Integer gcdNum = getGCD(mol, denom);
+            mol = BigInteger.valueOf((st1Mol * st2Denom) + (st1Denom * st2Mol));
+            denom = BigInteger.valueOf(st1Denom * st2Denom);
+            gcdNum = mol.gcd(denom);
+        }
 
-            bw.write(mol / gcdNum + " " + denom / gcdNum);
+        try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
+             BufferedWriter bw = new BufferedWriter(osw)) {
+            bw.write(mol.divide(gcdNum) + " " + denom.divide(gcdNum));
         }
     }
 
