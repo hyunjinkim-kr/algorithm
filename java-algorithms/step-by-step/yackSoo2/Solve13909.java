@@ -1,9 +1,6 @@
 package yackSoo2;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.TreeSet;
 
 public class Solve13909 {
     // 문제 : 창문 닫기
@@ -16,18 +13,18 @@ public class Solve13909 {
     // N : 입력받은 수
     //
     // 1. 입력받은 수 N을 제곱근하여 출력한다.
-    // 시간복잡도 : O(N)
+    // 시간복잡도 : O(1)
     public static void main(String[] args) throws IOException {
-        double no1Sqrt;
+        Integer no1Sqrt;
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)
         ) {
             Integer maxSize = Integer.parseInt(br.readLine());
-            no1Sqrt = Math.sqrt(maxSize);
+            no1Sqrt = (int) Math.sqrt(maxSize);
         }
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
              BufferedWriter bw = new BufferedWriter(osw)) {
-            bw.write((int)no1Sqrt + "");
+            bw.write(no1Sqrt + "");
         }
     }
 }
