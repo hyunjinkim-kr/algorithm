@@ -67,8 +67,7 @@ public class Solve4949 {
                 if (!vpsArr.isEmpty()) {
                     result = "no";
                 }
-                bw.write(result);
-                bw.flush();
+                System.out.println(result);
             }
         }
     }
