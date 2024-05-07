@@ -9,16 +9,19 @@ public class Solve11866_2 {
     //
     // 해결책 : 덱으로 풀어보자.
     //
-    // N : 입력되는 명령의 개수
-    // M : 입력되는 명령에 따라 수정되는 리스트
-    // R : 삭제되는 순서에따라 저장되는 리스트 (정답리스트)
+    // N : 사람의 명수, 1~N 번 사람이 순서대로 앉는다.
+    // K : 제거 되는 사람의 위치를 정하는 값
+    // D : N명의 사람이 K 번쨰마다 수정될 덱
     //
-    //  1. N개 숫자를 입력받는다.
-    //  2. N 개의 명령어에 따라 배열을 수정하거나 상태를 받는다.
-    //  -- 복잡도 : 2*N
+    //  1. N명 사람을 입력받고, 덱 D 에 저장한다.
+    //  -- 복잡도 : N
+    //  2. 덱 D 의 길이가 0이 될때까지 다음 행위를 반복한 후 마지막 값을 출력한다.
+    //     a) K 위치 이전의 값들은 모두 뒤로 보낸다.
+    //     b) K 위치값을 지운다. 그리고 정답 리스트에 추가한다.
+    //  -- 복잡도 : 2 * K * N
     //
-    // 복잡도 : N
-    // 시간복잡도 : O(N)
+    // 복잡도 : N^2
+    // 시간복잡도 : O(N^2)
     public static void main(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder("<");
         try (InputStreamReader isr = new InputStreamReader(System.in);
@@ -35,16 +38,7 @@ public class Solve11866_2 {
                 dequeArr.add(i);
             }
 
-            Integer cnt = 1;
-            while (!dequeArr.isEmpty()) {
-                Integer num = getTrdNum(dequeArr, K, cnt);
-                if (num.equals(0)) {
-                    cnt++;
-                } else {
-                    cnt = 1;
-                    resultArr.add(String.valueOf(num));
-                }
-            }
+            getTrdNum(dequeArr, K, resultArr);
             sb.append(String.join(", ", resultArr));
             sb.append(">");
         }
@@ -53,15 +47,17 @@ public class Solve11866_2 {
         }
     }
 
-    public static Integer getTrdNum(Deque<Integer> dequeArr, Integer K, Integer cnt) {
-        Integer num = dequeArr.peek();
-        if (cnt.equals(K)) {
-            dequeArr.removeFirst();
-            return num;
-        } else {
-            dequeArr.removeFirst();
-            dequeArr.addLast(num);
+    public static void getTrdNum(Deque<Integer> dequeArr, Integer K, ArrayList<String> resultArr) {
+        while (!dequeArr.isEmpty()) {
+            for (int i = 1; i <= K; i++) {
+                Integer num = dequeArr.peek();
+                dequeArr.removeFirst();
+                if (i == K) {
+                    resultArr.add(num.toString());
+                } else {
+                    dequeArr.addLast(num);
+                }
+            }
         }
-        return 0;
     }
 }
