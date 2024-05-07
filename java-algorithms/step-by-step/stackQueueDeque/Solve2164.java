@@ -37,6 +37,11 @@ public class Solve2164 {
             }
 
             while (arr1.size()!=1){
+                for(Integer tt : arr1){
+                    System.out.print(tt + " ");
+                }
+                System.out.println("");
+
                 arr1.remove(0);
                 int a = arr1.get(0);
                 arr1.remove(0);
