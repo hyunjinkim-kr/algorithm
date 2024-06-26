@@ -27,11 +27,11 @@ public class Solve1010 {
         ArrayList<String> resultList = new ArrayList<>();
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)) {
-            ArrayList<ArrayList<Integer>> sunyeolArr = new ArrayList<>();
+            ArrayList<ArrayList<Integer>> memArr = new ArrayList<>();
 
             for (int i = 0; i < 31; i++) {
                 ArrayList<Integer> innerList = new ArrayList<>(Collections.nCopies(i + 1, 0));
-                sunyeolArr.add(innerList);
+                memArr.add(innerList);
             }
             // 입력 수
             Integer T = Integer.parseInt(br.readLine());
@@ -41,7 +41,7 @@ public class Solve1010 {
                 Integer N = Integer.parseInt(st.nextToken());
                 Integer M = Integer.parseInt(st.nextToken());
 
-                int result = getSunyeol(M, N, sunyeolArr);
+                int result = combination(M, N, memArr);
                 resultList.add(String.valueOf(result));
             }
 
@@ -55,23 +55,23 @@ public class Solve1010 {
         }
     }
 
-    public static int getSunyeol(Integer M, Integer N, ArrayList<ArrayList<Integer>> sunyeolArr) {
+    public static int combination(Integer M, Integer N, ArrayList<ArrayList<Integer>> memArr) {
 
-        if (sunyeolArr.get(M).get(N) > 0)  {
-            return sunyeolArr.get(M).get(N);
+        if (memArr.get(M).get(N) > 0)  {
+            return memArr.get(M).get(N);
         }
-        if (sunyeolArr.get(M).get(M-N) > 0)  {
-            return sunyeolArr.get(M).get(M-N);
+        if (memArr.get(M).get(M-N) > 0)  {
+            return memArr.get(M).get(M-N);
         }
 
         if (N == M || N == 0) {
             return 1;
         } else if (N == 1 || M - N == 1) {
-            sunyeolArr.get(M).set(N, M);
+            memArr.get(M).set(N, M);
             return M;
         } else {
-            sunyeolArr.get(M).set(N, getSunyeol(M - 1, N - 1, sunyeolArr) + getSunyeol(M - 1, N, sunyeolArr));
-            return getSunyeol(M - 1, N - 1, sunyeolArr) + getSunyeol(M - 1, N, sunyeolArr);
+            memArr.get(M).set(N, combination(M - 1, N - 1, memArr) + combination(M - 1, N, memArr));
+            return combination(M - 1, N - 1, memArr) + combination(M - 1, N, memArr);
         }
     }
 }
