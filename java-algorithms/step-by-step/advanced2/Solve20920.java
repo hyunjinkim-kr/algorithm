@@ -47,14 +47,14 @@ public class Solve20920 {
                     wordMap.put(inputWord,wordCnt);
                 }
             }
-            resultArr = setResultArr(wordMap);
+            resultArr = getResultArr(wordMap);
         }
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out); BufferedWriter bw = new BufferedWriter(osw)) {
             bw.write(String.join("\n", resultArr));
         }
     }
 
-    public static ArrayList<String> setResultArr(HashMap<String,Integer> wordMap){
+    public static ArrayList<String> getResultArr(HashMap<String,Integer> wordMap){
         ArrayList<Map.Entry<String, Integer>> wordList = new ArrayList<>(wordMap.entrySet());
 
         wordList.sort(Map.Entry.<String,Integer>comparingByValue(Comparator.reverseOrder())
