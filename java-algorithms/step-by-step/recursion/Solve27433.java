@@ -20,18 +20,30 @@ public class Solve27433 {
         Long result;
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)) {
-            Integer N = Integer.parseInt(br.readLine());
-            result = getFactorial(N,(long)1);
+            Long N = Long.parseLong(br.readLine());
+            result = factorial(N);
+//            result = getFactorial2((long)N);
         }
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out); BufferedWriter bw = new BufferedWriter(osw)) {
             bw.write(result + "");
         }
     }
 
-    public static Long getFactorial(Integer N, Long result){
-        if(N > 1){
-            return getFactorial(N-1, result * N);
+    public static Long factorial(Long N){
+        return factorial_helper(N, (long)1);
+    }
+
+    private static Long factorial_helper(Long N, Long acc){
+        if (N < 1) {
+            return acc;
         }
-        return result;
+        return factorial_helper(N-1, acc * N);
+    }
+
+    public static Long factorial2(Long N){
+        if(N < 1){
+            return (long)1;
+        }
+        return N * factorial2(N-1);
     }
 }
