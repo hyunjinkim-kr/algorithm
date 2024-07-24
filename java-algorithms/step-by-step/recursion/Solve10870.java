@@ -27,6 +27,7 @@ public class Solve10870 {
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)) {
             Integer N = Integer.parseInt(br.readLine());
+
             result = fibo(N);
         }
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out); BufferedWriter bw = new BufferedWriter(osw)) {
@@ -34,18 +35,44 @@ public class Solve10870 {
         }
     }
 
-    public static Integer fibo(Integer N) {
-        ArrayList<Integer> fiboArr = new ArrayList<>();
-        fiboArr.add(0, 0);
-        fiboArr.add(1, 1);
-        return fibo_helper(N, 2, fiboArr);
+    public static Integer fibo(Integer n) {
+        // 싱글톤 인스턴스를 얻음
+        FibonacciSingleton fibonacci = FibonacciSingleton.getInstance();
+        return fiboHelper(n, fibonacci);
     }
 
-    private static Integer fibo_helper(Integer N, Integer M, ArrayList<Integer> fiboArr) {
-        if (fiboArr.size() > N) {
-            return fiboArr.get(N);
+    private static Integer fiboHelper(Integer n, FibonacciSingleton fibonacci) {
+
+        ArrayList<Integer> fiboArr = fibonacci.getFiboArr();
+        if (fiboArr.size() > n) {
+            return fiboArr.get(n);
         }
-        fiboArr.add(M, fiboArr.get(M - 1) + fiboArr.get(M - 2));
-        return fibo_helper(N, M + 1, fiboArr);
+        Integer result = fiboHelper(n-1,fibonacci) + fiboHelper(n-2,fibonacci);
+        fiboArr.add(result);
+        return result;
+    }
+}
+
+class FibonacciSingleton {
+    private static FibonacciSingleton instance;
+    private ArrayList<Integer> fiboArr;
+
+    public ArrayList<Integer> getFiboArr() {
+        return fiboArr;
+    }
+
+    // private 생성자를 사용하여 외부에서 인스턴스 생성을 막음
+    private FibonacciSingleton() {
+        fiboArr = new ArrayList<>();
+        fiboArr.add(0); // F(0)
+        fiboArr.add(1); // F(1)
+    }
+
+    // 싱글톤 인스턴스를 반환하는 메서드
+    public static synchronized FibonacciSingleton getInstance() {
+        if (instance == null) {
+            instance = new FibonacciSingleton();
+        }
+        return instance;
     }
 }
