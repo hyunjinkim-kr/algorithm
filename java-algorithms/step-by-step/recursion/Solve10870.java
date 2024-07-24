@@ -38,7 +38,7 @@ public class Solve10870 {
     public static Integer fibo(Integer n) {
         // 싱글톤 인스턴스를 얻음
         Fibonacci fibonacci = Fibonacci.instance();
-        return fibonacci.fiboHelper(n);
+        return fibonacci.fibo(n);
     }
 }
 
@@ -61,11 +61,11 @@ class Fibonacci {
         return instance;
     }
 
-    public Integer fiboHelper(Integer n) {
+    public Integer fibo(Integer n) {
         if (fiboArr.size() > n) {
             return fiboArr.get(n);
         }
-        Integer result = fiboHelper(n - 1) + fiboHelper(n - 2);
+        Integer result = fibo(n - 1) + fibo(n - 2);
         fiboArr.add(result);
         return result;
     }
