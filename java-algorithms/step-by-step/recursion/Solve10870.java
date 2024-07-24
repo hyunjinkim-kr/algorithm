@@ -37,42 +37,36 @@ public class Solve10870 {
 
     public static Integer fibo(Integer n) {
         // 싱글톤 인스턴스를 얻음
-        FibonacciSingleton fibonacci = FibonacciSingleton.getInstance();
-        return fiboHelper(n, fibonacci);
-    }
-
-    private static Integer fiboHelper(Integer n, FibonacciSingleton fibonacci) {
-
-        ArrayList<Integer> fiboArr = fibonacci.getFiboArr();
-        if (fiboArr.size() > n) {
-            return fiboArr.get(n);
-        }
-        Integer result = fiboHelper(n-1,fibonacci) + fiboHelper(n-2,fibonacci);
-        fiboArr.add(result);
-        return result;
+        Fibonacci fibonacci = Fibonacci.instance();
+        return fibonacci.fiboHelper(n);
     }
 }
 
-class FibonacciSingleton {
-    private static FibonacciSingleton instance;
+class Fibonacci {
+    private static Fibonacci instance;
     private ArrayList<Integer> fiboArr;
 
-    public ArrayList<Integer> getFiboArr() {
-        return fiboArr;
-    }
-
     // private 생성자를 사용하여 외부에서 인스턴스 생성을 막음
-    private FibonacciSingleton() {
+    private Fibonacci() {
         fiboArr = new ArrayList<>();
         fiboArr.add(0); // F(0)
         fiboArr.add(1); // F(1)
     }
 
     // 싱글톤 인스턴스를 반환하는 메서드
-    public static synchronized FibonacciSingleton getInstance() {
+    public static synchronized Fibonacci instance() {
         if (instance == null) {
-            instance = new FibonacciSingleton();
+            instance = new Fibonacci();
         }
         return instance;
+    }
+
+    public Integer fiboHelper(Integer n) {
+        if (fiboArr.size() > n) {
+            return fiboArr.get(n);
+        }
+        Integer result = fiboHelper(n - 1) + fiboHelper(n - 2);
+        fiboArr.add(result);
+        return result;
     }
 }
