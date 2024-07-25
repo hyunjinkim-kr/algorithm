@@ -20,11 +20,10 @@ public class Solve24060 {
     // 2. 배열의 시작, 끝, 중간을 정한다.(분할)
     //
     // 3. 시작~중간, 중간~끝 범위의 요소를 비교하여 더 작은 요소를 임시배열에 저장한다.
-    //   복잡도 : N
     // 4. 3의 과정을 재귀를 통해 반복한다. 단, k번째 저장 숫자가 들어오면 중단한다.
     //   복잡도 : k
     //
-    // -- 시간복잡도 O(N^2)
+    // -- 시간복잡도 O(N)
     public static void main(String[] args) throws IOException {
         ArrayList<Integer> resultArr = new ArrayList<>();
         Integer result = -1;
