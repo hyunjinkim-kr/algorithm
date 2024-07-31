@@ -28,20 +28,18 @@ public class Solve15649 {
     //
     // -- 시간복잡도 O(N^M)
     public static void main(String[] args) throws IOException {
-        ArrayList<ArrayList<Integer>> resultArr = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> mutableArr = new ArrayList<>();
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)) {
-
             // 입력 수
             StringTokenizer st = new StringTokenizer(br.readLine());
             Integer n = Integer.parseInt(st.nextToken());
             Integer m = Integer.parseInt(st.nextToken());
-
-            solve(n, m, new ArrayList<>(),resultArr);
+            // 재귀 수행
+            solve(mutableArr, new ArrayList<>(), n, m);
         }
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out); BufferedWriter bw = new BufferedWriter(osw)) {
-
-            for (ArrayList<Integer> obj : resultArr) {
+            for (ArrayList<Integer> obj : mutableArr) {
                 // 모든 요소를 공백으로 구분하여 출력
                 String result = obj.stream()
                         .map(String::valueOf)
@@ -51,24 +49,21 @@ public class Solve15649 {
         }
     }
 
-    public static void solve(Integer n, Integer m, ArrayList<Integer> acc, ArrayList<ArrayList<Integer>> resultArr) {
-
+    public static void solve(ArrayList<ArrayList<Integer>> resultArr, ArrayList<Integer> acc, Integer n, Integer m) {
         if (m.equals(0)) {
             resultArr.add(new ArrayList<>(acc));
             return;
         }
         for (int i = 1; i <= n; i++) {
-            if(acc.contains(i)){
+            if (acc.contains(i)) {
                 continue;
             }
             acc.add(i);
-            solve(n, m-1, acc,resultArr);
+            solve(resultArr, acc, n, m - 1);
             acc.remove(acc.size() - 1); // 재귀 호출이 끝난 후, 리스트에서 마지막 추가된 요소 제거
         }
     }
 }
-
-
 
 
 //            for (int i = 1; i <= n; i++) {
