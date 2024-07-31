@@ -28,7 +28,7 @@ public class Solve15649 {
     //
     // -- 시간복잡도 O(N^M)
     public static void main(String[] args) throws IOException {
-        ArrayList<ArrayList<Integer>> resultArr;
+        ArrayList<ArrayList<Integer>> resultArr = new ArrayList<>();
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)) {
 
@@ -37,7 +37,7 @@ public class Solve15649 {
             Integer n = Integer.parseInt(st.nextToken());
             Integer m = Integer.parseInt(st.nextToken());
 
-            resultArr = solve(n, m, new ArrayList<>());
+            solve(n, m, new ArrayList<>(),resultArr);
         }
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out); BufferedWriter bw = new BufferedWriter(osw)) {
 
@@ -51,22 +51,20 @@ public class Solve15649 {
         }
     }
 
-    public static ArrayList<ArrayList<Integer>> solve(Integer n, Integer m, ArrayList<Integer> acc) {
-        ArrayList<ArrayList<Integer>> resultArr = new ArrayList<>();
+    public static void solve(Integer n, Integer m, ArrayList<Integer> acc, ArrayList<ArrayList<Integer>> resultArr) {
 
         if (m.equals(0)) {
             resultArr.add(new ArrayList<>(acc));
-            return resultArr;
+            return;
         }
         for (int i = 1; i <= n; i++) {
             if(acc.contains(i)){
                 continue;
             }
             acc.add(i);
-            resultArr.addAll(solve(n, m-1, acc));
+            solve(n, m-1, acc,resultArr);
             acc.remove(acc.size() - 1); // 재귀 호출이 끝난 후, 리스트에서 마지막 추가된 요소 제거
         }
-        return resultArr;
     }
 }
 
