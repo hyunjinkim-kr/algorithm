@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Solve9663 {
     // 문제 : N-Queen
 
-    // 해결책 : 각 Row 별로 담기는 값을 배열에 저장하고 재귀를 하며 비교한다.
+    // 해결책 : acc 배열에 rowNum 순서대로 저장하고 N번 재귀를한다. 재귀를 할때마다 새로운 값을 acc 값과 비교하여, 공격당하지 않는 위치를 저장한다.
     //
     // N : 체스판 길이 (체스판 크기 : N * N)
     // solve : 재귀실행 함수
