@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Solve9663 {
     // 문제 : N-Queen
 
-    // 해결책 : acc 배열에 rowNum 순서대로 저장하고 N번 재귀를한다. 재귀를 할때마다 새로운 값을 acc 값과 비교하여, 공격당하지 않는 위치를 저장한다.
+    // 해결책 : 체스판 윗줄부터 퀸의 위치를 하나씩 저장한다. 그 뒤, 모든 퀸이 공격받지 않는경우를 찾아서 누적한다.
     //
     // N : 체스판 길이 (체스판 크기 : N * N)
     // solve : 재귀실행 함수
@@ -41,48 +41,51 @@ public class Solve9663 {
     //
     // -- 시간복잡도 O(N^M)
     public static void main(String[] args) throws IOException {
-        AtomicInteger result = new AtomicInteger(0);
+        Integer result;
         try (InputStreamReader isr = new InputStreamReader(System.in);
              BufferedReader br = new BufferedReader(isr)) {
             // 입력 수
             Integer n = Integer.parseInt(br.readLine());
             // 재귀 수행
-            solve(result, new ArrayList<>() , n, 0);
+            result = solve(n);
         }
         try (OutputStreamWriter osw = new OutputStreamWriter(System.out); BufferedWriter bw = new BufferedWriter(osw)) {
             bw.write(result + "");
         }
     }
 
-    public static void solve(AtomicInteger result,
-                             ArrayList<Integer> acc,
-                             Integer n,
-                             Integer rowNum) {
+    public static Integer solve(Integer n){
+        return solveInner(new ArrayList<>() , n, 0);
+    }
 
+    public static Integer solveInner(ArrayList<Integer> acc,
+                                      Integer n,
+                                      Integer rowNum) {
+        Integer cnt = 0;
         if (n.equals(rowNum)) {
-            result.incrementAndGet(); // 결과값을 1 증가
-            return;
+            return 1;
         }
 
         for (int i = 0; i < n; i++) {
-            if (acc.contains(i)){
-                continue;
-            }
             if (!isSafe(acc,i)) {
                 continue;
             }
-
             acc.add(i);
-            solve(result, acc, n, rowNum + 1);
+            cnt += solveInner( acc, n, rowNum + 1);
             acc.remove(acc.size() - 1); // 재귀 호출이 끝난 후, 리스트에서 마지막 추가된 요소 제거
         }
+        return cnt;
     }
 
-    public static boolean isSafe(ArrayList<Integer> acc,
+    public static boolean isSafe(ArrayList<Integer> env,
                                  Integer newX){
-        for(int i = 0; i < acc.size(); i++){
-            Integer absX = Math.abs(newX - acc.get(i));
-            Integer absY = Math.abs(acc.size() - i);
+        if (env.contains(newX)){
+            return false;
+        }
+
+        for(int i = 0; i < env.size(); i++){
+            Integer absX = Math.abs(newX - env.get(i));
+            Integer absY = Math.abs(env.size() - i);
 
             if(absX.equals(absY)){
                 return false;
