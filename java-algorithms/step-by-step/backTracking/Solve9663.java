@@ -58,7 +58,7 @@ public class Solve9663 {
         return solveInner(new ArrayList<>() , n, 0);
     }
 
-    public static Integer solveInner(ArrayList<Integer> acc,
+    private static Integer solveInner(ArrayList<Integer> acc,
                                       Integer n,
                                       Integer rowNum) {
         Integer cnt = 0;
