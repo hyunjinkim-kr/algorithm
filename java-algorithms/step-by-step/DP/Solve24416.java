@@ -48,10 +48,9 @@ public static void main(String[] args) throws IOException {
     }
 
     public static Integer fiboDp(Integer n) {
-        Integer cnt = 0;
-        for(int i = 2; i < n; i++){
-            cnt++;
+        if(n <= 2){
+            return 0;
         }
-        return cnt;
+        return n-2;
     }
 }
