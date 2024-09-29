@@ -40,4 +40,4 @@ jobs:
           git config --local user.email "dufqnfsk22@gmail.com"
           git add .
           git commit -m "Apply Google Java Format" || echo "No changes to commit"
-          git push
+          git push origin HEAD:dev  # 또는 원하는 브랜치 이름
