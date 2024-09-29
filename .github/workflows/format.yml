@@ -41,3 +41,5 @@ jobs:
           git add .
           git commit -m "Apply Google Java Format" || echo "No changes to commit"
           git push origin HEAD:dev  # 또는 원하는 브랜치 이름
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
