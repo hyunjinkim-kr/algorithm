@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class Solve11047 {
-    // 문제 : 동전 0
+    // 문제 : 동전 0 dev test
 
     // 해결책 : 총 금액에서 가장큰 동전만큼 빼고, 금액보다 동전이 큰 경우 작은동전으로 반복한다.
     //
