@@ -33,7 +33,8 @@ jobs:
       # 5. 포맷 검사 실행
       - name: Run Google Java Format Check
         run: |
-          CHANGED_FILES=$(git diff --name-only --diff-filter=ACM HEAD origin/dev | grep '.java$')
+          # 현재 브랜치에서 변경된 Java 파일을 가져옵니다.
+          CHANGED_FILES=$(git diff --name-only --diff-filter=ACM HEAD | grep '.java$')
           if [ -z "$CHANGED_FILES" ]; then
             echo "No Java files changed in this PR."
           else
