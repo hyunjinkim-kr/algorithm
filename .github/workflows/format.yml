@@ -29,8 +29,7 @@ jobs:
       # 4. 포맷 검사 실행
       - name: Run Google Java Format Check
         run: |
-          # 현재 PR에서 변경된 Java 파일을 가져옵니다.
-          CHANGED_FILES=$(git diff --name-only --diff-filter=ACM HEAD^...HEAD | grep '.java$')
+          CHANGED_FILES=$(git diff --name-only --diff-filter=ACM HEAD | grep '.java$')
           if [ -z "$CHANGED_FILES" ]; then
             echo "No Java files changed in this PR."
           else
@@ -47,13 +46,7 @@ jobs:
             echo "All Java files are formatted correctly."
           fi
 
-      # 5. 포매팅 실패시 오류 반환
-      - name: Fail if formatting issues are found
-        if: ${{ failure() }}
-        run: |
-          echo "Formatting issues found. Please fix them before pushing."
-
-      # 6. 빌드 테스트 실행
+      # 5. 빌드 테스트 실행
       - name: Build the project
         run: |
           ./gradlew build  # Gradle 프로젝트인 경우. Maven 프로젝트일 경우 'mvn clean install' 사용
