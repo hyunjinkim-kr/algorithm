@@ -44,11 +44,13 @@ jobs:
           else
             FORMAT_ISSUE_FOUND=false
             for file in $CHANGED_FILES; do
-              # 파일을 포맷하고 변경 사항을 git diff로 확인
+              # 파일을 포맷하고 임시로 저장
               java -jar google-java-format.jar "$file"
-              if [ -n "$(git diff "$file")" ]; then
+              # 포맷팅 후 변경 사항을 확인
+              DIFF_OUTPUT=$(git diff -U0 --minimal "$file" | grep -E '^\+|^-')
+              if [ -n "$DIFF_OUTPUT" ]; then
                 echo "Formatting issues found in $file:"
-                git diff "$file"
+                echo "$DIFF_OUTPUT"
                 FORMAT_ISSUE_FOUND=true
               fi
             done
