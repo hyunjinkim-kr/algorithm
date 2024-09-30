@@ -33,7 +33,7 @@ jobs:
         run: |
           wget https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar -O google-java-format.jar
 
-      # 5. 포맷 검사 실행 및 줄 번호 출력
+      # 5. 포맷 검사 실행
       - name: Run Google Java Format Check
         run: |
           # 현재 브랜치에서 변경된 Java 파일을 가져옵니다.
@@ -44,14 +44,18 @@ jobs:
           else
             FORMAT_ISSUE_FOUND=false
             for file in $CHANGED_FILES; do
-              # 파일에 대해 포맷 검사 수행 (실제 수정은 하지 않음)
-              FORMAT_OUTPUT=$(java -jar google-java-format.jar --dry-run "$file" 2>&1)
-              if [ $? -ne 0 ]; then
+              # 포맷을 임시로 적용
+              java -jar google-java-format.jar "$file"
+              # 변경된 부분을 확인
+              FORMATTING_DIFF=$(git diff "$file")
+              if [ -n "$FORMATTING_DIFF" ]; then
                 echo "Formatting issues found in $file:"
-                # 문제 발생한 줄과 그 이유만 출력
-                echo "$FORMAT_OUTPUT" | grep -E '^[0-9]+:' || true
+                # 변경된 줄 번호와 내용을 출력
+                echo "$FORMATTING_DIFF" | grep -E '^@@' -A 5
                 FORMAT_ISSUE_FOUND=true
               fi
+              # 포맷 검사 후 파일을 복원 (변경사항 되돌리기)
+              git checkout -- "$file"
             done
             if [ "$FORMAT_ISSUE_FOUND" = true ]; then
               echo "Formatting issues detected. Please fix them before pushing."
@@ -60,6 +64,7 @@ jobs:
               echo "All Java files are formatted correctly."
             fi
           fi
+
 
       # 6. 빌드 테스트 실행
       - name: Build the project
