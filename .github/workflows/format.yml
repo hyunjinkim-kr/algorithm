@@ -37,7 +37,17 @@ jobs:
           if [ -z "$CHANGED_FILES" ]; then
             echo "No Java files changed in this PR."
           else
-            java -jar google-java-format.jar --dry-run $CHANGED_FILES
+            # 포맷 검사 및 오류 메시지를 출력합니다.
+            for file in $CHANGED_FILES; do
+              OUTPUT=$(java -jar google-java-format.jar --dry-run "$file")
+              if [ -n "$OUTPUT" ]; then
+                echo "Formatting issues found in $file:"
+                echo "$OUTPUT"  # 포맷 오류 메시지를 출력합니다.
+                echo "Please fix the formatting issues in $file before pushing."
+                exit 1  # 에러 코드를 반환하여 실패 처리
+              fi
+            done
+            echo "All Java files are formatted correctly."
           fi
 
       # 6. 포매팅 실패시 오류 반환
