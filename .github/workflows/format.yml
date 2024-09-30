@@ -33,7 +33,7 @@ jobs:
         run: |
           wget https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar -O google-java-format.jar
 
-      # 5. 포맷 검사 실행
+      # 5. 포맷 검사 실행 및 줄 번호 출력
       - name: Run Google Java Format Check
         run: |
           # 현재 브랜치에서 변경된 Java 파일을 가져옵니다.
@@ -43,10 +43,12 @@ jobs:
             echo "No Java files changed in this PR."
           else
             for file in $CHANGED_FILES; do
-              OUTPUT=$(java -jar google-java-format.jar --dry-run "$file")
-              if [ -n "$OUTPUT" ]; then
+              java -jar google-java-format.jar "$file"  # 실제 포맷을 수행
+              # 변경된 부분을 확인
+              FORMATTING_DIFF=$(git diff --unified=0 "$file")
+              if [ -n "$FORMATTING_DIFF" ]; then
                 echo "Formatting issues found in $file:"
-                echo "$OUTPUT"
+                echo "$FORMATTING_DIFF"  # 포맷팅 위배된 라인과 이유 출력
                 echo "Please fix the formatting issues in $file before pushing."
                 exit 1
               fi
