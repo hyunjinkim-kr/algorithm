@@ -47,7 +47,7 @@ jobs:
             for file in $CHANGED_FILES; do
               # 포맷을 적용하고 변경된 부분을 git diff로 확인
               java -jar google-java-format.jar --replace "$file"
-              DIFF_OUTPUT=$(git diff --unified=0 "$file" | grep -E '^[+-]' | grep -v '^[+-]import')
+              DIFF_OUTPUT=$(git diff "$file")
               if [ -n "$DIFF_OUTPUT" ]; then
                 echo "Formatting issues found in $file:"
                 echo "$DIFF_OUTPUT"  # 문제된 부분만 출력
