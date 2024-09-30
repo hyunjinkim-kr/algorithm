@@ -1,4 +1,4 @@
-name: Format Check
+name: Format and Build Check
 
 on:
   pull_request:
@@ -19,27 +19,31 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '21'
-          distribution: 'adopt'  # 또는 'zulu', 'temurin' 등 사용하고자 하는 배포판 선택
-
+          distribution: 'adopt'
 
       # 3. Google Java Format 다운로드
       - name: Download Google Java Format
         run: |
           wget https://github.com/google/google-java-format/releases/latest/download/google-java-format-1.23.0-all-deps.jar -O google-java-format.jar
-      #          wget https://github.com/google/google-java-format/releases/latest/download/google-java-format-<version>-all-deps.jar -O google-java-format.jar
 
-      # 4. 포맷 검사 실행
+      # 4. PR에서 변경된 파일에 대해 포맷 검사
       - name: Run Google Java Format Check
         run: |
-          java -jar google-java-format.jar --replace $(git ls-files '*.java')
+          CHANGED_FILES=$(git diff --name-only --diff-filter=d origin/main | grep '.java$')
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No Java files changed in this PR."
+          else
+            java -jar google-java-format.jar --dry-run $CHANGED_FILES
+          fi
 
-      # 5. 변경 사항 커밋
-      - name: Commit changes
+      # 5. 포매팅 실패시 오류 반환
+      - name: Fail if formatting issues are found
+        if: ${{ failure() }}
         run: |
-          git config --local user.name "hyunjinkim-kr"
-          git config --local user.email "dufqnfsk22@gmail.com"
-          git add .
-          git commit -m "Apply Google Java Format" || echo "No changes to commit"
-          git push origin HEAD:dev  # 또는 원하는 브랜치 이름
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          echo "Formatting issues found. Please fix them before pushing."
+
+      # 6. 빌드 테스트 실행
+      - name: Build the project
+        run: |
+          ./gradlew build  # Gradle 프로젝트인 경우. Maven 프로젝트일 경우 'mvn clean install' 사용
+
