@@ -30,7 +30,7 @@ jobs:
       - name: Run Google Java Format Check
         run: |
           # 현재 PR에서 변경된 Java 파일을 가져옵니다.
-          CHANGED_FILES=$(git diff --name-only --diff-filter=d ${{ github.event.before }}...${{ github.sha }} | grep '.java$')
+          CHANGED_FILES=$(git diff --name-only --diff-filter=d origin/main...HEAD | grep '.java$')
           if [ -z "$CHANGED_FILES" ]; then
             echo "No Java files changed in this PR."
           else
