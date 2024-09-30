@@ -32,7 +32,7 @@ public class Solve11047 {
     try (InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(isr)) {
       StringTokenizer st = new StringTokenizer(br.readLine());
-        Integer n = Integer.parseInt(st.nextToken());
+      Integer n = Integer.parseInt(st.nextToken());
       Integer k = Integer.parseInt(st.nextToken());
       ArrayList<Integer> moneyArr = new ArrayList<>();
 
