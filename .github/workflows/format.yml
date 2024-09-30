@@ -58,6 +58,7 @@ jobs:
               exit 1
             else
               echo "All Java files are formatted correctly."
+              exit 0  # 변경 사항이 없을 경우 정상 종료
             fi
           fi
 
@@ -66,4 +67,3 @@ jobs:
         run: |
           # 모든 .java 파일을 컴파일합니다.
           javac $(find . -name "*.java")
-
