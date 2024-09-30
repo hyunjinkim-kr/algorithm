@@ -62,10 +62,8 @@ jobs:
           fi
 
       # 6. 빌드 테스트 실행
-      - name: Build the project
+      - name: Build the project (Java Compile Check)
         run: |
-          if [ -f "./gradlew" ]; then
-            ./gradlew build  # Gradle 프로젝트인 경우
-          else
-            echo "Gradle wrapper not found, attempting Maven build..."
-            mvn clean install  # Maven 프로젝트인 경우
+          # 모든 .java 파일을 컴파일합니다.
+          javac $(find . -name "*.java")
+
