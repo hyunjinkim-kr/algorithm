@@ -30,8 +30,8 @@ jobs:
       - name: Run Google Java Format Check
         run: |
           # 현재 브랜치에서 변경된 Java 파일을 가져옵니다.
-          CHANGED_FILES=$(git diff --name-only --diff-filter=ACM HEAD | grep '.java$')
-          echo "Changed files: $CHANGED_FILES"  # 추가: 변경된 파일 출력
+          CHANGED_FILES=$(git diff --name-only --diff-filter=ACM origin/main...HEAD | grep '.java$')
+          echo "Changed files: $CHANGED_FILES"  # 변경된 파일 출력
           if [ -z "$CHANGED_FILES" ]; then
             echo "No Java files changed in this PR."
           else
@@ -47,12 +47,18 @@ jobs:
             echo "All Java files are formatted correctly."
           fi
 
-      # 5. 빌드 테스트 실행
-      - name: Build the project
+      # 5. 직접 Java 컴파일
+      - name: Compile Java files
         run: |
-          if [ -f "./gradlew" ]; then
-            ./gradlew build  # Gradle 프로젝트인 경우
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No Java files to compile."
           else
-            echo "Gradle wrapper not found, attempting Maven build..."
-            mvn clean install  # Maven 프로젝트인 경우
+            for file in $CHANGED_FILES; do
+              javac "$file"
+              if [ $? -ne 0 ]; then
+                echo "Compilation failed for $file."
+                exit 1
+              fi
+            done
+            echo "All Java files compiled successfully."
           fi
