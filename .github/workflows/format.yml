@@ -26,10 +26,10 @@ jobs:
         run: |
           wget https://github.com/google/google-java-format/releases/latest/download/google-java-format-1.23.0-all-deps.jar -O google-java-format.jar
 
-      # 4. PR에서 변경된 파일에 대해 포맷 검사
+      # 4. 포맷 검사 실행
       - name: Run Google Java Format Check
         run: |
-          CHANGED_FILES=$(git diff --name-only --diff-filter=d origin/main | grep '.java$')
+          CHANGED_FILES=$(git diff --name-only --diff-filter=d origin/main...dev | grep '.java$')
           if [ -z "$CHANGED_FILES" ]; then
             echo "No Java files changed in this PR."
           else
