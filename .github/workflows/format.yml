@@ -26,24 +26,27 @@ jobs:
         run: |
           wget https://github.com/google/google-java-format/releases/latest/download/google-java-format-1.23.0-all-deps.jar -O google-java-format.jar
 
-      # 4. PR에서 변경된 파일에 대해 포맷 검사
+      # 4. 원격 레포지토리 정보 가져오기
+      - name: Fetch origin
+        run: git fetch origin
+
+      # 5. 포맷 검사 실행
       - name: Run Google Java Format Check
         run: |
-          CHANGED_FILES=$(git diff --name-only --diff-filter=d origin/main | grep '.java$')
+          CHANGED_FILES=$(git diff --name-only --diff-filter=d origin/main...dev | grep '.java$')
           if [ -z "$CHANGED_FILES" ]; then
             echo "No Java files changed in this PR."
           else
             java -jar google-java-format.jar --dry-run $CHANGED_FILES
           fi
 
-      # 5. 포매팅 실패시 오류 반환
+      # 6. 포매팅 실패시 오류 반환
       - name: Fail if formatting issues are found
         if: ${{ failure() }}
         run: |
           echo "Formatting issues found. Please fix them before pushing."
 
-      # 6. 빌드 테스트 실행
+      # 7. 빌드 테스트 실행
       - name: Build the project
         run: |
           ./gradlew build  # Gradle 프로젝트인 경우. Maven 프로젝트일 경우 'mvn clean install' 사용
-
