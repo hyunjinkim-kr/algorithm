@@ -31,7 +31,7 @@ jobs:
       # 4. Google Java Format 다운로드
       - name: Download Google Java Format
         run: |
-          wget https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar -O google-java-format.jar
+          wget https://github.com/google/google-java-format/releases/download/v1.23.0/google-java-format-1.23.0-all-deps.jar -O google-java-format.jar
 
       # 5. 포맷 검사 실행
       - name: Run Google Java Format Check
@@ -44,12 +44,11 @@ jobs:
           else
             FORMAT_ISSUE_FOUND=false
             for file in $CHANGED_FILES; do
-              # 포맷 검사만 수행 (--dry-run)
-              FORMAT_OUTPUT=$(java -jar google-java-format.jar --dry-run "$file" 2>&1)
-              if [ $? -ne 0 ]; then
+              # 파일을 포맷하고 변경 사항을 git diff로 확인
+              java -jar google-java-format.jar "$file"
+              if [ -n "$(git diff "$file")" ]; then
                 echo "Formatting issues found in $file:"
-                # 문제 발생한 줄 번호 및 이유 출력
-                echo "$FORMAT_OUTPUT" | grep -E '^[0-9]+:' || true
+                git diff "$file"
                 FORMAT_ISSUE_FOUND=true
               fi
             done
@@ -69,4 +68,3 @@ jobs:
           else
             echo "Gradle wrapper not found, attempting Maven build..."
             mvn clean install  # Maven 프로젝트인 경우
-          fi
