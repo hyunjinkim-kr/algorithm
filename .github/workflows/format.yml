@@ -63,8 +63,12 @@ jobs:
             fi
           fi
 
-      # 6. 빌드 테스트 실행
-      - name: Build the project (Java Compile Check)
+      # 6. 변경된 파일만 컴파일
+      - name: Compile changed Java files
         run: |
-          # 모든 .java 파일을 컴파일합니다.
-          javac $(find . -name "*.java")
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "Compiling changed files..."
+            javac $CHANGED_FILES  # 변경된 파일들만 컴파일
+          else
+            echo "No Java files to compile."
+          fi
