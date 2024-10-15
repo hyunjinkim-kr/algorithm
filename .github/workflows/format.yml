@@ -84,11 +84,11 @@ jobs:
         with:
           fetch-depth: 0  # 모든 히스토리를 가져옵니다.
 
-      # 2. Python 3.7.9 설치
-      - name: Set up Python 3.7.9
+      # 2. Python 3.9.18 설치
+      - name: Set up Python 3.9
         uses: actions/setup-python@v4
         with:
-          python-version: '3.7.9'
+          python-version: '3.9.18'  # Python 3.9 버전으로 변경
 
       # 3. Python 의존성 설치 (black 포함)
       - name: Install dependencies
