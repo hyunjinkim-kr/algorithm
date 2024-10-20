@@ -49,7 +49,7 @@ public class Solve1920 {
       StringTokenizer st2 = new StringTokenizer(br.readLine());
       for (int j = 0; j < n2; j++) {
         Integer target = Integer.parseInt(st2.nextToken());
-        resultArr.add(solve(arr1, 0, arr1.size()-1, target));
+        resultArr.add(solve(arr1, 0, arr1.size() - 1, target));
       }
     }
     try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
@@ -69,7 +69,6 @@ public class Solve1920 {
       return "1";
     } else if (chkNum > target) {
       return solve(chkArr, start, mid - 1, target);
-    } else
-      return solve(chkArr, mid + 1, end, target);
+    } else return solve(chkArr, mid + 1, end, target);
   }
 }
