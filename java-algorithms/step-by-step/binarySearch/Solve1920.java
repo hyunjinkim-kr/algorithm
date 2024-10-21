@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 public class Solve1920 {
   // 문제 : 수 찾기
 
-  // 해결책 : 주어진 범위의 배열을 정렬한 후, 찾을 수를 배열에서 이진탐색을 통해 검색한다.
+  // 해결책 : 주어진 범위의 수를 저장한 후, 찾을 수를 검색한다.
   //
   // N : 숫자를 찾을 배열의 길이
   // set : N개의 숫자가 저장된 HashSet
