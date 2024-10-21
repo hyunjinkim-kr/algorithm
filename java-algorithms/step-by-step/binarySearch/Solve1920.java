@@ -2,56 +2,59 @@ package binarySearch;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 public class Solve1920 {
   // 문제 : 수 찾기
 
-  // 해결책 : 주어진 범위의 수를 입력받은 후, 찾을 수를 검색한다.
+  // 해결책 : 주어진 수를 set에 저장하고, 찾을 수를 탐색한다.
   //
   // N : 숫자를 찾을 배열의 길이
-  // numArr : N개 숫자토큰을 가진 배열
+  // set : N개의 숫자가 저장된 HashSet
   // M : 탐색할 숫자의 개수
   // target : M번 입력중 배열에 있는지 체크할 숫자
-  // resultArr : M번 주어진 숫자가 N배열에 있는지 1과 0으로 저장된 배열
+  // resultArr : M번 주어진 숫자가 N배열에 있는지 true와 false로 저장된 배열
+  // convertedArr : resultArr의 true와 false를 1과 0으로 변환한 배열
   //
-  //  1. N을 입력받고, N개 수를 numArr에 입력한다.
-  //  2. M을 입력받고, M번 숫자를 입력받으며 각각 numArr에 존재하는지 체크하고 저장한다.
-  //    2-1. target이 numArr에 존재하면 1, 존재하지 않으면 0을 저장한다.
+  //  1. N과 N번 입력받은 숫자를 set에 저장한다.
+  //  2. M을 입력받고, M번 숫자를 입력받으며 각각 set에 존재하는지 체크하고 저장한다.
+  //    2-1. target이 Set에 존재하면 true, 존재하지 않으면 false을 저장한다.
+  //  3. resultArr을 1과 0으로 변환하여 출력한다.
   //
-  // -- 시간복잡도 O(N)
+  // -- 시간복잡도 O(1)
   public static void main(String[] args) throws IOException {
-    ArrayList<String> resultArr = new ArrayList();
+    ArrayList<Boolean> resultArr = new ArrayList();
     try (InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(isr)) {
+      // 처음 입력받자.
+      HashSet<Integer> set = new HashSet();
       Integer n = Integer.parseInt(br.readLine());
       StringTokenizer st1 = new StringTokenizer(br.readLine());
-      ArrayList<Integer> numArr = new ArrayList<>();
       for (int i = 0; i < n; i++) {
-        Integer num = Integer.parseInt(st1.nextToken());
-        numArr.add(num);
+        set.add(Integer.parseInt(st1.nextToken()));
       }
 
-      Integer n2 = Integer.parseInt(br.readLine());
+      Integer m = Integer.parseInt(br.readLine());
       StringTokenizer st2 = new StringTokenizer(br.readLine());
-      for (int j = 0; j < n2; j++) {
+      for (int j = 0; j < m; j++) {
         Integer target = Integer.parseInt(st2.nextToken());
-        resultArr.add(solve(numArr, n, target));
+        resultArr.add(exists(set, target));
       }
     }
     try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
         BufferedWriter bw = new BufferedWriter(osw)) {
-      bw.write(String.join("\n", resultArr));
+      ArrayList<String> convertedArr =
+          resultArr.stream().map(b -> b ? "1" : "0").collect(Collectors.toCollection(ArrayList::new));
+
+      bw.write(String.join("\n", convertedArr));
     }
   }
 
-  public static String solve(ArrayList<Integer> numArr, Integer n, Integer target) {
-    for (int i = 0; i < n; i++) {
-      Integer chkNum = numArr.get(i);
-      if (chkNum.equals(target)) {
-        return "1";
-      }
-    }
-    return "0";
+  public static Boolean exists(HashSet<Integer> chkSet, Integer target) {
+    if (chkSet.contains(target)) {
+      return true;
+    } else return false;
   }
 }
