@@ -13,13 +13,9 @@ public class Solve1920 {
   // set : N개의 숫자가 저장된 HashSet
   // M : 탐색할 숫자의 개수
   // target : M번 입력중 배열에 있는지 체크할 숫자
-  // resultArr : M번 주어진 숫자가 N배열에 있는지 true와 false로 저장된 배열
-  // convertedArr : resultArr의 true와 false를 1과 0으로 변환한 배열
   //
   //  1. N과 N번 입력받은 숫자를 set에 저장한다.
-  //  2. M을 입력받고, M번 숫자를 입력받으며 각각 set에 존재하는지 체크하고 저장한다.
-  //    2-1. target이 Set에 존재하면 true, 존재하지 않으면 false을 저장한다.
-  //  3. resultArr을 1과 0으로 변환하여 출력한다.
+  //  2. M을 입력받고, M번 숫자를 입력받으며 set에 숫자가 존재하면 1, 아니면 0을 출력한다.
   //
   // -- 시간복잡도 O(1)
   public static void main(String[] args) throws IOException {
