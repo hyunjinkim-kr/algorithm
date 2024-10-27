@@ -1,10 +1,8 @@
 package binarySearch;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
 
 public class Solve1920 {
   // 문제 : 수 찾기
@@ -41,7 +39,7 @@ public class Solve1920 {
       StringTokenizer st2 = new StringTokenizer(br.readLine());
       for (int j = 0; j < m; j++) {
         Integer target = Integer.parseInt(st2.nextToken());
-        bw.write(set.contains(target) ? "1" + "\n": "0" + "\n");
+        bw.write(set.contains(target) ? "1" + "\n" : "0" + "\n");
       }
     }
   }
