@@ -46,7 +46,9 @@ public class Solve1920 {
     try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
         BufferedWriter bw = new BufferedWriter(osw)) {
       ArrayList<String> convertedArr =
-          resultArr.stream().map(b -> b ? "1" : "0").collect(Collectors.toCollection(ArrayList::new));
+          resultArr.stream()
+              .map(b -> b ? "1" : "0")
+              .collect(Collectors.toCollection(ArrayList::new));
 
       bw.write(String.join("\n", convertedArr));
     }
