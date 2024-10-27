@@ -25,9 +25,10 @@ public class Solve1920 {
   //
   // -- 시간복잡도 O(1)
   public static void main(String[] args) throws IOException {
-    ArrayList<Boolean> resultArr = new ArrayList();
     try (InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr)) {
+        OutputStreamWriter osw = new OutputStreamWriter(System.out);
+        BufferedReader br = new BufferedReader(isr);
+        BufferedWriter bw = new BufferedWriter(osw)) {
       // 처음 입력받자.
       HashSet<Integer> set = new HashSet();
       Integer n = Integer.parseInt(br.readLine());
@@ -40,23 +41,8 @@ public class Solve1920 {
       StringTokenizer st2 = new StringTokenizer(br.readLine());
       for (int j = 0; j < m; j++) {
         Integer target = Integer.parseInt(st2.nextToken());
-        resultArr.add(exists(set, target));
+        bw.write(set.contains(target) ? "1" + "\n": "0" + "\n");
       }
     }
-    try (OutputStreamWriter osw = new OutputStreamWriter(System.out);
-        BufferedWriter bw = new BufferedWriter(osw)) {
-      ArrayList<String> convertedArr =
-          resultArr.stream()
-              .map(b -> b ? "1" : "0")
-              .collect(Collectors.toCollection(ArrayList::new));
-
-      bw.write(String.join("\n", convertedArr));
-    }
-  }
-
-  public static Boolean exists(HashSet<Integer> chkSet, Integer target) {
-    if (chkSet.contains(target)) {
-      return true;
-    } else return false;
   }
 }
