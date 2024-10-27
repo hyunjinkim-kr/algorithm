@@ -50,11 +50,11 @@ public class Solve11279 {
       Integer num = arr1.get(i);
       if (num.equals(0)) {
         Integer pollNum = pq1.poll();
-        if(pollNum == null){
+        if (pollNum == null) {
           pollNum = 0;
         }
         resultArr.add(String.valueOf(pollNum));
-      }else{
+      } else {
         pq1.add(num);
       }
     }
