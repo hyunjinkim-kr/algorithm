@@ -14,13 +14,13 @@ public class Solve1920 {
   // chkArr : N개 숫자가 저장된 ArrayList
   // M : 탐색할 숫자의 개수
   // targetArr : M번 입력된 탐색할 숫자
-  // exists() : hashSet을 이용하여 chkArr에 targetArr의 숫자가 있는지 체크할 함수
+  // solve() : hashSet을 이용하여 chkArr에 targetArr의 숫자가 있는지 체크할 함수
   // set : chkArr의 값을 담을 hashSet
   // resultArr : exists()의 결과로 리턴될 Boolean ArrayList
   //
   //  1. N과 N번 입력받은 숫자를 chkArr 에 저장한다.
   //  2. M과 M번 입력받은 숫자를 targetArr 에 저장한다.
-  //  3. exists() 함수에 chkArr과 targetArr을 통해 탐색한다.
+  //  3. solve() 함수에 chkArr과 targetArr을 통해 탐색한다.
   //   3-1. chkArr의 값을 set에 저장한다.
   //   3-2. targetArr 값이 set에 존재하는지 결과를 resultArr에 담는다.
   //  4. resultArr을 출력한다.
@@ -46,13 +46,13 @@ public class Solve1920 {
         targetArr.add(Integer.parseInt(st2.nextToken()));
       }
 
-      for (Boolean result : exists(chkArr, targetArr)) {
+      for (Boolean result : solve(chkArr, targetArr)) {
         bw.write((result ? 1 : 0) + "\n");
       }
     }
   }
 
-  public static ArrayList<Boolean> exists(ArrayList<Integer> chkArr, ArrayList<Integer> targetArr) {
+  public static ArrayList<Boolean> solve(ArrayList<Integer> chkArr, ArrayList<Integer> targetArr) {
     HashSet<Integer> set = new HashSet(chkArr);
     ArrayList<Boolean> resultArr = new ArrayList<>();
     for (Integer target : targetArr) {
