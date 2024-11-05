@@ -52,10 +52,7 @@ def solve(array, n):
 def chk_paper_color(array, x, y, size):
     # 현재 영역이 모두 같은 값인지 확인하는 함수
     if size == 1:
-        if array[x][y] == 0:
-            return (1, 0)  # 하얀색 (0)
-        else:
-            return (0, 1)  # 파란색 (1)
+        return [1, 0] if array[x][y] == 0 else [0, 1]
     # 4등분으로 나누어 재귀 호출
     half_size = size // 2
     positions = [
@@ -70,8 +67,7 @@ def chk_paper_color(array, x, y, size):
         zipped = zip(results, chk_paper_color(array, x, y, half_size))
         results = tuple(map(sum, zipped))
 
-    white = results[0]
-    blue = results[1]
+    white, blue = results
 
     # 만약 4개의 구역이 모두 동일하다면, 그 구역을 하나로 합칠 수 있음
     if blue == 0:  # 모두 하얀색(0)
