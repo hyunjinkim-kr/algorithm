@@ -1,4 +1,7 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.TreeSet;
 
 public class tree<E> {
   public static void main(String[] args) throws IOException {
@@ -43,32 +46,55 @@ public class tree<E> {
     //
     //
     // ## 시간복잡도 : -
+    test();
+  }
 
-    BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+  public static void test() {
+    BinarySearchTree<Integer> myBinaryTree = new BinarySearchTree<>();
+    TreeSet<Integer> treeSet = new TreeSet<>();
+    ArrayList<Integer> randomArr = new ArrayList<>();
 
-    // 값 추가
-    tree.add(10);
-    tree.add(5);
-    tree.add(15);
-    tree.add(3);
-    tree.add(7);
-    tree.add(12);
-    tree.add(18);
+    Random random = new Random();
+    Integer randomSize = random.nextInt(20);
 
-    // 트리 구조 출력
-    System.out.println("트리 구조:");
-    tree.printTree();
+    System.out.print(" 숫자가 추가됩니다 : ");
+    // 20개 이하의 난수 생성
+    for (int i = 0; i < randomSize; i++) {
+      Integer randomNum = random.nextInt(100) + 1; // 1부터 100까지의 난수
+      randomArr.add(randomNum);
+      myBinaryTree.add(randomNum);
+      treeSet.add(randomNum);
 
-    // 요소 확인
-    System.out.println("트리 contains 7: " + tree.contains(7)); // true
-    System.out.println("트리 contains 20: " + tree.contains(20)); // false
+      System.out.print(randomNum + " ");
+    }
+    // 1. add 및 contains 확인(난수 하나 꺼내서)
+    // 2. size 확인
+    Integer randomIdx = random.nextInt(randomArr.size());
+    Integer randomChk = randomArr.get(randomIdx);
 
-    // 요소 삭제
-    tree.remove(5);
-    System.out.println("5 제거 후 트리 구조:");
-    tree.printTree();
+    System.out.printf(
+        "\n======== 1. ADD 및 contains 체크 =============\n"
+            + "체크할 랜덤 숫자(remove까지 될 숫자) : %s\n"
+            + "myBinaryTree.contains : %b\n"
+            + "treeSet.contains  : %b\n\n"
+            + "======== 2. size 체크 =============\n"
+            + "treeSet.size  : %d\n"
+            + "myBinaryTree.size  : %d\n\n",
+        randomChk,
+        myBinaryTree.contains(randomChk),
+        treeSet.contains(randomChk),
+        treeSet.size(),
+        myBinaryTree.size());
 
-    // 트리 크기
-    System.out.println("트리 크기: " + tree.size());
+    // 3. remove 확인
+    myBinaryTree.remove(randomChk);
+    treeSet.remove(randomChk);
+
+    System.out.printf(
+        "======== 3. remove 후 contains 체크 =============\n"
+            + "myBinaryTree.contains : %b\n"
+            + "treeSet.contains  : %b\n\n"
+            + "====== 테스트 종료 ======",
+        myBinaryTree.contains(randomChk), treeSet.contains(randomChk));
   }
 }
