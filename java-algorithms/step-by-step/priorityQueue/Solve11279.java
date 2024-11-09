@@ -55,56 +55,20 @@ public class Solve11279 {
       Integer num = arr1.get(i);
       Optional<Integer> result;
 
-      if (num.equals(0)) {
-        // num이 0일 때는 POLL 명령 실행
-        result = addOrPoll(pq1, new Command(CommandType.POLL, null));
-      } else {
-        // num이 0이 아닐 때는 ADD 명령 실행
-        result = addOrPoll(pq1, new Command(CommandType.ADD, num));
-      }
+      result = addOrPoll(pq1, num);
       result.ifPresent(value -> resultArr.add(value));
     }
     return resultArr;
   }
 
-  public static Optional<Integer> addOrPoll(PriorityQueue<Integer> pq1, Command command) {
+  public static Optional<Integer> addOrPoll(PriorityQueue<Integer> pq1, Integer command) {
 
-    switch (command.getType()) {
-      case ADD:
-        if (command.getValue() != null) {
-          pq1.add(command.getValue());
-          return Optional.empty();
-        }
-        break;
-
-      case POLL:
-        Integer removed = pq1.poll();
-        return Optional.of((removed != null) ? removed : 0);
-    }
-    return Optional.empty();
-  }
-
-  enum CommandType {
-    ADD,
-    POLL
-  }
-
-  // Command 클래스 정의
-  static class Command {
-    private final CommandType type;
-    private final Integer value;
-
-    public Command(CommandType type, Integer value) {
-      this.type = type;
-      this.value = value;
-    }
-
-    public CommandType getType() {
-      return type;
-    }
-
-    public Integer getValue() {
-      return value;
+    if (command != 0) {
+      pq1.add(command);
+      return Optional.empty();
+    } else {
+      Integer removed = pq1.poll();
+      return Optional.of((removed != null) ? removed : 0);
     }
   }
 }
