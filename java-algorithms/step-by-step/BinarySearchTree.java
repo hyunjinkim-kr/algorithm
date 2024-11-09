@@ -1,5 +1,3 @@
-
-
 class Node<E> {
 
   E value;
@@ -154,7 +152,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
     return true;
   }
 
-
   // 트리 크기 확인 메서드
   public int size() {
     return size;
@@ -195,4 +192,3 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
   }
 }
-
