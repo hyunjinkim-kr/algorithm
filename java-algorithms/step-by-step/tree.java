@@ -57,13 +57,14 @@ public class tree<E> {
     Random random = new Random();
     Integer randomSize = random.nextInt(20);
 
-    System.out.print(" 숫자가 추가됩니다 : ");
+    System.out.print("\n======== 1. ADD 체크 =============\n");
     // 20개 이하의 난수 생성
     for (int i = 0; i < randomSize; i++) {
       Integer randomNum = random.nextInt(100) + 1; // 1부터 100까지의 난수
       randomArr.add(randomNum);
-      myBinaryTree.add(randomNum);
-      treeSet.add(randomNum);
+      boolean mbtAdd = myBinaryTree.add(randomNum);
+      boolean treeAdd = treeSet.add(randomNum);
+      assert mbtAdd == treeAdd : ".add 실패 " + randomNum;
 
       System.out.print(randomNum + " ");
     }
@@ -72,26 +73,38 @@ public class tree<E> {
     Integer randomIdx = random.nextInt(randomArr.size());
     Integer randomChk = randomArr.get(randomIdx);
 
+    assert myBinaryTree.contains(randomChk) == treeSet.contains(randomChk)
+        : ".contains 실패 : "
+            + myBinaryTree.contains(randomChk)
+            + " , "
+            + treeSet.contains(randomChk)
+            + " "
+            + randomArr;
+
     System.out.printf(
-        "\n======== 1. ADD 및 contains 체크 =============\n"
+        "\n\n======== 2. contains 체크 =============\n"
             + "체크할 랜덤 숫자(remove까지 될 숫자) : %s\n"
             + "myBinaryTree.contains : %b\n"
-            + "treeSet.contains  : %b\n\n"
-            + "======== 2. size 체크 =============\n"
-            + "treeSet.size  : %d\n"
-            + "myBinaryTree.size  : %d\n\n",
-        randomChk,
-        myBinaryTree.contains(randomChk),
-        treeSet.contains(randomChk),
-        treeSet.size(),
-        myBinaryTree.size());
+            + "treeSet.contains  : %b\n\n",
+        randomChk, myBinaryTree.contains(randomChk), treeSet.contains(randomChk));
 
-    // 3. remove 확인
-    myBinaryTree.remove(randomChk);
-    treeSet.remove(randomChk);
+    assert myBinaryTree.size() == treeSet.size()
+        : ".size 실패 : " + myBinaryTree.size() + " , " + treeSet.size() + " " + randomArr;
 
     System.out.printf(
-        "======== 3. remove 후 contains 체크 =============\n"
+        "\n======== 3. size 체크 =============\n"
+            + "treeSet.size  : %d\n"
+            + "myBinaryTree.size  : %d\n\n",
+        treeSet.size(), myBinaryTree.size());
+
+    // 3. remove 확인
+    boolean mbtDel = myBinaryTree.remove(randomChk);
+    boolean treeDel = treeSet.remove(randomChk);
+
+    assert mbtDel == treeDel : ".remove 실패 : " + mbtDel + " , " + treeDel + " " + randomArr;
+
+    System.out.printf(
+        "======== 4. remove 후 contains 체크 =============\n"
             + "myBinaryTree.contains : %b\n"
             + "treeSet.contains  : %b\n\n"
             + "====== 테스트 종료 ======",

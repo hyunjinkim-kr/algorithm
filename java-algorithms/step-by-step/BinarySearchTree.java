@@ -1,24 +1,3 @@
-class Node<E> {
-
-  E value;
-  Node<E> left;
-  Node<E> right;
-  Node<E> parent;
-
-  // 루트노드
-  Node(E value) {
-    this(value, null);
-  }
-
-  // 새끼노드
-  Node(E value, Node<E> parent) {
-    this.value = value;
-    this.parent = parent;
-    this.right = null;
-    this.left = null;
-  }
-}
-
 public class BinarySearchTree<E extends Comparable<E>> {
 
   //        트리셋과 동일한 함수명으로 만들어보자
@@ -27,6 +6,27 @@ public class BinarySearchTree<E extends Comparable<E>> {
   //        set1.remove(); 특정노드 찾아서 삭제하기
   //        set1.size(); 크기재기 (노드 숫자)
   //        set1.contains(); 찾기
+
+  class Node<E> {
+
+    E value;
+    Node<E> left;
+    Node<E> right;
+    Node<E> parent;
+
+    // 루트노드
+    Node(E value) {
+      this(value, null);
+    }
+
+    // 새끼노드
+    Node(E value, Node<E> parent) {
+      this.value = value;
+      this.parent = parent;
+      this.right = null;
+      this.left = null;
+    }
+  }
 
   private Node<E> root; // 루트 노드
   private int size; // 노드 개수
@@ -84,11 +84,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
       parent = current;
       int cmp = value.compareTo(current.value);
 
-      if (cmp < 0) {
-        current = current.left;
-      } else {
-        current = current.right;
-      }
+      current = (cmp < 0) ? current.left : current.right;
     }
 
     // 값이 없는 경우
