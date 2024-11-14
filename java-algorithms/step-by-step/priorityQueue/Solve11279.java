@@ -19,7 +19,8 @@ public class Solve11279 {
   //  1. N과 N번 만큼의 숫자를 입력받고, arr1에 저장한다.
   //  2. arr1을 파라미터로 하여 solve 함수를 수행한다.
   //   2-1. 내림차순 pq1을 생성한다.
-  //   2-2. pq1 우선순위 큐와 arr1의 숫자(0인경우 null로 변환하여)를 순서대로 파라미터로하여 addOrPoll 함수를 수행한다. 리턴된 값은 resultArr에 저장된다.
+  //   2-2. pq1 우선순위 큐와 arr1의 숫자(0인경우 null로 변환하여)를 순서대로 파라미터로하여 addOrPoll 함수를 수행한다. 리턴된 값은
+  // resultArr에 저장된다.
   //     case1 null 인경우 : pq1을 poll한 값을 리턴한다. 단, pq1이 비었을때는 0을 리턴한다.
   //     case2 자연수 인 경우 : pq1에 값을 저장한다. Optional.empty를 리턴한다.
   //   2-3. 리턴된 값이 있으면, resultArr에 저장하고 리턴한다.
