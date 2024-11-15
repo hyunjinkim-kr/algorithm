@@ -49,30 +49,27 @@ public class BinarySearchTree<E extends Comparable<E>> {
       // root 부터 시작해서, 부모를 root로 바라보고 그 아래 애들을 탐색한다.
       // current를 parent로 하고, 그 아래 왼쪽과 오른쪽 노드를 체크한다.
       // 추가된 값이 current 보다 작을때 왼쪽, 클때 오른쪽으로. 노드가 없을때까지 반복한다
-      while (current != null) {
-        parent = current;
+      while (true) {
         int cmp = value.compareTo(current.value);
-
-        if (cmp < 0) { // 왼쪽으로 이동
+        if (cmp == 0) {
+          return false;
+        } else if (cmp < 0) {
+          if (current.left == null) {
+            current.left = new Node<>(value, current);
+            size++;
+            return true;
+          }
           current = current.left;
-          if (current == null) {
-            parent.left = new Node<>(value, parent);
-            size++;
-            return true;
-          }
-        } else if (cmp > 0) { // 오른쪽으로 이동
-          current = current.right;
-          if (current == null) {
-            parent.right = new Node<>(value, parent);
-            size++;
-            return true;
-          }
         } else {
-          return false; // 중복된 값이므로 추가하지 않음
+          if (current.right == null) {
+            current.right = new Node<>(value, current);
+            size++;
+            return true;
+          }
+          current = current.right;
         }
       }
     }
-    return false;
   }
 
   public boolean remove(E value) {
