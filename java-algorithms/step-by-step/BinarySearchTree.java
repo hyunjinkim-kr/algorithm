@@ -19,7 +19,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
       this(value, null);
     }
 
-    // 새끼노드
+    // 자식(child)노드
     Node(E value, Node<E> parent) {
       this.value = value;
       this.parent = parent;
