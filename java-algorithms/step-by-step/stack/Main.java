@@ -17,6 +17,7 @@ public class Main {
 
 	public static void simpleTest() {
 		ArrayBasedStack s = new ArrayBasedStack();
+		LinkedListBasedStack l = new LinkedListBasedStack();
 
 		assert s.isEmpty();
 
@@ -24,15 +25,23 @@ public class Main {
 			s.push(1);
 			s.push(2);
 			s.push(3);
+			l.push(1);
+			l.push(2);
+			l.push(3);
 
 			assert s.size() == 3;
+			assert l.size() == 3;
 			assert !s.isFull();
 
 			s.pop();
 			s.pop();
+			l.pop();
+			l.pop();
 			assert s.peek().equals(1);
+			assert l.peek().equals(1);
 		}
 		System.out.println("s.peek() : " + s.peek());
+		System.out.println("l.peek() : " + l.peek());
 	}
 
 	public static void fullTest() {
@@ -53,11 +62,13 @@ public class Main {
 		final int N = 1000000;
 		Stack<Integer> javaStack = new Stack<>();
 		ArrayBasedStack myStack = new ArrayBasedStack();
+		ArrayBasedStack myLinkedStack = new ArrayBasedStack();
 
 		Random rd = new Random();
 
 		for (int i = 0; i < N; i++) {
 			assert javaStack.size() == myStack.size();
+			assert javaStack.size() == myLinkedStack.size();
 
 			boolean goPush = rd.nextBoolean();
 
@@ -65,6 +76,7 @@ public class Main {
 				int v = rd.nextInt();
 				javaStack.push(v);
 				boolean succ = myStack.push(v);
+				myLinkedStack.push(v);
 
 				if (!succ) {
 					javaStack.pop();
@@ -72,6 +84,7 @@ public class Main {
 			} else {
 				boolean isEmpty = javaStack.isEmpty();
 				assert isEmpty == myStack.isEmpty();
+				assert isEmpty == myLinkedStack.isEmpty();
 
 				if (isEmpty) {
 					continue;
@@ -79,11 +92,13 @@ public class Main {
 
 				javaStack.pop();
 				myStack.pop();
+				myLinkedStack.pop();
 
 //				if (!javaStack.isEmpty()) {
 //					assert javaStack.peek().equals(myStack.peek());
 //					System.out.println("javaStack.peek() : " + javaStack.peek());
 //					System.out.println("myStack.peek() : " + myStack.peek());
+//					System.out.println("myLinkedStack.peek() : " + myLinkedStack.peek());
 //				}
 			}
 		}

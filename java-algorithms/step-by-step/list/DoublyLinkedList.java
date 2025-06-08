@@ -210,4 +210,8 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
         sb.append("]");
         return sb.toString();
     }
+
+    public int size() {
+        return size;
+    }
 }
