@@ -62,7 +62,7 @@ public class Main {
 		final int N = 1000000;
 		Stack<Integer> javaStack = new Stack<>();
 		ArrayBasedStack myStack = new ArrayBasedStack();
-		ArrayBasedStack myLinkedStack = new ArrayBasedStack();
+		LinkedListBasedStack myLinkedStack = new LinkedListBasedStack();
 
 		Random rd = new Random();
 

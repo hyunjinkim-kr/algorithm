@@ -30,11 +30,20 @@ public class ArrayBasedStack extends Stack<Integer> {
 	@Override
 	public boolean push(Integer item) {
 		if (isFull())
-			return false;
+			resize();
+			//return false;
 
 		topIdx++;
 		arr[topIdx] = item;
 		return true;
+	}
+
+	private void resize() {
+		int newSize = arr.length * 2;
+		int[] newArr = new int[newSize];
+		System.arraycopy(arr, 0, newArr, 0, arr.length);
+		arr = newArr;
+		System.out.println("resize 수행 : " + arr.length + ", top : " + topIdx);
 	}
 
 	@Override
@@ -62,8 +71,11 @@ public class ArrayBasedStack extends Stack<Integer> {
 		return size() == 0;
 	}
 
-	@Override
+//	@Override
+//	public boolean isFull() {
+//		return topIdx == SIZ - 1;
+//	}
 	public boolean isFull() {
-		return topIdx == SIZ - 1;
-	}
+	return size() == arr.length;
+}
 }
