@@ -2,18 +2,18 @@ package list;
 
 import java.util.Objects;
 
-public class DoublyLinkedList<E> extends LinkedList<E> {
+public class DoublyLinkedList<T> implements LinkedList<T> {
 
-    private Node<E> head;
-    private Node<E> tail;
+    private Node<T> head;
+    private Node<T> tail;
     private int size;
 
-    private static class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
+    private static class Node<T> {
+        T item;
+        Node<T> next;
+        Node<T> prev;
 
-        Node(E item, Node<E> prev, Node<E> next) {
+        Node(T item, Node<T> prev, Node<T> next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
@@ -26,14 +26,30 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
         size = 0;
     }
 
-    private Node<E> search(int index) {
+    private void chkIdx(int index) {
+        chkIdx(index, false);  // default: false, 검색이나 삭제일때
+    }
+
+    private void chkIdx(int index, boolean isAdd) {
+        if(isAdd){
+            if (index < 0 || index > size) {
+                throw new IndexOutOfBoundsException();
+            }
+        } else { //빼거나 검색은 사이즈 이내 범위만
+            if (index < 0 || index >= size) {
+                throw new IndexOutOfBoundsException();
+            }
+        }
+    }
+    private Node<T> search(int index) {
+        chkIdx(index);
         if (index < (size / 2)) {
-            Node<E> x = head;
+            Node<T> x = head;
             for (int i = 0; i < index; i++)
                 x = x.next;
             return x;
         } else {
-            Node<E> x = tail;
+            Node<T> x = tail;
             for (int i = size - 1; i > index; i--)
                 x = x.prev;
             return x;
@@ -41,50 +57,49 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     }
 
     @Override
-    public void addFirst(E value) {
-        Node<E> newNode = new Node<>(value, null, head);
-
-        if (head != null)
-            head.prev = newNode;
-        head = newNode;
-
-        if (tail == null)
-            tail = newNode;
-
-        size++;
+    public void addFirst(T value) {
+        add(0,value);
     }
 
     @Override
-    public void addLast(E value) {
-        Node<E> newNode = new Node<>(value, tail, null);
-
-        if (tail != null)
-            tail.next = newNode;
-        tail = newNode;
-
-        if (head == null)
-            head = newNode;
-
-        size++;
+    public void addLast(T value) {
+        add(size,value);
     }
 
     @Override
-    public void add(int index, E value) {
-        if (index < 0 || index > size)
-            throw new IndexOutOfBoundsException();
+    public void add(int index, T value) {
+        chkIdx(index,true);
 
         if (index == 0) {
-            addFirst(value);
+            Node<T> newNode = new Node<>(value, null, head);
+
+            if (head != null)
+                head.prev = newNode;
+            head = newNode;
+
+            if (tail == null)
+                tail = newNode;
+
+            size++;
             return;
         }
         if (index == size) {
-            addLast(value);
+            Node<T> newNode = new Node<>(value, tail, null);
+
+            if (tail != null)
+                tail.next = newNode;
+            tail = newNode;
+
+            if (head == null)
+                head = newNode;
+
+            size++;
             return;
         }
 
-        Node<E> nextNode = search(index);
-        Node<E> prevNode = nextNode.prev;
-        Node<E> newNode = new Node<>(value, prevNode, nextNode);
+        Node<T> nextNode = search(index);
+        Node<T> prevNode = nextNode.prev;
+        Node<T> newNode = new Node<>(value, prevNode, nextNode);
 
         prevNode.next = newNode;
         nextNode.prev = newNode;
@@ -92,13 +107,13 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     }
 
     @Override
-    public boolean add(E value) {
+    public boolean add(T value) {
         addLast(value);
         return true;
     }
 
     @Override
-    public E get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
 
@@ -106,60 +121,63 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     }
 
     @Override
-    public void set(int index, E value) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException();
+    public void set(int index, T value) {
+        chkIdx(index);
 
         search(index).item = value;
     }
 
     @Override
-    public E removeFirst() {
-        if (head == null)
-            throw new RuntimeException();
-
-        E value = head.item;
-        head = head.next;
-
-        if (head != null)
-            head.prev = null;
-        else
-            tail = null;
-
-        size--;
-        return value;
+    public T removeFirst() {
+        return remove(0);
     }
 
     @Override
-    public E removeLast() {
-        if (tail == null)
-            throw new RuntimeException();
+    public T removeLast() {
+        return remove(size-1);
+    }
 
-        E value = tail.item;
-        tail = tail.prev;
 
-        if (tail != null)
-            tail.next = null;
-        else
-            head = null;
-
-        size--;
-        return value;
+    public T remove() {
+        return removeLast();
     }
 
     @Override
-    public E remove(int index) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException();
+    public T remove(int index) {
+        chkIdx(index);
+        if (index == 0){
+            if (head == null)
+                throw new RuntimeException();
 
-        if (index == 0)
-            return removeFirst();
+            T value = head.item;
+            head = head.next;
 
-        if (index == size - 1)
-            return removeLast();
+            if (head != null)
+                head.prev = null;
+            else
+                tail = null;
 
-        Node<E> node = search(index);
-        E value = node.item;
+            size--;
+            return value;
+        }
+        if (index == size - 1){
+            if (tail == null)
+                throw new RuntimeException();
+
+            T value = tail.item;
+            tail = tail.prev;
+
+            if (tail != null)
+                tail.next = null;
+            else
+                head = null;
+
+            size--;
+            return value;
+        }
+
+        Node<T> node = search(index);
+        T value = node.item;
 
         node.prev.next = node.next;
         node.next.prev = node.prev;
@@ -167,13 +185,10 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
 
         return value;
     }
-    public E remove() {
-        return removeFirst();
-    }
 
     @Override
     public boolean remove(Object value) {
-        Node<E> node = head;
+        Node<T> node = head;
 
         while (node != null) {
             if (Objects.equals(node.item, value)) {
@@ -200,7 +215,7 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
 
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        Node<E> node = head;
+        Node<T> node = head;
         while (node != null) {
             sb.append(node.item);
             if (node.next != null)

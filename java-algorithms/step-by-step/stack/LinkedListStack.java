@@ -1,14 +1,16 @@
 package stack;
 
-public abstract class LinkedListStack<T> {
+import java.util.Optional;
+
+interface LinkedListStack<T> {
 	// Abstract methods to be implemented by derived classes
-	public abstract boolean push(T item);
+	boolean push(T item);
 
-	public abstract void pop();
+	Optional<T> pop();
 
-	public abstract T peek();
+	T peek();
 
-	public abstract boolean isEmpty();
+	boolean isEmpty();
 
-	public abstract int size();
+	int size();
 }
