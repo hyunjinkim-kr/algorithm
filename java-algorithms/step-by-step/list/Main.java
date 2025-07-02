@@ -6,76 +6,58 @@ import java.util.Random;
 public class Main {
 
 	public static void main(String[] args) {
-		simpleTest();
-		System.out.println("Simple passed.");
-
-		insertDeleteTest();
-		System.out.println("Insert/Delete passed.");
-
-		smoke();
-		System.out.println("Smoke passed.");
-	}
-
-	public static void simpleTest() {
 		list.SingleLinkedList<Integer> mySingleList = new SingleLinkedList<>();
 		list.DoublyLinkedList<Integer> myDoublyList = new DoublyLinkedList<>();
 
-		// 단일 연결 리스트 테스트
-		mySingleList.add(0, 10);
-		mySingleList.add(1, 20);
-		mySingleList.add(2, 30);
+		simpleTest(mySingleList);
+		simpleTest(myDoublyList);
 
-		assert mySingleList.get(0).equals(10);
-		assert mySingleList.get(1).equals(20);
-		assert mySingleList.get(2).equals(30);
+		System.out.println("Simple passed.");
 
-		// 이중 연결 리스트 테스트
-		myDoublyList.add(0, 10);
-		myDoublyList.add(1, 20);
-		myDoublyList.add(2, 30);
+		insertDeleteTest(mySingleList);
+		insertDeleteTest(myDoublyList);
+		System.out.println("Insert/Delete passed.");
 
-		assert myDoublyList.get(0).equals(10);
-		assert myDoublyList.get(1).equals(20);
-		assert myDoublyList.get(2).equals(30);
+		//smoke(mySingleList);
+		list.DoublyLinkedList<Integer> myDoublyList2 = new DoublyLinkedList<>();
+		smoke(myDoublyList2);
+		System.out.println("Smoke passed.");
 	}
 
-	public static void insertDeleteTest() {
-		list.LinkedList<Integer> mySingleList = new SingleLinkedList<>();
-		list.LinkedList<Integer> myDoublyList = new DoublyLinkedList<>();
+	public static void simpleTest(list.LinkedList<Integer> myList) { //<LinkedList T>
+		// TODO : 링크드리스트 타입에 대한 테스트 코드를 만들어서 고치기
+		//리스트가 중복인데
+		// mySingleList ,myDoublyList 를 각각 넣어서 중복되는 코드가 혼재함
 
-		// 단일 연결 리스트 삽입
-		mySingleList.addLast(1);
-		mySingleList.addLast(2);
-		mySingleList.addLast(3);
-		mySingleList.addLast(4);
-		mySingleList.addLast(5);
+		myList.add(0, 10);
+		myList.add(1, 20);
+		myList.add(2, 30);
 
-		// 삭제 테스트
-		assert mySingleList.remove((Integer) 3);
-		assert mySingleList.remove((Integer) 1);
-		assert mySingleList.remove((Integer) 5);
-		assert !mySingleList.remove((Integer) 999);
+		assert myList.get(0).equals(10);
+		assert myList.get(1).equals(20);
+		assert myList.get(2).equals(30);
 
-		// 이중 연결 리스트 삽입
-		myDoublyList.addLast(1);
-		myDoublyList.addLast(2);
-		myDoublyList.addLast(3);
-		myDoublyList.addLast(4);
-		myDoublyList.addLast(5);
-
-		// 삭제 테스트
-		assert myDoublyList.remove((Integer) 3);
-		assert myDoublyList.remove((Integer) 1);
-		assert myDoublyList.remove((Integer) 5);
-		assert !myDoublyList.remove((Integer) 999);
 	}
 
-	public static void smoke() {
+	public static void insertDeleteTest(list.LinkedList<Integer> myList) {
+
+		myList.addLast(1);
+		myList.addLast(2);
+		myList.addLast(3);
+		myList.addLast(4);
+		myList.addLast(5);
+
+		// 삭제 테스트
+		assert myList.remove((Integer) 3);
+		assert myList.remove((Integer) 1);
+		assert myList.remove((Integer) 5);
+		assert !myList.remove((Integer) 999);
+	}
+
+	public static void smoke(list.LinkedList<Integer> myList) {
 		final int N = 10;
 
 		java.util.LinkedList<Integer> javaList = new java.util.LinkedList<>();
-		list.LinkedList<Integer> mySingleList = new SingleLinkedList<>();
-		list.LinkedList<Integer> myDoublyList = new DoublyLinkedList<>();
 
 		Random rd = new Random();
 
@@ -84,25 +66,21 @@ public class Main {
 
 			if (insert) {
 				int v = rd.nextInt(100);
-				mySingleList.addLast(v);
-				myDoublyList.addLast(v);
+				myList.addLast(v);
 				javaList.add(v);
 			} else {
 				if (!javaList.isEmpty()) {
 					int value = javaList.removeFirst();
-					mySingleList.remove((Integer) value);
-					myDoublyList.remove((Integer) value);
+					myList.remove((Integer) value);
 				}
 			}
 		}
 
 		// 결과 비교
-		System.out.println("SingleLinkedList 결과: " + mySingleList);
-		System.out.println("DoublyLinkedList 결과: " + myDoublyList);
+		System.out.println("SingleLinkedList 결과: " + myList);
 		System.out.println("Java LinkedList 결과: " + javaList);
 
 		// toString이 잘 만들어져 있으면 여기서 바로 assert 비교 가능
-		assert mySingleList.toString().equals(javaList.toString()) : "SingleLinkedList mismatch!";
-		assert myDoublyList.toString().equals(javaList.toString()) : "DoublyLinkedList mismatch!";
+		assert myList.toString().equals(javaList.toString()) : "LinkedList mismatch!";
 	}
 }

@@ -13,22 +13,30 @@ import java.util.Optional;
 //O(n!)
 //O(2^n)
 
-public class ArrayBasedStack extends Stack<Integer> {
+public class ArrayBasedStack<T> implements Stack<T> {
 	public static final int SIZ = 500;
+	//TODO : resize 상수가 2라고 하면 SIZ와 마찬가지로 변수로 떼어놓기
+	public static final int RE_SIZ = 2;
 
 	private int topIdx;
-	private int[] arr = new int[SIZ];
+	//private int[] arr = new int[SIZ];
+	private T[] arr;
 
-	public int maxSize() {
-		return SIZ;
+	//	public int maxSize() {
+	//		return arr.length;
+	//	}//TODO : resize가 있는데 왜 고정된 크기를. -> 삭제처리
+
+	//	public ArrayBasedStack() {
+	//		topIdx = -1;
+	//	};
+	@SuppressWarnings("unchecked")
+	public ArrayBasedStack() {
+		this.topIdx = -1;
+		this.arr = (T[]) new Object[SIZ];
 	}
 
-	public ArrayBasedStack() {
-		topIdx = -1;
-	};
-
 	@Override
-	public boolean push(Integer item) {
+	public boolean push(T item) {
 		if (isFull())
 			resize();
 			//return false;
@@ -39,22 +47,28 @@ public class ArrayBasedStack extends Stack<Integer> {
 	}
 
 	private void resize() {
-		int newSize = arr.length * 2;
-		int[] newArr = new int[newSize];
+		int newSize = arr.length * RE_SIZ;
+		//int[] newArr = new int[newSize];
+		T[] newArr = (T[]) new Object[newSize];
 		System.arraycopy(arr, 0, newArr, 0, arr.length);
 		arr = newArr;
 		System.out.println("resize 수행 : " + arr.length + ", top : " + topIdx);
 	}
 
 	@Override
-	public void pop() {
-		if (!isEmpty()) {
-			topIdx--;
+	public Optional<T> pop() {
+		// TODO : 실제로 POP이 적용되었는지 알 방법이 없음
+		//  ++ empty일때 처리 추가 optional로 하던가..
+		if (isEmpty()) {
+			return Optional.empty();
 		}
+		T item = arr[topIdx];
+		topIdx--;
+		return Optional.of(item);
 	}
 
 	@Override
-	public Integer peek() {
+	public T peek() {
 		if (isEmpty()) {
 			throw new IllegalStateException("스택이 비어있습니다.");
 		}
@@ -76,6 +90,6 @@ public class ArrayBasedStack extends Stack<Integer> {
 //		return topIdx == SIZ - 1;
 //	}
 	public boolean isFull() {
-	return size() == arr.length;
-}
+		return size() == arr.length;
+	}
 }

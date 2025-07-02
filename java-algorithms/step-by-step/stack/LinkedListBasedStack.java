@@ -2,35 +2,38 @@ package stack;
 
 import list.DoublyLinkedList;
 
-public class LinkedListBasedStack extends LinkedListStack<Integer> {
+import java.util.Optional;
 
-    public static final int SIZ = 500;
+public class LinkedListBasedStack<T> implements LinkedListStack<T> {
+    //TODO 타입을 Integer가 아닌, T에 대해서 처리하도록,
+    // ++ 인터페이스로 구현
 
-    private DoublyLinkedList<Integer> list;
 
-    public int maxSize() {
-        return SIZ;
-    }
+    private DoublyLinkedList<T> list;
+
 
     public LinkedListBasedStack() {
         list = new DoublyLinkedList<>();
     }
 
     @Override
-    public boolean push(Integer item) {
+    public boolean push(T item) {
         list.addFirst(item);
         return true;
     }
 
     @Override
-    public void pop() {
-        if (!isEmpty()) {
-            list.removeFirst();
+    public Optional<T> pop() {
+        if (isEmpty()) {
+            return Optional.empty();
         }
+        T item = list.get(0);
+        list.removeFirst();
+        return Optional.of(item);
     }
 
     @Override
-    public Integer peek() {
+    public T peek() {
         if (isEmpty()) {
             throw new IllegalStateException("스택이 비어있습니다.");
         }

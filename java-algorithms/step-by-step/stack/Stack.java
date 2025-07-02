@@ -2,17 +2,17 @@ package stack;
 
 import java.util.Optional;
 
-public abstract class Stack<T> {
+interface Stack<T> {
 	// Abstract methods to be implemented by derived classes
-	public abstract boolean push(T item);
+	boolean push(T item);
 
-	public abstract void pop();
+	Optional<T> pop();
 
-	public abstract T peek();
+	T peek();
 
-	public abstract boolean isEmpty();
+	boolean isEmpty();
 
-	public abstract int size();
+	int size();
 
-	public abstract boolean isFull();
+	boolean isFull();
 }
