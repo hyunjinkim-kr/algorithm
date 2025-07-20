@@ -5,6 +5,7 @@ import list.DoublyLinkedList;
 import java.util.Optional;
 
 public class LinkedListBasedMap<K extends Comparable<K>, V> implements Map<K, V> {
+    //TODO : 지금 map을 orderdmap으로 바꾸고, Comparable<K>를 인터페이스에 K extends Comparable<K>를 정의
     //키 순서대로 정렬을 하기위해 Comparable
 
     //노드 T 자리에 튜플을 넣는거임
@@ -35,11 +36,13 @@ public class LinkedListBasedMap<K extends Comparable<K>, V> implements Map<K, V>
         //Tuple<K, V> tuple = new Tuple<>(key, value);
         Tuple tuple = new Tuple(key, value);
 
+        // TODO : 링크드리스트이기 떄문에 i를 찾을떄마다 다시 0부터 찾기떄문에 N^2 복잡도임
+        // TODO : GET(I)를 했을때 실제 노드를 가리키도록(커서 : 노드를 데리고있으면 됨) SET도 마찬가지
         for (int i = 0; i < list.size(); i++) {
             //Tuple<K, V> current = list.get(i);
             //int cmp = key.compareTo(current.key);
 
-            Tuple current = list.get(i);   // ✅ 타입 파라미터 제거!
+            Tuple current = list.get(i);   // 타입 파라미터 제거!
             int cmp = key.compareTo(current.key);
 
             if (cmp == 0) {
@@ -99,12 +102,18 @@ public class LinkedListBasedMap<K extends Comparable<K>, V> implements Map<K, V>
         if (isEmpty()) {
             return Optional.empty();
         }
+
+        //TODO : K가 정렬되어있는데 정렬된 사실을
         for (int i = 0; i < list.size(); i++) {
             //Tuple<K, V> current = list.get(i);
             Tuple current = list.get(i);
             if (key.compareTo(current.key) == 0) {
                 list.remove(i);
                 return Optional.of(current.value);
+            }
+
+            if (key.compareTo(current.key) > 0) {
+                return Optional.empty();
             }
         }
         return Optional.empty();

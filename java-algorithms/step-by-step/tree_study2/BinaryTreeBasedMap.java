@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class BinaryTreeBasedMap<K extends Comparable<K>, V> implements Map<K, V> {
     // 이진트리로 감
-
+    // TODO : MAP - > BST -> POINTER, ARRAY
     private class Node {
         K key;
         V value;
@@ -24,6 +24,7 @@ public class BinaryTreeBasedMap<K extends Comparable<K>, V> implements Map<K, V>
 
     public BinaryTreeBasedMap() {
         this.root = null;
+        // TODO : 사이즈가 있을 필요가 없음
         this.size = 0;
     }
 
