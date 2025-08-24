@@ -1,17 +1,17 @@
-package list;
+package list_study2;
 
 import java.util.Objects;
 
 public class DoublyLinkedList<T> implements LinkedList<T> {
 
-    private Node<T> head;
-    private Node<T> tail;
-    private int size;
+    public Node<T> head;
+    public Node<T> tail;
+    public int size;
 
-    private static class Node<T> {
-        T item;
-        Node<T> next;
-        Node<T> prev;
+    public static class Node<T> {
+        public T item;
+        public Node<T> next;
+        public Node<T> prev;
 
         Node(T item, Node<T> prev, Node<T> next) {
             this.item = item;

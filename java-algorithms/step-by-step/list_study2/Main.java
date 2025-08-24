@@ -1,13 +1,12 @@
-package list;
+package list_study2;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 public class Main {
 
 	public static void main(String[] args) {
-		list.SingleLinkedList<Integer> mySingleList = new SingleLinkedList<>();
-		list.DoublyLinkedList<Integer> myDoublyList = new DoublyLinkedList<>();
+		list_study2.SingleLinkedList<Integer> mySingleList = new SingleLinkedList<>();
+		list_study2.DoublyLinkedList<Integer> myDoublyList = new DoublyLinkedList<>();
 
 		simpleTest(mySingleList);
 		simpleTest(myDoublyList);
@@ -19,12 +18,12 @@ public class Main {
 		System.out.println("Insert/Delete passed.");
 
 		//smoke(mySingleList);
-		list.DoublyLinkedList<Integer> myDoublyList2 = new DoublyLinkedList<>();
+		list_study2.DoublyLinkedList<Integer> myDoublyList2 = new DoublyLinkedList<>();
 		smoke(myDoublyList2);
 		System.out.println("Smoke passed.");
 	}
 
-	public static void simpleTest(list.LinkedList<Integer> myList) { //<LinkedList T>
+	public static void simpleTest(list_study2.LinkedList<Integer> myList) { //<LinkedList T>
 		// TODO : 링크드리스트 타입에 대한 테스트 코드를 만들어서 고치기
 		//리스트가 중복인데
 		// mySingleList ,myDoublyList 를 각각 넣어서 중복되는 코드가 혼재함
@@ -39,7 +38,7 @@ public class Main {
 
 	}
 
-	public static void insertDeleteTest(list.LinkedList<Integer> myList) {
+	public static void insertDeleteTest(list_study2.LinkedList<Integer> myList) {
 
 		myList.addLast(1);
 		myList.addLast(2);
@@ -54,7 +53,7 @@ public class Main {
 		assert !myList.remove((Integer) 999);
 	}
 
-	public static void smoke(list.LinkedList<Integer> myList) {
+	public static void smoke(list_study2.LinkedList<Integer> myList) {
 		final int N = 10;
 
 		java.util.LinkedList<Integer> javaList = new java.util.LinkedList<>();

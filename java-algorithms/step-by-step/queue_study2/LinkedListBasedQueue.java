@@ -1,6 +1,6 @@
 package queue_study2;
 
-import list.DoublyLinkedList;
+import list_study2.DoublyLinkedList;
 
 import java.util.Optional;
 

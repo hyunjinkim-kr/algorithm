@@ -1,4 +1,4 @@
-package list;
+package list_study2;
 
 public interface LinkedList<T> {
 

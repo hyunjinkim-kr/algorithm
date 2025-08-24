@@ -105,8 +105,7 @@ public class Main {
 			Integer oldJavaVal = javaMap.put(key, value);
 			Optional<Integer> oldMyVal = myMap.put(key, value);
 
-			System.out.println("[PUT] key=" + key + ", value=" + value +
-					", javaOld=" + oldJavaVal + ", myOld=" + oldMyVal);
+			System.out.println("[PUT] key=" + key + ", value=" + value + ", javaOld=" + oldJavaVal + ", myOld=" + oldMyVal);
 
 
 			if (oldJavaVal == null) {

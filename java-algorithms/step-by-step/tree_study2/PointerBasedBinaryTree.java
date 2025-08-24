@@ -1,21 +1,14 @@
 package tree_study2;
 
-import java.util.Optional;
+import java.util.*;
 
-public class PointerBasedBinaryTree<K extends Comparable<K>, V> implements Map<K, V> {
-    // 기본적으로 아까 만든 이진트리 맵 방식이 포인터기반인듯
-    // 노드랑 키밸류 기반으로 왔다갔다
-    // 부모만 추가해보자
+public class PointerBasedBinaryTree<T extends Comparable<T>> implements BinaryTree<T> {
 
     private class Node {
-        K key;
-        V value;
-        Node left;
-        Node right;
-        Node parent;
+        T value;
+        Node left, right, parent;
 
-        Node(K key, V value, Node parent) {
-            this.key = key;
+        Node(T value, Node parent) {
             this.value = value;
             this.parent = parent;
         }
@@ -30,143 +23,68 @@ public class PointerBasedBinaryTree<K extends Comparable<K>, V> implements Map<K
     }
 
     @Override
-    public Optional<V> put(K key, V value) {
-        if (root == null) {
-            // 노드 만들기
-            root = new Node(key, value, null);
-            size++;
-            return Optional.empty();
+    public void insert(T value) {
+        size++; // 삽입할 위치는 size번째 (1-based)
+        if (size == 1) {
+            root = new Node(value, null);
+            return;
         }
-        // 루트랑 비교해서 위치를 바꾸자
-        Node current = root;
-        while (true) {
-            // 키 비교
-            int cmp = key.compareTo(current.key);
-            if (cmp == 0) {
-                V oldValue = current.value;
-                current.value = value;
-                return Optional.of(oldValue);
-                //return false; // 키 중복: 삽입 안 함
-            } else if (cmp < 0) { //작으면 왼쪽
-                if (current.left == null) {
-                    current.left = new Node(key, value, current);
-                    size++;
-                    return Optional.empty();
-                }
-                current = current.left;
-            } else { // 크면 오른쪽
-                if (current.right == null) {
-                    current.right = new Node(key, value, current);
-                    size++;
-                    return Optional.empty();
-                }
-                current = current.right;
-            }
-        }
-    }
 
-    /*
-    @Override
-    public boolean update(K key, V value) {
-        Node current = root;
-        while (current != null) {
-            int cmp = key.compareTo(current.key);
-            if (cmp == 0) {
-                current.value = value;
-                return true;
-            } else if (cmp < 0) {
-                current = current.left;
-            } else {
-                current = current.right;
-            }
-        }
-        return false;
-    }
-
-     */
-
-    @Override
-    public Optional<V> get(K key) {
-        Node current = root;
-        while (current != null) {
-            int cmp = key.compareTo(current.key);
-            if (cmp == 0) {
-                return Optional.of(current.value);
-            } else if (cmp < 0) {
-                current = current.left;
-            } else {
-                current = current.right;
-            }
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<V> remove(K key) { //delete
-        Node target = findNode(root, key);
-        if (target != null) {
-            Optional<V> value = Optional.of(target.value);
-            deleteNode(target);
-            size--;
-            return value;
-        }
-        return Optional.empty();
-    }
-
-    private Node findNode(Node node, K key) {
-        while (node != null) {
-            int cmp = key.compareTo(node.key);
-            if (cmp == 0) return node;
-            else if (cmp < 0) node = node.left;
-            else node = node.right;
-        }
-        return null;
-    }
-
-    private void deleteNode(Node node) {
-        if (node.left == null && node.right == null) {
-            replaceInParent(node, null);
-        } else if (node.left == null) {
-            replaceInParent(node, node.right);
-        } else if (node.right == null) {
-            replaceInParent(node, node.left);
+        int index = size;
+        Node parent = getNodeByIndex(index / 2);
+        Node newNode = new Node(value, parent);
+        if (index % 2 == 0) {
+            parent.left = newNode;
         } else {
-            Node min = findMin(node.right);
-            node.key = min.key;
-            node.value = min.value;
-            deleteNode(min);
+            parent.right = newNode;
         }
     }
 
-    private void replaceInParent(Node node, Node newNode) {
-        if (node.parent == null) {
-            root = newNode;
-            if (newNode != null) newNode.parent = null;
-        } else if (node == node.parent.left) {
-            node.parent.left = newNode;
-            if (newNode != null) newNode.parent = node.parent;
-        } else {
-            node.parent.right = newNode;
-            if (newNode != null) newNode.parent = node.parent;
-        }
-    }
 
-    private Node findMin(Node node) {
-        while (node.left != null) {
-            node = node.left;
-        }
-        return node;
+    @Override
+    public Optional<T> getRoot() {
+        return root != null ? Optional.of(root.value) : Optional.empty();
     }
 
     @Override
-    public boolean containsKey(K key) {
-        return get(key).isPresent();
+    public Optional<T> get(int index) {
+        Node node = getNodeByIndex(index);
+        return node != null ? Optional.of(node.value) : Optional.empty();
+    }
+
+    //힙에서 heapify up down 할떄 쓰라고 만들어준 스왑임 순서를 변경함
+    @Override
+    public void swap(int i, int j) {
+        Node a = getNodeByIndex(i);
+        Node b = getNodeByIndex(j);
+        if (a != null && b != null) {
+            T tmp = a.value;
+            a.value = b.value;
+            b.value = tmp;
+        }
+    }
+
+    @Override
+    public Optional<T> removeLast() {
+        if (size == 0) return Optional.empty();
+        Node last = getNodeByIndex(size);
+        T removed = last.value;
+
+        if (last == root) {
+            root = null;
+        } else {
+            Node parent = last.parent;
+            if (parent.right == last) parent.right = null;
+            else if (parent.left == last) parent.left = null;
+        }
+
+        size--;
+        return Optional.of(removed);
     }
 
     @Override
     public boolean isEmpty() {
         return size == 0;
-        // 또는 return root == null; 도 OK
     }
 
     @Override
@@ -174,18 +92,26 @@ public class PointerBasedBinaryTree<K extends Comparable<K>, V> implements Map<K
         return size;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        inorder(root, sb);
-        return sb.toString();
+    // 완전이진트리 인덱스 기준 노드 찾기 (1-based index)이래야 부모자식 수식이 깔끔해지니까
+    private Node getNodeByIndex(int index) {
+        return findNode(root, index, 1);
     }
 
-    private void inorder(Node node, StringBuilder sb) {
-        if (node != null) {
-            inorder(node.left, sb);
-            sb.append("(").append(node.key).append(":").append(node.value).append(") ");
-            inorder(node.right, sb);
+    private Node findNode(Node node, int target, int currentIndex) {
+        if (node == null || currentIndex > size) {
+            return null;
+        }
+
+        //찾음
+        if (currentIndex == target) {
+            return node;
+        }
+
+        Node left = findNode(node.left, target, currentIndex * 2); //왼쪽자식찾기
+        if (left != null) {
+            return left;
+        } else {
+            return findNode(node.right, target, currentIndex * 2 + 1); //오른쪽 자식찾기
         }
     }
 }

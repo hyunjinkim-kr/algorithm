@@ -1,4 +1,4 @@
-package list;
+package list_study2;
 
 import java.util.Objects;
 

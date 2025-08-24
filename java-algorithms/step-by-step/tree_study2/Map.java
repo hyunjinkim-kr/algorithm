@@ -1,7 +1,7 @@
 package tree_study2;
 import java.util.Optional;
 
-interface Map<K,V> {
+public interface Map<K extends Comparable<K>, V> {
     Optional<V> put(K key, V value); //insert
 
     //boolean update(K key, V value); // put과같이씀
